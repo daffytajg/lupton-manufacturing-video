@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Lupton — AI Hard Pass</title>
+<style>
+  @font-face {
+    font-family: 'Archivo';
+    src: url('assets/Archivo-var.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Anton';
+    src: url('assets/Anton-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #06090d; }
+  #frame {
+    position: relative;
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    background: #0c1117;
+    font-family: 'Archivo', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* stage gets the shake transform; frame clips it */
+  #stage { position: absolute; inset: 0; }
+  #vignette {
+    position: absolute; inset: 0; pointer-events: none; z-index: 50;
+    background: radial-gradient(ellipse 120% 90% at 50% 42%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.38) 100%);
+  }
+  .scene {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 0 90px;
+    opacity: 0;
+  }
+  .scene.left { align-items: flex-start; text-align: left; }
+  .w { display: inline-block; opacity: 0; will-change: transform, opacity, filter; }
+  .line { display: block; opacity: 0; will-change: transform, opacity; }
+
+  /* S1 */
+  #s1 h1 { font-weight: 900; font-size: 78px; line-height: 1.22; color: #faf8f4; letter-spacing: -0.015em; white-space: nowrap; }
+  #s1 .w { margin: 0 0.03em; }
+
+  /* S2 */
+  #s2 .line { font-weight: 800; font-size: 88px; line-height: 1.32; color: #faf8f4; letter-spacing: -0.015em; }
+  #s2 .line em { font-style: normal; color: #ff6b1a; }
+
+  /* S3 */
+  #s3a h1 { font-weight: 800; font-size: 96px; color: #faf8f4; letter-spacing: -0.015em; }
+  #s3b .kicker { font-weight: 600; font-size: 42px; color: #98a2b0; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 44px; }
+  #s3b .big { font-family: 'Anton', sans-serif; font-size: 210px; line-height: 0.95; color: #ff6b1a; letter-spacing: 0.01em; }
+
+  /* S4 */
+  #s4 p { font-weight: 500; font-size: 58px; line-height: 1.42; color: #d7dbe2; max-width: 880px; }
+
+  /* S5 */
+  #s5a h1, #s5b h1 { font-weight: 800; font-size: 76px; line-height: 1.2; color: #faf8f4; letter-spacing: -0.015em; }
+  #s5b .nw { white-space: nowrap; }
+  #s5b .hl { position: relative; color: #ff6b1a; white-space: nowrap; }
+  #s5b .hl .bar {
+    position: absolute; left: -0.08em; right: -0.08em; bottom: 0.02em; height: 0.14em;
+    background: #ff6b1a; transform-origin: left center; transform: scaleX(0);
+  }
+
+  /* S6 */
+  #s6 .lead { font-weight: 600; font-size: 54px; color: #98a2b0; letter-spacing: 0.01em; margin-bottom: 60px; opacity: 0; }
+  #s6 .punchbox { position: relative; height: 190px; width: 100%; }
+  #s6 .punch {
+    position: absolute; left: 0; right: 0; top: 0;
+    font-weight: 900; font-size: 148px; color: #faf8f4; letter-spacing: -0.02em;
+    opacity: 0; will-change: transform, opacity;
+  }
+
+  /* S7 */
+  #s7 h1 { font-weight: 700; font-size: 72px; color: #faf8f4; letter-spacing: -0.01em; }
+
+  /* S8 */
+  #s8 { justify-content: center; gap: 74px; padding-left: 110px; padding-right: 90px; }
+  #s8 .item { position: relative; padding-left: 46px; opacity: 0; will-change: transform, opacity; }
+  #s8 .item .bar { position: absolute; left: 0; top: 6px; bottom: 6px; width: 12px; background: #ff6b1a; transform-origin: top center; }
+  #s8 .item .txt { font-weight: 800; font-size: 60px; line-height: 1.22; color: #faf8f4; letter-spacing: -0.01em; max-width: 830px; }
+  #s8 .item .txt strong { color: #ff8c47; font-weight: 800; }
+
+  /* S9 */
+  #s9 .lead { font-weight: 700; font-size: 66px; color: #faf8f4; letter-spacing: -0.01em; opacity: 0; }
+  #s9 .free { font-family: 'Anton', sans-serif; font-size: 360px; line-height: 1; color: #ff6b1a; margin-top: 28px; opacity: 0; will-change: transform, opacity; }
+
+  /* S10 */
+  #s10 h1 { font-weight: 800; font-size: 78px; line-height: 1.22; color: #faf8f4; letter-spacing: -0.015em; max-width: 900px; }
+
+  /* End card */
+  #endcard { background: #0c1117; z-index: 40; }
+  #endcard img { width: 420px; height: auto; display: block; }
+  #endcard .since { margin-top: 64px; font-weight: 600; font-size: 34px; letter-spacing: 0.34em; color: #7f9486; text-indent: 0.34em; }
+  #endcard .inner { display: flex; flex-direction: column; align-items: center; will-change: transform, opacity; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <div id="stage">
+
+    <div class="scene" id="s1">
+      <h1><span class="w">ChatGPT</span> <span class="w">can</span> <span class="w">now</span><br>
+          <span class="w">text</span> <span class="w">people</span> <span class="w">for</span> <span class="w">you.</span></h1>
+    </div>
+
+    <div class="scene left" id="s2">
+      <div>
+        <span class="line">Read your messages.</span>
+        <span class="line">Draft the reply.</span>
+        <span class="line"><em>Hit send.</em></span>
+      </div>
+    </div>
+
+    <div class="scene" id="s3a"><h1>Shipped this week.</h1></div>
+    <div class="scene" id="s3b">
+      <div class="kicker">The top comment online:</div>
+      <div class="big" id="hardpass">&ldquo;HARD PASS.&rdquo;</div>
+    </div>
+
+    <div class="scene" id="s4">
+      <p>Whether you install it or not, here&rsquo;s what&rsquo;s true either way:</p>
+    </div>
+
+    <div class="scene" id="s5a">
+      <h1>The next quote request your customer sends?</h1>
+    </div>
+    <div class="scene" id="s5b">
+      <h1><span class="nw">The response might be</span><br><span class="hl">written by AI.<span class="bar"></span></span></h1>
+    </div>
+
+    <div class="scene" id="s6">
+      <div class="lead">Every message is about to sound&hellip;</div>
+      <div class="punchbox">
+        <div class="punch" id="p1">polished.</div>
+        <div class="punch" id="p2">Fast.</div>
+        <div class="punch" id="p3">Professional.</div>
+      </div>
+    </div>
+
+    <div class="scene" id="s7"><h1>And none of that will matter.</h1></div>
+
+    <div class="scene left" id="s8">
+      <div class="item"><span class="bar"></span><span class="txt">Work goes to whoever <strong>reviewed the drawings.</strong></span></div>
+      <div class="item"><span class="bar"></span><span class="txt">Knows the <strong>shop&rsquo;s capacity.</strong></span></div>
+      <div class="item"><span class="bar"></span><span class="txt">Answers straight on <strong>lead time.</strong></span></div>
+    </div>
+
+    <div class="scene" id="s9">
+      <div class="lead">AI just made sounding good</div>
+      <div class="free">FREE.</div>
+    </div>
+
+    <div class="scene" id="s10">
+      <h1>Knowing your stuff is the only thing left worth paying for.</h1>
+    </div>
+
+  </div>
+
+  <div class="scene" id="endcard">
+    <div class="inner">
+      <img src="assets/lupton-logo-light.png" alt="Lupton Associates">
+      <div class="since">SINCE 1969</div>
+    </div>
+  </div>
+
+  <div id="vignette"></div>
+</div>
+
+<script>
+// ---------- easing ----------
+const clamp01 = x => Math.max(0, Math.min(1, x));
+const easeOutExpo  = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const easeOutQuint = x => 1 - Math.pow(1 - x, 5);
+const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
+const easeInOutCubic = x => x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+const easeOutBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); };
+// progress of t within [a, a+d]
+const P = (t, a, d) => clamp01((t - a) / d);
+
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+// ---------- element handles ----------
+const stage = $('#stage');
+const scenes = {
+  s1: $('#s1'), s2: $('#s2'), s3a: $('#s3a'), s3b: $('#s3b'), s4: $('#s4'),
+  s5a: $('#s5a'), s5b: $('#s5b'), s6: $('#s6'), s7: $('#s7'), s8: $('#s8'),
+  s9: $('#s9'), s10: $('#s10'), end: $('#endcard'),
+};
+const s1words = $$('#s1 .w');
+const s2lines = $$('#s2 .line');
+const s8items = $$('#s8 .item');
+
+function hideAll() {
+  for (const k in scenes) { scenes[k].style.opacity = 0; scenes[k].style.visibility = 'hidden'; }
+}
+function show(el) { el.style.visibility = 'visible'; }
+
+// snap-in: scale down from big, blur settles — punchy but eased
+function snapIn(el, p, fromScale = 1.8) {
+  el.style.opacity = p <= 0 ? 0 : Math.min(1, p * 1.6);
+  const e = easeOutQuint(p);
+  el.style.transform = `scale(${fromScale + (1 - fromScale) * e})`;
+  el.style.filter = `blur(${(1 - e) * 7}px)`;
+}
+function riseIn(el, p, dist = 44) {
+  el.style.opacity = p;
+  el.style.transform = `translateY(${(1 - easeOutExpo(p)) * dist}px)`;
+}
+function slideLeftIn(el, p, dist = 90) {
+  el.style.opacity = Math.min(1, p * 1.5);
+  el.style.transform = `translateX(${-(1 - easeOutExpo(p)) * dist}px)`;
+}
+// gentle full-scene exit
+function sceneOut(scene, p) {
+  scene.style.opacity = 1 - easeInOutCubic(p);
+}
+
+// ---------- master timeline ----------
+function seek(t) {
+  hideAll();
+  stage.style.transform = '';
+
+  // ===== S1  0–4  "ChatGPT can now text people for you." =====
+  if (t < 4.0) {
+    const sc = scenes.s1; show(sc); sc.style.opacity = 1;
+    // word i snaps in landing early; word 0 fully landed at t=0 for a strong first frame
+    const starts = [-0.30, 0.30, 0.68, 1.06, 1.44, 1.82, 2.24];
+    s1words.forEach((w, i) => snapIn(w, P(t, starts[i], 0.34)));
+    if (t > 3.68) { sceneOut(sc, P(t, 3.68, 0.32)); sc.style.transform = `scale(${1 - easeInOutCubic(P(t,3.68,0.32)) * 0.03})`; }
+    else sc.style.transform = '';
+  }
+
+  // ===== S2  4–8  three lines stacking =====
+  else if (t < 8.0) {
+    const sc = scenes.s2; show(sc); sc.style.opacity = 1;
+    const starts = [4.12, 4.72, 5.32];
+    s2lines.forEach((l, i) => riseIn(l, P(t, starts[i], 0.34)));
+    if (t > 7.68) sceneOut(sc, P(t, 7.68, 0.32));
+  }
+
+  // ===== S3  8–11  "Shipped this week." → cut → HARD PASS =====
+  else if (t < 11.0) {
+    if (t < 9.35) {                       // hard cut at 9.35
+      const sc = scenes.s3a; show(sc); sc.style.opacity = 1;
+      const p = P(t, 8.02, 0.4);
+      const h = sc.querySelector('h1');
+      h.style.opacity = Math.min(1, p * 2);
+      h.style.transform = `scale(${0.88 + easeOutBack(p) * 0.12})`;
+    } else {
+      const sc = scenes.s3b; show(sc); sc.style.opacity = 1;
+      snapIn($('#hardpass'), P(t, 9.35, 0.2), 1.45);
+      const k = sc.querySelector('.kicker');
+      k.style.opacity = P(t, 9.35, 0.12);
+      // slight decaying screen shake on the cut
+      const ts = t - 9.35;
+      if (ts < 0.65) {
+        const amp = 11 * Math.exp(-5.5 * ts);
+        const dx = amp * Math.sin(62 * ts);
+        const dy = 0.65 * amp * Math.sin(47 * ts + 1.3);
+        stage.style.transform = `translate(${dx.toFixed(2)}px, ${dy.toFixed(2)}px)`;
+      }
+      if (t > 10.68) sceneOut(sc, P(t, 10.68, 0.32));
+    }
+  }
+
+  // ===== S4  11–16  calm beat =====
+  else if (t < 16.0) {
+    const sc = scenes.s4; show(sc); sc.style.opacity = 1;
+    const p = P(t, 11.05, 0.85);
+    const el = sc.querySelector('p');
+    el.style.opacity = easeOutCubic(p);
+    el.style.transform = `translateY(${(1 - easeOutCubic(p)) * 26}px)`;
+    if (t > 15.6) sceneOut(sc, P(t, 15.6, 0.4));
+  }
+
+  // ===== S5  16–21  quote request → written by AI =====
+  else if (t < 21.0) {
+    if (t < 18.05) {
+      const sc = scenes.s5a; show(sc); sc.style.opacity = 1;
+      riseIn(sc.querySelector('h1'), P(t, 16.08, 0.45), 40);
+      if (t > 17.78) sceneOut(sc, P(t, 17.78, 0.27));
+    } else {
+      const sc = scenes.s5b; show(sc); sc.style.opacity = 1;
+      riseIn(sc.querySelector('h1'), P(t, 18.1, 0.45), 40);
+      // underline sweep beneath "written by AI."
+      const bar = sc.querySelector('.bar');
+      bar.style.transform = `scaleX(${easeOutExpo(P(t, 18.7, 0.5))})`;
+      if (t > 20.66) sceneOut(sc, P(t, 20.66, 0.34));
+    }
+  }
+
+  // ===== S6  21–25  polished. Fast. Professional. =====
+  else if (t < 25.0) {
+    const sc = scenes.s6; show(sc); sc.style.opacity = 1;
+    const lead = sc.querySelector('.lead');
+    lead.style.opacity = P(t, 21.08, 0.4);
+    lead.style.transform = `translateY(${(1 - easeOutCubic(P(t, 21.08, 0.4))) * 24}px)`;
+    // punch words replace each other in place
+    const punches = [
+      { el: $('#p1'), start: 21.85, end: 22.85 },
+      { el: $('#p2'), start: 22.85, end: 23.85 },
+      { el: $('#p3'), start: 23.85, end: 25.0 },
+    ];
+    for (const { el, start, end } of punches) {
+      if (t >= start && t < end) snapIn(el, P(t, start, 0.24), 2.0);
+      else el.style.opacity = 0;
+    }
+    if (t > 24.68) sceneOut(sc, P(t, 24.68, 0.32));
+  }
+
+  // ===== S7  25–27  stillness =====
+  else if (t < 27.0) {
+    const sc = scenes.s7; show(sc); sc.style.opacity = 1;
+    // opacity only — no motion, a beat of stillness
+    sc.querySelector('h1').style.opacity = easeInOutCubic(P(t, 25.05, 0.55));
+    if (t > 26.7) sceneOut(sc, P(t, 26.7, 0.3));
+  }
+
+  // ===== S8  27–33  three slide-ins with accent bars =====
+  else if (t < 33.0) {
+    const sc = scenes.s8; show(sc); sc.style.opacity = 1;
+    const starts = [27.25, 29.15, 31.05];
+    s8items.forEach((item, i) => {
+      const p = P(t, starts[i], 0.5);
+      slideLeftIn(item, p, 100);
+      item.querySelector('.bar').style.transform = `scaleY(${easeOutExpo(P(t, starts[i] - 0.08, 0.4))})`;
+    });
+    if (t > 32.62) sceneOut(sc, P(t, 32.62, 0.38));
+  }
+
+  // ===== S9  33–36  sounding good FREE =====
+  else if (t < 36.0) {
+    const sc = scenes.s9; show(sc); sc.style.opacity = 1;
+    riseIn(sc.querySelector('.lead'), P(t, 33.1, 0.4), 36);
+    const free = sc.querySelector('.free');
+    const p = P(t, 33.85, 0.32);
+    free.style.opacity = p <= 0 ? 0 : Math.min(1, p * 2);
+    free.style.transform = `scale(${2.2 + (1 - 2.2) * easeOutQuint(p)})`;
+    if (t > 35.62) sceneOut(sc, P(t, 35.62, 0.38));
+  }
+
+  // ===== S10  36–40  closing line, ~2s hold =====
+  else {
+    const sc = scenes.s10; show(sc); sc.style.opacity = 1;
+    riseIn(sc.querySelector('h1'), P(t, 36.05, 0.45), 40);
+    if (t > 38.0) sceneOut(sc, P(t, 38.0, 0.35));
+  }
+
+  // ===== End card  38.15–40 (overlays S10 fade) =====
+  if (t >= 38.15) {
+    const sc = scenes.end; show(sc);
+    const p = P(t, 38.15, 0.6);
+    sc.style.opacity = easeOutCubic(p);
+    const inner = sc.querySelector('.inner');
+    inner.style.transform = `scale(${0.95 + easeOutCubic(p) * 0.05})`;
+    // slow settle drift for the last seconds
+    const drift = clamp01((t - 38.15) / 1.85);
+    inner.style.transform = `scale(${(0.95 + easeOutCubic(p) * 0.05) * (1 + drift * 0.012)})`;
+  }
+}
+
+window.seek = seek;
+seek(0);
+</script>
+</body>
+</html>
