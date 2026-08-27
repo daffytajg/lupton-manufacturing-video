@@ -146,15 +146,17 @@ export const Beat2: React.FC = () => {
   }
   const idx = Math.min(3, Math.floor(f / 42));
   const lf = f - idx * 42;
-  const p = clamp(lf / 16);
-  const photoIn = clamp((lf - 1) / 7);
-  const envIn = clamp((lf - 21) / 6); // cut to the industry environment mid-beat
-  const {C} = PRODUCTS[idx];
-  const snap = clamp(f / 8);
-  const hi = f >= 150 ? 4 : idx;
-  const W = 1240 * u, H = 700 * u;
-  const carryOut = 1 - clamp(lf / 9); // hold the previous beat's visual under the incoming one
+  const envIn = clamp(lf / 6); // industry environment leads, synced to its caption word
+  const carryOut = 1 - clamp(lf / 9);
   const carrySrc = idx > 0 ? `img/ind${idx}.png` : 'img/part5.png';
+  const cardIn = clamp((lf - 16) / 8);
+  const cardOut = 1 - clamp((lf - 38) / 4);
+  const cardA = cardIn * cardOut;
+  const p = clamp((lf - 14) / 14);
+  const photoIn = clamp((lf - 18) / 8);
+  const {C} = PRODUCTS[idx];
+  const hi = f >= 164 ? 4 : idx;
+  const W = 820 * u, H = 462 * u;
   return (
     <div style={center}>
       {carryOut > 0 && (
@@ -166,18 +168,22 @@ export const Beat2: React.FC = () => {
       )}
       <Img src={staticFile(`img/ind${idx + 1}.png`)} style={{
         position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-        opacity: envIn, transform: `scale(${1.08 - envIn * 0.05})`,
+        opacity: envIn, transform: `scale(${1.02 + lf * 0.0008})`,
       }} />
       <div style={{
         position: 'absolute', inset: 0, opacity: envIn,
-        background: 'linear-gradient(0deg, rgba(10,15,15,0.75) 0%, rgba(10,15,15,0.15) 40%, rgba(10,15,15,0.25) 100%)',
+        background: 'linear-gradient(0deg, rgba(10,15,15,0.72) 0%, rgba(10,15,15,0.12) 40%, rgba(10,15,15,0.22) 100%)',
       }} />
-      <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden', transform: `scale(${0.94 + snap * 0.06})`, opacity: snap * (1 - envIn)}}>
+      <div style={{
+        width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden',
+        opacity: cardA, transform: `scale(${0.92 + cardIn * 0.08})`,
+        boxShadow: '0 24px 70px rgba(0,0,0,0.55)', border: '1px solid rgba(143,188,151,0.25)',
+      }}>
         <Img src={staticFile(`img/prod${idx + 1}.png`)} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
           opacity: photoIn, transform: `scale(${1.06 - photoIn * 0.04})`,
         }} />
-        <div style={{position: 'absolute', inset: 0, opacity: 0.85 - photoIn * 0.65}}>
+        <div style={{position: 'absolute', inset: 0, opacity: 0.85 - photoIn * 0.6}}>
           <C p={p} />
         </div>
       </div>
