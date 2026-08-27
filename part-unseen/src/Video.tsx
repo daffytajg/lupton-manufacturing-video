@@ -25,17 +25,17 @@ export const Video: React.FC = () => {
       <Sequence from={960} durationInFrames={240}><Close /></Sequence>
 
       {/* music: Envision — Kevin MacLeod (incompetech.com), CC BY 4.0 — envelope and 23.2-24.0s hard silence pre-shaped */}
-      <Audio src={staticFile('audio/music.wav')} volume={0.52} />
+      <Audio src={staticFile('audio/music.wav')} volume={0.46} />
       {/* narration: v9-cloned narrator, scene-locked */}
-      {sfx('V1', 14, 1.0)}
-      {sfx('V2', 135, 1.0)}
-      {sfx('V3', 310, 1.0)}
-      {sfx('V4', 526, 1.0)}
-      {sfx('V5', 725, 1.0)}
-      {sfx('V6', 785, 1.0)}
-      {sfx('V7', 866, 1.0)}
-      {sfx('V8', 905, 1.0)}
-      {sfx('V9', 1010, 1.0)}
+      {sfx('V1', 14, 1.42)}
+      {sfx('V2', 135, 1.42)}
+      {sfx('V3', 310, 1.42)}
+      {sfx('V4', 526, 1.42)}
+      {sfx('V5', 725, 1.42)}
+      {sfx('V6', 785, 1.42)}
+      {sfx('V7', 866, 1.42)}
+      {sfx('V8', 905, 1.42)}
+      {sfx('V9', 1010, 1.42)}
       {sfx('type_ticks', 9, 0.7)}
       {sfx('subbass', 120)}
       {sfx('stamp', 136, 0.85)}

@@ -109,31 +109,47 @@ export const Beat2: React.FC = () => {
   const f = useCurrentFrame();
   const u = useUnit();
   if (f >= 168) {
-    // "Same parts. Same sourcing problem."
+    // "Same parts. Same sourcing problem." over the dimmed robotics floor
     const a = clamp((f - 168) / 8);
     return (
-      <div style={center}>
-        <div style={{
-          fontFamily: FONT, fontWeight: 800, fontSize: 96 * u, letterSpacing: -1.5,
-          color: WHITE, textAlign: 'center', lineHeight: 1.25, opacity: a,
-          transform: `translateY(${(1 - a) * 26}px)`, maxWidth: 1500 * u,
-        }}>
-          Same parts.<br /><span style={{color: SAGE}}>Same sourcing problem.</span>
+      <div style={{position: 'absolute', inset: 0}}>
+        <Img src={staticFile('img/ind5.png')} style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          opacity: a * 0.45, transform: `scale(${1.05 - a * 0.03})`,
+        }} />
+        <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(90% 70% at 50% 50%, rgba(10,15,15,0.45) 0%, rgba(10,15,15,0.85) 100%)', opacity: a}} />
+        <div style={center}>
+          <div style={{
+            fontFamily: FONT, fontWeight: 800, fontSize: 96 * u, letterSpacing: -1.5,
+            color: WHITE, textAlign: 'center', lineHeight: 1.25, opacity: a,
+            transform: `translateY(${(1 - a) * 26}px)`, maxWidth: 1500 * u,
+          }}>
+            Same parts.<br /><span style={{color: SAGE}}>Same sourcing problem.</span>
+          </div>
         </div>
       </div>
     );
   }
   const idx = Math.min(3, Math.floor(f / 42));
   const lf = f - idx * 42;
-  const p = clamp(lf / 26);
-  const photoIn = clamp((lf - 4) / 9);
+  const p = clamp(lf / 16);
+  const photoIn = clamp((lf - 3) / 8);
+  const envIn = clamp((lf - 21) / 6); // cut to the industry environment mid-beat
   const {C} = PRODUCTS[idx];
   const snap = clamp(f / 8);
   const hi = f >= 150 ? 4 : idx;
   const W = 1240 * u, H = 700 * u;
   return (
     <div style={center}>
-      <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden', transform: `scale(${0.94 + snap * 0.06})`, opacity: snap}}>
+      <Img src={staticFile(`img/ind${idx + 1}.png`)} style={{
+        position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+        opacity: envIn, transform: `scale(${1.08 - envIn * 0.05})`,
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, opacity: envIn,
+        background: 'linear-gradient(0deg, rgba(10,15,15,0.75) 0%, rgba(10,15,15,0.15) 40%, rgba(10,15,15,0.25) 100%)',
+      }} />
+      <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden', transform: `scale(${0.94 + snap * 0.06})`, opacity: snap * (1 - envIn)}}>
         <Img src={staticFile(`img/prod${idx + 1}.png`)} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
           opacity: photoIn, transform: `scale(${1.06 - photoIn * 0.04})`,
