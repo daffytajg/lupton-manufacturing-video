@@ -122,9 +122,9 @@ export const Beat2: React.FC = () => {
     return (
       <div style={{position: 'absolute', inset: 0}}>
         <Sequence from={168} durationInFrames={42} layout="none">
-          <OffthreadVideo muted src={staticFile('vid/ind5.mp4')} style={{
+          <OffthreadVideo muted playbackRate={2.5} src={staticFile('vid/ind5.mp4')} style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-            opacity: bgA * 0.5, transform: `scale(${1.05 - bgA * 0.03})`,
+            opacity: bgA * 0.55, transform: `scale(${1.05 - bgA * 0.03})`,
           }} />
         </Sequence>
         <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(90% 70% at 50% 50%, rgba(10,15,15,0.45) 0%, rgba(10,15,15,0.85) 100%)', opacity: a}} />
@@ -150,11 +150,11 @@ export const Beat2: React.FC = () => {
   const photoIn = clamp((lf - 18) / 8);
   const {C} = PRODUCTS[idx];
   const hi = f >= 164 ? 4 : idx;
-  const W = 820 * u, H = 462 * u;
+  const W = 560 * u, H = 315 * u;
   return (
     <div style={center}>
       <Sequence from={idx * 42} durationInFrames={42} layout="none">
-        <OffthreadVideo muted src={staticFile(`vid/ind${idx + 1}.mp4`)} style={{
+        <OffthreadVideo muted playbackRate={2.5} src={staticFile(`vid/ind${idx + 1}.mp4`)} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
           opacity: envIn, transform: `scale(${1.02 + lf * 0.0008})`,
         }} />
@@ -164,9 +164,10 @@ export const Beat2: React.FC = () => {
         background: 'linear-gradient(0deg, rgba(10,15,15,0.72) 0%, rgba(10,15,15,0.12) 40%, rgba(10,15,15,0.22) 100%)',
       }} />
       <div style={{
-        width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden',
+        width: W, height: H, position: 'absolute', right: 90 * u, bottom: 170 * u,
+        borderRadius: 10 * u, overflow: 'hidden',
         opacity: cardA, transform: `scale(${0.92 + cardIn * 0.08})`,
-        boxShadow: '0 24px 70px rgba(0,0,0,0.55)', border: '1px solid rgba(143,188,151,0.25)',
+        boxShadow: '0 24px 70px rgba(0,0,0,0.6)', border: '1px solid rgba(143,188,151,0.3)',
       }}>
         <Img src={staticFile(`img/prod${idx + 1}.png`)} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
