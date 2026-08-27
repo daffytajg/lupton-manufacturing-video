@@ -49,8 +49,19 @@
     { "t": 32.0, "sound": "resolve_hit", "note": "logo particle assembly begins; bed resolves warm" },
     { "t": 39.5, "sound": "tail", "note": "cut to black; audio tail out by 40.0" }
   ],
+  "voiceover": [
+    { "t": 0.47, "text": "Every product you touched today was made by someone you've never heard of." },
+    { "t": 4.5, "text": "Every one of them starts in a shop like this." },
+    { "t": 10.33, "text": "The same parts show up in every industry. And it's the same sourcing problem." },
+    { "t": 17.53, "text": "Thirty-three manufacturers across the country. One team that knows them all." },
+    { "t": 24.17, "text": "Since nineteen sixty-nine." },
+    { "t": 26.17, "text": "Sheet metal to electronics." },
+    { "t": 28.87, "text": "Prototype to production." },
+    { "t": 30.17, "text": "One call. Every capability." },
+    { "t": 33.67, "text": "Lupton Associates. The manufacturers behind the products you trust." }
+  ],
   "music": {
-    "bed": "synthesized dark pulse bed, 4.0s-23.2s, re-enters 24.0s, resolves warm 32.0-39.5s",
-    "license": "fully synthesized in-house; no third-party music, no attribution required"
+    "bed": "Envision — Kevin MacLeod (incompetech.com), envelope shaped to the timeline; hard silence 23.2-24.0s",
+    "license": "CC BY 4.0 — published posts must credit: Music: Kevin MacLeod (incompetech.com), CC BY 4.0"
   }
 }

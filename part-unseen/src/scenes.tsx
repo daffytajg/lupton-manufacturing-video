@@ -60,11 +60,21 @@ export const Beat1: React.FC = () => {
   const {C, label} = PARTS[idx];
   const stampIn = clamp((lf - 16) / 5);
   const stampScale = interpolate(stampIn, [0, 1], [1.9, 1], {easing: Easing.out(Easing.cubic)});
-  const size = 640 * u;
+  const photoIn = clamp((lf - 8) / 10);
+  const W = 1120 * u, H = 630 * u;
   return (
     <div style={center}>
-      <div style={{width: size, height: size, position: 'relative'}}>
-        <C p={p} />
+      <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden'}}>
+        <Img src={staticFile(`img/part${idx + 1}.png`)} style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          opacity: photoIn, transform: `scale(${1.07 - photoIn * 0.05})`,
+        }} />
+        <div style={{
+          position: 'absolute', left: '50%', top: '50%', width: H, height: H,
+          transform: 'translate(-50%,-50%)', opacity: 0.9 - photoIn * 0.62,
+        }}>
+          <C p={p} />
+        </div>
         <div style={{
           position: 'absolute', left: '50%', top: '72%',
           transform: `translate(-50%,-50%) scale(${stampScale}) rotate(-4deg)`,
@@ -115,15 +125,22 @@ export const Beat2: React.FC = () => {
   }
   const idx = Math.min(3, Math.floor(f / 42));
   const lf = f - idx * 42;
-  const p = clamp(lf / 30);
+  const p = clamp(lf / 26);
+  const photoIn = clamp((lf - 4) / 9);
   const {C} = PRODUCTS[idx];
-  const snap = clamp(f / 8); // parts cluster snaps in once
+  const snap = clamp(f / 8);
   const hi = f >= 150 ? 4 : idx;
-  const W = 1200 * u, H = 686 * u;
+  const W = 1240 * u, H = 700 * u;
   return (
     <div style={center}>
-      <div style={{width: W, height: H, transform: `scale(${0.9 + snap * 0.1})`, opacity: snap}}>
-        <C p={p} />
+      <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden', transform: `scale(${0.94 + snap * 0.06})`, opacity: snap}}>
+        <Img src={staticFile(`img/prod${idx + 1}.png`)} style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          opacity: photoIn, transform: `scale(${1.06 - photoIn * 0.04})`,
+        }} />
+        <div style={{position: 'absolute', inset: 0, opacity: 0.85 - photoIn * 0.65}}>
+          <C p={p} />
+        </div>
       </div>
       <div style={{
         position: 'absolute', bottom: 90 * u, display: 'flex', gap: 26 * u,
