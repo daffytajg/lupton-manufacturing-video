@@ -60,11 +60,18 @@ export const Beat1: React.FC = () => {
   const {C, label} = PARTS[idx];
   const stampIn = clamp((lf - 16) / 5);
   const stampScale = interpolate(stampIn, [0, 1], [1.9, 1], {easing: Easing.out(Easing.cubic)});
-  const photoIn = clamp((lf - 8) / 10);
+  const photoIn = clamp((lf - 2) / 8);
+  const prevOut = idx > 0 ? 1 - clamp(lf / 8) : 0;
   const W = 1120 * u, H = 630 * u;
   return (
     <div style={center}>
       <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden'}}>
+        {prevOut > 0 && (
+          <Img src={staticFile(`img/part${idx}.png`)} style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+            opacity: prevOut, transform: 'scale(1.02)',
+          }} />
+        )}
         <Img src={staticFile(`img/part${idx + 1}.png`)} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
           opacity: photoIn, transform: `scale(${1.07 - photoIn * 0.05})`,
@@ -111,8 +118,15 @@ export const Beat2: React.FC = () => {
   if (f >= 168) {
     // "Same parts. Same sourcing problem." over the dimmed robotics floor
     const a = clamp((f - 168) / 8);
+    const carry = 1 - clamp((f - 168) / 9);
     return (
       <div style={{position: 'absolute', inset: 0}}>
+        {carry > 0 && (
+          <Img src={staticFile('img/ind4.png')} style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+            opacity: carry, transform: 'scale(1.03)',
+          }} />
+        )}
         <Img src={staticFile('img/ind5.png')} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
           opacity: a * 0.45, transform: `scale(${1.05 - a * 0.03})`,
@@ -133,14 +147,23 @@ export const Beat2: React.FC = () => {
   const idx = Math.min(3, Math.floor(f / 42));
   const lf = f - idx * 42;
   const p = clamp(lf / 16);
-  const photoIn = clamp((lf - 3) / 8);
+  const photoIn = clamp((lf - 1) / 7);
   const envIn = clamp((lf - 21) / 6); // cut to the industry environment mid-beat
   const {C} = PRODUCTS[idx];
   const snap = clamp(f / 8);
   const hi = f >= 150 ? 4 : idx;
   const W = 1240 * u, H = 700 * u;
+  const carryOut = 1 - clamp(lf / 9); // hold the previous beat's visual under the incoming one
+  const carrySrc = idx > 0 ? `img/ind${idx}.png` : 'img/part5.png';
   return (
     <div style={center}>
+      {carryOut > 0 && (
+        <Img src={staticFile(carrySrc)} style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%',
+          objectFit: idx > 0 ? 'cover' : 'contain', opacity: carryOut * (idx > 0 ? 1 : 0.85),
+          transform: 'scale(1.03)', background: 'transparent',
+        }} />
+      )}
       <Img src={staticFile(`img/ind${idx + 1}.png`)} style={{
         position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
         opacity: envIn, transform: `scale(${1.08 - envIn * 0.05})`,
@@ -247,7 +270,7 @@ export const Beat3: React.FC = () => {
         fontFamily: FONT, fontWeight: 800, fontSize: 62 * u, color: WHITE, opacity: captionA,
         transform: `translateY(${(1 - captionA) * 24}px)`, letterSpacing: -1,
       }}>
-        33 manufacturers. <span style={{color: SAGE}}>One team knows them all.</span>
+        Manufacturers all over the US. <span style={{color: SAGE}}>One team knows them all.</span>
       </div>
     </div>
   );
@@ -273,8 +296,18 @@ export const Beat4: React.FC = () => {
   const sx = shakeAmp * Math.sin(lf * 12.9 + idx);
   const sy = shakeAmp * Math.sin(lf * 17.3 + idx * 7);
   const [w1, w2] = PHRASES[idx];
+  const prevA = idx > 0 ? Math.max(0, 1 - lf / 4) : 0;
+  const [p1, p2] = idx > 0 ? PHRASES[idx - 1] : ['', ''];
   return (
     <div style={{...center, transform: `translate(${sx}px, ${sy}px)`}}>
+      {prevA > 0 && (
+        <div style={{
+          position: 'absolute', fontFamily: FONT, fontWeight: 800, fontSize: 128 * u,
+          letterSpacing: -2.5, color: WHITE, textAlign: 'center', lineHeight: 1.16, opacity: prevA,
+        }}>
+          {p1}<br /><span style={{color: SAGE}}>{p2}</span>
+        </div>
+      )}
       <div style={{
         fontFamily: FONT, fontWeight: 800, fontSize: 128 * u, letterSpacing: -2.5,
         color: WHITE, textAlign: 'center', lineHeight: 1.16,
