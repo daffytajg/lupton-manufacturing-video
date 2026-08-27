@@ -1,5 +1,5 @@
 import React from 'react';
-import {interpolate, useCurrentFrame, useVideoConfig, Img, staticFile, Easing} from 'remotion';
+import {interpolate, useCurrentFrame, useVideoConfig, Img, OffthreadVideo, Sequence, staticFile, Easing} from 'remotion';
 import {WHITE, SAGE, SAGE_DIM, GRAY, EYEBROW, rand} from './theme';
 import {FONT} from './font';
 import {Bracket, Harness, Block, Board, Housing, ServerSled, MedDevice, TruckModule, DefenseBox} from './parts';
@@ -118,19 +118,15 @@ export const Beat2: React.FC = () => {
   if (f >= 168) {
     // "Same parts. Same sourcing problem." over the dimmed robotics floor
     const a = clamp((f - 168) / 8);
-    const carry = 1 - clamp((f - 168) / 9);
+    const bgA = clamp((f - 168) / 3);
     return (
       <div style={{position: 'absolute', inset: 0}}>
-        {carry > 0 && (
-          <Img src={staticFile('img/ind4.png')} style={{
+        <Sequence from={168} durationInFrames={42} layout="none">
+          <OffthreadVideo muted src={staticFile('vid/ind5.mp4')} style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-            opacity: carry, transform: 'scale(1.03)',
+            opacity: bgA * 0.5, transform: `scale(${1.05 - bgA * 0.03})`,
           }} />
-        )}
-        <Img src={staticFile('img/ind5.png')} style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-          opacity: a * 0.45, transform: `scale(${1.05 - a * 0.03})`,
-        }} />
+        </Sequence>
         <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(90% 70% at 50% 50%, rgba(10,15,15,0.45) 0%, rgba(10,15,15,0.85) 100%)', opacity: a}} />
         <div style={center}>
           <div style={{
@@ -146,9 +142,7 @@ export const Beat2: React.FC = () => {
   }
   const idx = Math.min(3, Math.floor(f / 42));
   const lf = f - idx * 42;
-  const envIn = clamp(lf / 6); // industry environment leads, synced to its caption word
-  const carryOut = 1 - clamp(lf / 9);
-  const carrySrc = idx > 0 ? `img/ind${idx}.png` : 'img/part5.png';
+  const envIn = clamp(lf / 2); // hard cut: environment lands instantly with its caption word
   const cardIn = clamp((lf - 16) / 8);
   const cardOut = 1 - clamp((lf - 38) / 4);
   const cardA = cardIn * cardOut;
@@ -159,17 +153,12 @@ export const Beat2: React.FC = () => {
   const W = 820 * u, H = 462 * u;
   return (
     <div style={center}>
-      {carryOut > 0 && (
-        <Img src={staticFile(carrySrc)} style={{
-          position: 'absolute', inset: 0, width: '100%', height: '100%',
-          objectFit: idx > 0 ? 'cover' : 'contain', opacity: carryOut * (idx > 0 ? 1 : 0.85),
-          transform: 'scale(1.03)', background: 'transparent',
+      <Sequence from={idx * 42} durationInFrames={42} layout="none">
+        <OffthreadVideo muted src={staticFile(`vid/ind${idx + 1}.mp4`)} style={{
+          position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+          opacity: envIn, transform: `scale(${1.02 + lf * 0.0008})`,
         }} />
-      )}
-      <Img src={staticFile(`img/ind${idx + 1}.png`)} style={{
-        position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-        opacity: envIn, transform: `scale(${1.02 + lf * 0.0008})`,
-      }} />
+      </Sequence>
       <div style={{
         position: 'absolute', inset: 0, opacity: envIn,
         background: 'linear-gradient(0deg, rgba(10,15,15,0.72) 0%, rgba(10,15,15,0.12) 40%, rgba(10,15,15,0.22) 100%)',
