@@ -60,21 +60,32 @@ export const Beat1: React.FC = () => {
   const {C, label} = PARTS[idx];
   const stampIn = clamp((lf - 16) / 5);
   const stampScale = interpolate(stampIn, [0, 1], [1.9, 1], {easing: Easing.out(Easing.cubic)});
-  const photoIn = clamp((lf - 2) / 8);
-  const prevOut = idx > 0 ? 1 - clamp(lf / 8) : 0;
-  const W = 1120 * u, H = 630 * u;
+  const cardIn = clamp((lf - 4) / 8);
+  const cardOut = 1 - clamp((lf - 33) / 3);
+  const cardA = idx === 4 ? cardIn : cardIn * cardOut;
+  const photoIn = clamp((lf - 8) / 8);
+  const enter = clamp(f / 6);
+  const W = 560 * u, H = 315 * u;
   return (
     <div style={center}>
-      <div style={{width: W, height: H, position: 'relative', borderRadius: 10 * u, overflow: 'hidden'}}>
-        {prevOut > 0 && (
-          <Img src={staticFile(`img/part${idx}.png`)} style={{
-            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-            opacity: prevOut, transform: 'scale(1.02)',
-          }} />
-        )}
+      {/* one continuous shop take behind the whole beat; 1.6x fills 180 frames from a 10s source */}
+      <OffthreadVideo muted playbackRate={1.6} src={staticFile('vid/shop.mp4')} style={{
+        position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+        opacity: enter,
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, opacity: enter,
+        background: 'linear-gradient(0deg, rgba(10,15,15,0.62) 0%, rgba(10,15,15,0.1) 45%, rgba(10,15,15,0.25) 100%)',
+      }} />
+      <div style={{
+        width: W, height: H, position: 'absolute', right: 90 * u, bottom: 170 * u,
+        borderRadius: 10 * u, overflow: 'hidden',
+        opacity: cardA, transform: `scale(${0.92 + cardIn * 0.08})`,
+        boxShadow: '0 24px 70px rgba(0,0,0,0.6)', border: '1px solid rgba(143,188,151,0.3)',
+      }}>
         <Img src={staticFile(`img/part${idx + 1}.png`)} style={{
           position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-          opacity: photoIn, transform: `scale(${1.07 - photoIn * 0.05})`,
+          opacity: photoIn, transform: `scale(${1.06 - photoIn * 0.04})`,
         }} />
         <div style={{
           position: 'absolute', left: '50%', top: '50%', width: H, height: H,
@@ -82,16 +93,16 @@ export const Beat1: React.FC = () => {
         }}>
           <C p={p} />
         </div>
-        <div style={{
-          position: 'absolute', left: '50%', top: '72%',
-          transform: `translate(-50%,-50%) scale(${stampScale}) rotate(-4deg)`,
-          opacity: stampIn,
-          fontFamily: FONT, fontWeight: 800, fontSize: 74 * u, letterSpacing: 6 * u,
-          color: WHITE, border: `${5 * u}px solid ${WHITE}`, padding: `${6 * u}px ${26 * u}px`,
-          background: 'rgba(13,18,19,0.55)',
-        }}>
-          {label}
-        </div>
+      </div>
+      <div style={{
+        position: 'absolute', left: 130 * u, top: '58%', transformOrigin: 'left center',
+        transform: `scale(${stampScale}) rotate(-4deg)`,
+        opacity: stampIn,
+        fontFamily: FONT, fontWeight: 800, fontSize: 84 * u, letterSpacing: 6 * u,
+        color: WHITE, border: `${5 * u}px solid ${WHITE}`, padding: `${6 * u}px ${26 * u}px`,
+        background: 'rgba(13,18,19,0.55)',
+      }}>
+        {label}
       </div>
       <div style={{
         position: 'absolute', bottom: 70 * u, fontFamily: FONT, fontWeight: 600,
