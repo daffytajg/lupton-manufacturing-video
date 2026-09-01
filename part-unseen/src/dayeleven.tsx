@@ -75,6 +75,15 @@ const D4Plant: React.FC = () => {
     <div style={center}>
       <Footage src="vid/day4.mp4" rate={1.0} frames={150} filter="saturate(1.1) brightness(1.02)" />
       <div style={{
+        position: 'absolute', top: 96 * u, left: 100 * u, display: 'flex', alignItems: 'center', gap: 16 * u,
+        opacity: clamp((f - 8) / 10),
+      }}>
+        <Img src={staticFile('badge.png')} style={{width: 44 * u, height: 44 * u}} />
+        <span style={{fontFamily: FONT, fontWeight: 700, fontSize: 24 * u, letterSpacing: 6 * u, color: WHITE, textShadow: '0 2px 12px rgba(0,0,0,0.6)'}}>
+          LUPTON ASSOCIATES
+        </span>
+      </div>
+      <div style={{
         position: 'absolute', top: 90 * u, right: 100 * u,
         fontFamily: FONT, fontWeight: 600, fontSize: 23 * u, letterSpacing: 4 * u,
         color: '#CDD9D2', textTransform: 'uppercase',
@@ -92,10 +101,10 @@ const D5End: React.FC = () => {
   const f = useCurrentFrame();
   const u = useUnit();
   const badgeA = clamp((f - 6) / 12);
-  const dmA = clamp((f - 100) / 12);
-  const buildA = clamp((f - 170) / 12);
-  const urlA = clamp((f - 216) / 12);
-  const blackout = clamp((f - 255) / 10);
+  const dmA = clamp((f - 72) / 12);
+  const buildA = clamp((f - 140) / 12);
+  const urlA = clamp((f - 192) / 12);
+  const blackout = clamp((f - 258) / 10);
   return (
     <div style={center}>
       <Img src={staticFile('badge.png')} style={{width: 130 * u, height: 130 * u, opacity: badgeA, marginBottom: 28 * u}} />
@@ -133,11 +142,10 @@ const CAPS: {from: number; to: number; text: string}[] = [
   {from: 132, to: 238, text: 'Your customer hasn’t.'},
   {from: 242, to: 358, text: 'Every hour you spend hunting a second source is an hour your competitor doesn’t.'},
   {from: 360, to: 447, text: 'We work with qualified shops all over the U.S.'},
-  {from: 452, to: 578, text: 'When your source goes quiet, we already know who runs your part family.'},
-  {from: 582, to: 612, text: 'One call.'},
-  {from: 618, to: 680, text: 'DM me the part family you’re worried about.'},
-  {from: 684, to: 727, text: 'Let’s build it together.'},
-  {from: 731, to: 762, text: 'Luptons.com'},
+  {from: 454, to: 578, text: 'When your source goes quiet, we already know who runs your part family.'},
+  {from: 582, to: 648, text: 'DM me the part family you’re worried about.'},
+  {from: 652, to: 690, text: 'Let’s build it together.'},
+  {from: 700, to: 758, text: 'Luptons.com'},
 ];
 
 const Captions: React.FC = () => {
