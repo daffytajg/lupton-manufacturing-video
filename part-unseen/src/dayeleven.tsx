@@ -127,9 +127,9 @@ const D5End: React.FC = () => {
         Let&rsquo;s build it together.
       </div>
       <div style={{
-        fontFamily: FONT, fontWeight: 600, fontSize: 27 * u, letterSpacing: 9 * u, color: EYEBROW, opacity: urlA,
+        fontFamily: FONT, fontWeight: 700, fontSize: 38 * u, letterSpacing: 1 * u, color: WHITE, opacity: urlA,
       }}>
-        LUPTONS.COM
+        Luptons.com
       </div>
       <div style={{position: 'absolute', inset: 0, background: '#050808', opacity: blackout}} />
     </div>
