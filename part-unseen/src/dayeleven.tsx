@@ -119,8 +119,8 @@ const CAPS: {from: number; to: number; text: string}[] = [
   {from: 8, to: 118, text: 'Day eleven. Your supplier’s gone quiet.'},
   {from: 132, to: 238, text: 'Your customer hasn’t.'},
   {from: 248, to: 358, text: 'Every hour you spend hunting a second source is an hour your competitor doesn’t.'},
-  {from: 368, to: 506, text: 'We work with 33 qualified manufacturers. When one goes dark, we already know who’s ready.'},
-  {from: 520, to: 584, text: 'One call.'},
+  {from: 366, to: 556, text: 'We work with qualified shops all over the U.S. When your source goes quiet, we already know who runs your part family.'},
+  {from: 560, to: 595, text: 'One call.'},
 ];
 
 const Captions: React.FC = () => {
@@ -169,8 +169,8 @@ export const DayEleven: React.FC = () => {
       {sfx('D1', 8, 1.42)}
       {sfx('D2', 132, 1.42)}
       {sfx('D3', 248, 1.42)}
-      {sfx('D4', 368, 1.42)}
-      {sfx('D5', 522, 1.42)}
+      {sfx('D4', 366, 1.42)}
+      {sfx('D5', 565, 1.42)}
       {sfx('day_beep', 40, 0.5)}
       {sfx('day_beep', 82, 0.4)}
       {sfx('day_buzz', 140, 0.6)}
