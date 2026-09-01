@@ -84,10 +84,23 @@ preferred look, matching the promo / AI-shift reference videos).
   Clow slide ("e-coat, powder, and wet spray painting"); Tongrun deck (15 powder
   lines, E-coat ×2, cure ovens, testing labs). Tongrun does NOT list wet spray.
 - Never: broker/partner/rep language, "connected buyers with manufacturers",
-  CARC (Joe vetoed), unverified capabilities. Always: direct shop quote path,
+  CARC (Joe vetoed), unverified capabilities, principal counts ("33
+  manufacturers" — it could be more), or anything that reads as pitting
+  Lupton's principals against each other (a supplier "going dark" must be the
+  buyer's incumbent, never one of ours). Always: direct shop quote path,
   concrete processes, and the house ask — drawings, part details, annual
-  volume, timing → feasibility estimate. Tagline: "Servicing the working world
-  since 1969". Run copy through the `alan-lupton-approval-voice` skill.
+  volume, timing → feasibility estimate. Frame everything as the rep firm
+  selling to OEM buyers. Tagline: "Servicing the working world since 1969".
+  Run copy through the `alan-lupton-approval-voice` skill.
+- Every video ends with the VO "Let's build it together." then "Luptons dot
+  com," with "Let's build it together." and LUPTONS.COM on the end card
+  (Joe's standing rule, Sep 2026).
+- VO smoothness: never splice separately generated lines back-to-back — the
+  energy jumps read as choppy. Generate each section as one continuous take,
+  split only at the narrator's own pauses (silencedetect), tighten gaps,
+  RMS-match segments, 12ms fades. After EVERY cut, run the Higgsfield
+  watch-back and confirm the transcript contains every VO line over its
+  scene before shipping — captions with missing audio is the failure mode.
 
 ## Verification loop (do this every cut)
 
