@@ -98,9 +98,14 @@ preferred look, matching the promo / AI-shift reference videos).
 - VO smoothness: never splice separately generated lines back-to-back — the
   energy jumps read as choppy. Generate each section as one continuous take,
   split only at the narrator's own pauses (silencedetect), tighten gaps,
-  RMS-match segments, 12ms fades. After EVERY cut, run the Higgsfield
-  watch-back and confirm the transcript contains every VO line over its
-  scene before shipping — captions with missing audio is the failure mode.
+  RMS-match segments, 12ms fades. A continuous take can come back with a
+  truncated or garbled sentence — check every phrase's words-per-second
+  against the narrator's normal pace (~150 wpm; a 14-word phrase in 3.4s
+  is a red flag). Before shipping, verify each VO line by rendering the
+  audio alone over a black screen and transcribing it (video_analysis on
+  the audio-only clip) — the full-video watch-back OCRs the burned-in
+  captions and will "hear" lines that are silent, so use it only for
+  scene-sync, never for line presence.
 
 ## Verification loop (do this every cut)
 
