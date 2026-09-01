@@ -131,7 +131,7 @@ const D5End: React.FC = () => {
 const CAPS: {from: number; to: number; text: string}[] = [
   {from: 8, to: 118, text: 'Day eleven. Your supplier’s gone quiet.'},
   {from: 132, to: 238, text: 'Your customer hasn’t.'},
-  {from: 248, to: 358, text: 'Every hour you spend hunting a second source is an hour your competitor doesn’t.'},
+  {from: 242, to: 358, text: 'Every hour you spend hunting a second source is an hour your competitor doesn’t.'},
   {from: 360, to: 447, text: 'We work with qualified shops all over the U.S.'},
   {from: 452, to: 578, text: 'When your source goes quiet, we already know who runs your part family.'},
   {from: 582, to: 612, text: 'One call.'},
@@ -185,7 +185,7 @@ export const DayEleven: React.FC = () => {
       {/* narration: placeholder v9-cloned narrator — swap public/audio/D1-D5.wav for Joe's recording and re-render */}
       {sfx('D1', 8, 1.42)}
       {sfx('D2', 132, 1.42)}
-      {sfx('D3', 248, 1.42)}
+      {sfx('D3', 242, 1.42)}
       {sfx('D4', 360, 1.42)}
       {sfx('day_beep', 40, 0.5)}
       {sfx('day_beep', 82, 0.4)}
