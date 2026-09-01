@@ -92,10 +92,10 @@ const D5End: React.FC = () => {
   const f = useCurrentFrame();
   const u = useUnit();
   const badgeA = clamp((f - 6) / 12);
-  const dmA = clamp((f - 24) / 12);
-  const buildA = clamp((f - 58) / 12);
-  const urlA = clamp((f - 90) / 12);
-  const blackout = clamp((f - 138) / 10);
+  const dmA = clamp((f - 100) / 12);
+  const buildA = clamp((f - 170) / 12);
+  const urlA = clamp((f - 216) / 12);
+  const blackout = clamp((f - 255) / 10);
   return (
     <div style={center}>
       <Img src={staticFile('badge.png')} style={{width: 130 * u, height: 130 * u, opacity: badgeA, marginBottom: 28 * u}} />
@@ -132,11 +132,12 @@ const CAPS: {from: number; to: number; text: string}[] = [
   {from: 8, to: 118, text: 'Day eleven. Your supplier’s gone quiet.'},
   {from: 132, to: 238, text: 'Your customer hasn’t.'},
   {from: 248, to: 358, text: 'Every hour you spend hunting a second source is an hour your competitor doesn’t.'},
-  {from: 360, to: 438, text: 'We work with qualified shops all over the U.S.'},
-  {from: 441, to: 538, text: 'When your source goes quiet, we already know who runs your part family.'},
-  {from: 544, to: 570, text: 'One call.'},
-  {from: 574, to: 604, text: 'Let’s build it together.'},
-  {from: 608, to: 645, text: 'Luptons.com'},
+  {from: 360, to: 447, text: 'We work with qualified shops all over the U.S.'},
+  {from: 452, to: 578, text: 'When your source goes quiet, we already know who runs your part family.'},
+  {from: 582, to: 612, text: 'One call.'},
+  {from: 618, to: 680, text: 'DM me the part family you’re worried about.'},
+  {from: 684, to: 727, text: 'Let’s build it together.'},
+  {from: 731, to: 762, text: 'Luptons.com'},
 ];
 
 const Captions: React.FC = () => {
@@ -175,7 +176,7 @@ export const DayEleven: React.FC = () => {
       <Sequence from={120} durationInFrames={120}><D2Office /></Sequence>
       <Sequence from={240} durationInFrames={120}><D3Truck /></Sequence>
       <Sequence from={360} durationInFrames={150}><D4Plant /></Sequence>
-      <Sequence from={510} durationInFrames={150}><D5End /></Sequence>
+      <Sequence from={510} durationInFrames={270}><D5End /></Sequence>
 
       <Captions />
 
@@ -185,7 +186,7 @@ export const DayEleven: React.FC = () => {
       {sfx('D1', 8, 1.42)}
       {sfx('D2', 132, 1.42)}
       {sfx('D3', 248, 1.42)}
-      {sfx('D4', 362, 1.42)}
+      {sfx('D4', 360, 1.42)}
       {sfx('day_beep', 40, 0.5)}
       {sfx('day_beep', 82, 0.4)}
       {sfx('day_buzz', 140, 0.6)}

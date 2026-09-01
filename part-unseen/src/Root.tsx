@@ -10,7 +10,7 @@ export const Root: React.FC = () => (
     <Composition id="Tall" component={Video} durationInFrames={1200} fps={30} width={1080} height={1350} />
     <Composition id="LeadWide" component={LeadTime} durationInFrames={900} fps={30} width={1920} height={1080} />
     <Composition id="LeadTall" component={LeadTime} durationInFrames={900} fps={30} width={1080} height={1350} />
-    <Composition id="DayWide" component={DayEleven} durationInFrames={660} fps={30} width={1920} height={1080} />
-    <Composition id="DayTall" component={DayEleven} durationInFrames={660} fps={30} width={1080} height={1350} />
+    <Composition id="DayWide" component={DayEleven} durationInFrames={780} fps={30} width={1920} height={1080} />
+    <Composition id="DayTall" component={DayEleven} durationInFrames={780} fps={30} width={1080} height={1350} />
   </>
 );
