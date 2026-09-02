@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "title": "Three Shops, One Bracket",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 37.0,
+    "formats": ["1920x1080", "1080x1350"],
+    "painPoint": "multi-vendor finger-pointing: a bracket cut, formed, and coated at three shops on three POs, and nobody owns the fit"
+  },
+  "shots": [
+    { "t": 0.0, "end": 3.5, "scene": "hook", "visual": "black; 'Three POs. One bracket.' types in", "vo": "One bracket. Three shops. Three purchase orders." },
+    { "t": 3.5, "end": 8.0, "scene": "laser", "visual": "fiber laser tracing the bracket outline, sparks; stamp PO #1 · CUT", "vo": "Cut here." },
+    { "t": 8.0, "end": 11.0, "scene": "brake", "visual": "press brake folding the blank into an L; stamp PO #2 · FORMED", "vo": "Formed there." },
+    { "t": 11.0, "end": 14.0, "scene": "coat", "visual": "spray booth (brand-kit s4); stamp PO #3 · COATED", "vo": "Coated somewhere else." },
+    { "t": 14.0, "end": 19.0, "scene": "misfit", "visual": "gloved hand holds the bracket to a frame, holes don't line up, red vignette pulse", "vo": "And when the holes don't line up, everyone points at everyone." },
+    { "t": 19.0, "end": 29.0, "scene": "roof", "visual": "one continuous take: laser -> press brake -> weld cell -> powder line into oven; LUPTON ASSOCIATES watermark; UNDER ONE ROOF eyebrow; LASER/FORM/WELD/POWDER chips light on the spoken words", "vo": "We work with shops that cut, form, weld, and finish under one roof. One print. One project manager. One shop that owns the fit." },
+    { "t": 29.0, "end": 37.0, "scene": "end", "visual": "badge, LUPTON ASSOCIATES, 'Send us the print.' (sage), 'Let's build it together.', Luptons.com", "vo": "Send us the print. Let's build it together. Luptons dot com." }
+  ],
+  "captions": [
+    { "from": 0.4, "to": 3.3, "text": "One bracket. Three shops. Three purchase orders." },
+    { "from": 3.6, "to": 7.9, "text": "Cut here." },
+    { "from": 8.1, "to": 10.9, "text": "Formed there." },
+    { "from": 11.1, "to": 13.9, "text": "Coated somewhere else." },
+    { "from": 14.1, "to": 18.9, "text": "And when the holes don't line up, everyone points at everyone." },
+    { "from": 19.1, "to": 25.1, "text": "We work with shops that cut, form, weld, and finish under one roof." },
+    { "from": 25.2, "to": 28.9, "text": "One print. One project manager." },
+    { "from": 29.0, "to": 31.3, "text": "One shop that owns the fit." },
+    { "from": 31.5, "to": 33.1, "text": "Send us the print." },
+    { "from": 33.2, "to": 34.4, "text": "Let's build it together." },
+    { "from": 34.5, "to": 36.4, "text": "Luptons.com" }
+  ],
+  "sfx": [
+    { "t": 0.2, "sound": "type_ticks" },
+    { "t": 3.5, "sound": "subbass_hit", "note": "cut to laser" },
+    { "t": 4.2, "sound": "stamp", "note": "PO #1" },
+    { "t": 8.5, "sound": "stamp", "note": "PO #2" },
+    { "t": 11.5, "sound": "stamp", "note": "PO #3" },
+    { "t": 14.0, "sound": "subbass_hit", "note": "misfit" },
+    { "t": 16.0, "sound": "metal_strike", "note": "holes don't line up" },
+    { "t": 18.0, "sound": "riser", "note": "into the one-roof take" },
+    { "t": 19.0, "sound": "metal_strike", "note": "turn" },
+    { "t": 29.0, "sound": "resolve_hit", "note": "end card" }
+  ],
+  "music": {
+    "bed": "Prelude and Action - Kevin MacLeod (incompetech.com), envelope shaped: duck under the misfit beat, full under the one-roof take, settle for the end card, fade 35.5-37s",
+    "license": "CC BY 4.0 - published posts must credit: Music: Kevin MacLeod (incompetech.com), CC BY 4.0"
+  },
+  "verification": "both narration takes transcribed from audio-only clips before assembly; every phrase present and in order"
+}

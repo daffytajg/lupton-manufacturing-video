@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "title": "The Lead Time Question",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 30.0,
+    "formats": ["1920x1080", "1080x1350"]
+  },
+  "captions": [
+    { "t": 0.2, "end": 3.6, "scene": "hook", "text": "\"What's the lead time?\"", "style": "typed, white, center, sage cursor" },
+    { "t": 4.3, "end": 12.8, "scene": "quote", "text": "QUOTED LEAD TIME / 14 -> 22 weeks", "style": "counter climbs 8.3-10.6s over shop one-take; sage at 22" },
+    { "t": 10.6, "end": 12.8, "scene": "quote", "text": "Nobody puts that in the cost comparison.", "style": "sub-caption under counter" },
+    { "t": 12.8, "end": 17.0, "scene": "cascade", "text": "A late bracket holds the enclosure.", "style": "part card row 1" },
+    { "t": 14.9, "end": 17.0, "scene": "cascade", "text": "A late harness holds the build.", "style": "part card row 2" },
+    { "t": 17.1, "end": 24.0, "scene": "checks", "text": "LEAD TIME IS HONEST WHEN", "style": "eyebrow" },
+    { "t": 17.5, "end": 24.0, "scene": "checks", "text": "01 They run your part family.", "style": "slam, dims when next lands" },
+    { "t": 19.8, "end": 24.0, "scene": "checks", "text": "02 An engineer reviewed the print.", "style": "slam" },
+    { "t": 22.1, "end": 24.0, "scene": "checks", "text": "03 Project manager, not a sales inbox.", "style": "slam" },
+    { "t": 24.0, "end": 26.2, "scene": "holds", "text": "Then the number holds.", "style": "center statement, 'holds.' in sage" },
+    { "t": 26.2, "end": 29.6, "scene": "end", "text": "LUPTON ASSOCIATES / Send us the print. / A realistic number in 24 hours. / LUPTONS.COM", "style": "badge end card" }
+  ],
+  "voiceover": [
+    { "t": 0.5, "text": "What's the lead time? It's the second question every buyer asks. Price comes first. And that's the wrong order." },
+    { "t": 8.3, "text": "I've watched a fourteen-week quote turn into twenty-two. Nobody puts that in the cost comparison." },
+    { "t": 13.0, "text": "A late bracket holds up the whole build." },
+    { "t": 17.3, "text": "Lead time is honest when the shop runs your part family, an engineer reviewed the print, and you talk to the project manager." },
+    { "t": 24.3, "text": "When that's true, the number holds." },
+    { "t": 26.5, "text": "Send us the print. You'll have a realistic number in twenty-four hours." }
+  ],
+  "sfx": [
+    { "t": 0.2, "sound": "type_ticks" },
+    { "t": 3.6, "sound": "subbass_hit", "note": "cut to shop take" },
+    { "t": 8.4, "sound": "tick_series", "note": "counter climbing, 4 ticks to 10.6s" },
+    { "t": 12.9, "sound": "stamp", "note": "bracket row" },
+    { "t": 14.9, "sound": "stamp", "note": "harness row" },
+    { "t": 17.5, "sound": "metal_strike", "note": "check 01" },
+    { "t": 19.8, "sound": "metal_strike", "note": "check 02" },
+    { "t": 22.1, "sound": "metal_strike", "note": "check 03" },
+    { "t": 23.0, "sound": "riser", "note": "into payoff" },
+    { "t": 24.0, "sound": "subbass_hit", "note": "Then the number holds." },
+    { "t": 26.2, "sound": "resolve_hit", "note": "end card" }
+  ],
+  "music": {
+    "bed": "Prelude and Action — Kevin MacLeod (incompetech.com), envelope shaped; duck 23.5-24.0s then 0.88 hit under payoff; fade out 28.6-29.8s",
+    "license": "CC BY 4.0 — published posts must credit: Music: Kevin MacLeod (incompetech.com), CC BY 4.0"
+  }
+}
