@@ -1,0 +1,103 @@
+{
+  "company_id": "biz_riLL9YVLTT4sFL",
+  "company_route": "guadsquadai",
+  "experience_id": "exp_bdT90VbaJBSEZU",
+  "product_id": "prod_xcXj2QWuGPM7j",
+  "product_route": "start-with-agents",
+  "plan_id": "plan_Y65X7OKoHLRQI",
+  "course_id": "cors_ykGmllTjtK1Av",
+  "urls": {
+    "storefront": "https://whop.com/guadsquadai/",
+    "product_page": "https://whop.com/guadsquadai/start-with-agents/",
+    "checkout": "https://whop.com/checkout/plan_Y65X7OKoHLRQI",
+    "dashboard_product": "https://whop.com/dashboard/biz_riLL9YVLTT4sFL/products/prod_xcXj2QWuGPM7j",
+    "dashboard_leads": "https://whop.com/dashboard/biz_riLL9YVLTT4sFL/leads"
+  },
+  "lessons": [
+    {
+      "chapter": "Module 1: Start Here",
+      "lesson": "Welcome and how to use this course",
+      "id": "lesn_s8eK2bJnHKQs2"
+    },
+    {
+      "chapter": "Module 1: Start Here",
+      "lesson": "What an AI agent actually is",
+      "id": "lesn_7Qd0ikOH2aNCi"
+    },
+    {
+      "chapter": "Module 1: Start Here",
+      "lesson": "Your starter toolkit and what it costs",
+      "id": "lesn_DDxEHRp4IseDo"
+    },
+    {
+      "chapter": "Module 2: Foundations",
+      "lesson": "Instructions: the job description is the product",
+      "id": "lesn_hGWPW5L8fGH0O"
+    },
+    {
+      "chapter": "Module 2: Foundations",
+      "lesson": "Tools: how agents take action",
+      "id": "lesn_dKDPMMqoT2a3M"
+    },
+    {
+      "chapter": "Module 2: Foundations",
+      "lesson": "Memory and context: what the agent knows",
+      "id": "lesn_EiDTJACo0a7TS"
+    },
+    {
+      "chapter": "Module 2: Foundations",
+      "lesson": "Guardrails: permissions, budgets, and humans in the loop",
+      "id": "lesn_wynWKWnNwjCWP"
+    },
+    {
+      "chapter": "Module 3: Build Your First Agent",
+      "lesson": "Pick the right first job",
+      "id": "lesn_SmgVQETkJBqNl"
+    },
+    {
+      "chapter": "Module 3: Build Your First Agent",
+      "lesson": "Write the agent's job description",
+      "id": "lesn_FTfQsdg4fkJWS"
+    },
+    {
+      "chapter": "Module 3: Build Your First Agent",
+      "lesson": "Wire it up (no-code and code paths)",
+      "id": "lesn_hU10ZHl0HL25K"
+    },
+    {
+      "chapter": "Module 3: Build Your First Agent",
+      "lesson": "Test it like a new hire",
+      "id": "lesn_mORIU9JXRWc5L"
+    },
+    {
+      "chapter": "Module 3: Build Your First Agent",
+      "lesson": "Ship it and keep it honest",
+      "id": "lesn_8v4C3iZSR5OrC"
+    },
+    {
+      "chapter": "Module 4: Level Up",
+      "lesson": "The next five agents worth building",
+      "id": "lesn_PJ3CeJTTN92iP"
+    },
+    {
+      "chapter": "Module 4: Level Up",
+      "lesson": "Mistakes that kill agent projects",
+      "id": "lesn_kiRze2uFMR4zf"
+    },
+    {
+      "chapter": "Module 4: Level Up",
+      "lesson": "Measuring ROI so it survives budget season",
+      "id": "lesn_Bb1YJdxVTus2E"
+    },
+    {
+      "chapter": "Module 5: Your Next 30 Days",
+      "lesson": "The 30-day plan",
+      "id": "lesn_kqrbozFfKqKXG"
+    },
+    {
+      "chapter": "Module 5: Your Next 30 Days",
+      "lesson": "Want it built for you? Work with Guad Squad",
+      "id": "lesn_cQaH67tICt4US"
+    }
+  ]
+}
