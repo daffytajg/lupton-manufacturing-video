@@ -8,66 +8,73 @@
       "1920x1080",
       "1080x1350"
     ],
-    "style": "Apple keynote energy built from Joe's own product photography — macro process stills with pushes along the action, then the finished assembly fracturing into four slabs under 'four shops' and slamming back into one on 'Under one roof.'",
-    "note": "Visuals are Joe's five 4:5 stills (1122x1402), not AI video. The 4:5 cut is a native fit. In the 16:9 cut the macro process shots run full-bleed (they crop well), while the product shots sit at full frame height over a blurred, darkened copy of themselves with the flanks graded to black — cropping those to 16:9 would cut the bracket base and the top of the cover, which is the part the film is selling.",
+    "style": "Cut to the Apple product-film grammar: black is a material, type sits alone on it with enormous margins, headlines build rather than slam, product beats and black type cards alternate, and one colour (the sage) carries the whole film.",
+    "note": "Third pass. The first two were social-video grammar — bottom-pinned captions over wall-to-wall imagery, and a blurred fill behind the 16:9 product shots. Both are the opposite of the reference: 'that emptiness creates the expensive look.' Now the film opens on a black card whose headline types itself, macro process shots run full-bleed with one word each in the lower third, and the object sits alone on pure black — in 16:9 at 82% frame height so the type below it has clear black to live in.",
     "source": "Joe Guadagnino product photography, supplied 2026-09-11"
   },
-  "grid": "120 BPM. Every cut lands on the beat grid the score is built from: 0, 4, 7, 10, 13, 19.5, 23, 27.5 s.",
+  "grid": "120 BPM under everything. Shot changes land on Joe's spoken words (2.9, 4.4, 7.4, 10.4 s); the structural beats — fracture, slam, hero, end card — sit on the music grid at 13, 19.85, 23, 27.5 s.",
   "shots": [
     {
       "t": 0.0,
-      "end": 4.0,
+      "end": 2.9,
+      "scene": "opening",
+      "visual": "black card; 'Every part you buy / starts as a print.' types itself on with a sage caret",
+      "vo": "Every part you buy starts as a print."
+    },
+    {
+      "t": 2.9,
+      "end": 4.4,
       "scene": "laser",
-      "visual": "Joe's laser macro — push in toward the nozzle, drifting with the spark fan (full-bleed)",
-      "vo": "Every part you buy starts as a print. / Cut."
+      "visual": "Joe's laser macro, full-bleed, push toward the nozzle. One word, lower third.",
+      "vo": "Cut,"
     },
     {
       "t": 4.0,
       "end": 7.0,
       "scene": "brake",
-      "visual": "Joe's press-brake macro — settle down into the V-die as the sage sheet folds (full-bleed)",
+      "visual": "Joe's press-brake macro, full-bleed, settling into the V-die. One word, lower third.",
       "vo": "Formed."
     },
     {
       "t": 7.0,
       "end": 10.0,
       "scene": "weld",
-      "visual": "Joe's MIG arc on the bracket — push into the arc and the stacked bead (full-bleed)",
+      "visual": "Joe's MIG arc, full-bleed, push into the arc and the stacked bead. One word, lower third.",
       "vo": "Welded."
     },
     {
       "t": 10.0,
       "end": 13.0,
       "scene": "finished",
-      "visual": "the finished assembly, whole, settling out of a push (fitted to frame height)",
+      "visual": "the object alone on pure black, 82% frame height in 16:9, native in 4:5; 'Finished.' in sage below it",
       "vo": "Finished."
     },
     {
       "t": 13.0,
       "end": 19.5,
       "scene": "apart",
-      "visual": "the same assembly fractured into four vertical slabs that drift apart, rotate slightly, and drain of colour",
+      "visual": "the same object fractured into four slabs drifting apart on black, draining of colour",
       "vo": "Most buyers run that across four different shops. Four purchase orders, four people to call when the holes don't line up."
     },
     {
       "t": 19.5,
       "end": 23.0,
       "scene": "slam",
-      "visual": "the four slabs snap shut in 10 frames, white impact flash, full colour returns",
+      "visual": "the slabs snap shut in 10 frames on the score's hit; white flash; 'Under one roof.' in the black beneath",
       "vo": "We do it under one roof."
     },
     {
       "t": 23.0,
       "end": 27.5,
       "scene": "hero",
-      "visual": "second angle of the finished assembly, slow push (fitted to frame height)",
+      "visual": "second angle, alone on black, slow push; the three 'one' lines build below it",
       "vo": "One print, one project manager, one team that owns the fit."
     },
     {
       "t": 27.5,
       "end": 33.0,
       "scene": "end",
-      "visual": "black; Send us the print. -> badge + Let's build it together. (sage) + Luptons.com",
+      "visual": "black card: Send us the print. -> badge + Let's build it together. (sage) + Luptons.com",
       "vo": "Send us the print. Let's build it together. Luptons dot com."
     }
   ],
@@ -239,5 +246,12 @@
     "bed": "bu_music.wav — original numpy score, 120 BPM. Sub pulse every beat, 16th hats opening up as the film builds, A-minor-pentatonic arpeggio entering at 4 s and lifting an octave at the hero, riser 17.5-19.5 s, big low hit + crack + shimmer on the slam at 19.5 s, resolve at 27.5 s, fade 31.2-33.0 s.",
     "license": "original — no third-party music, no credit required in the post"
   },
-  "sfx": "the stills carry no ambience, so only the hits: subbass on the open and on 'Finished.', snap on the brake cut, strike on the weld cut, shatter as the fracture begins, strike on the slam impact, resolve under the end card"
+  "sfx": "the stills carry no ambience, so only the hits: subbass on the open and on 'Finished.', snap on the brake cut, strike on the weld cut, shatter as the fracture begins, strike on the slam impact, resolve under the end card",
+  "typeSystem": {
+    "scale": "measured against frame height, so type occupies the same share of screen in both cuts",
+    "statement": "54px at 1080-height (the stacks, the opening card)",
+    "emphasis": "96-104px (the single process words, 'Under one roof.')",
+    "reveal": "fade + 16px rise + 1.035 scale over 11 frames, ease-out — it arrives, it does not attack",
+    "position": "dead centre on black cards; lower third when it shares the frame with the object"
+  }
 }
