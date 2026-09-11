@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "title": "BUILT",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 33.0,
+    "formats": ["1920x1080", "1080x1350"],
+    "style": "Apple keynote energy — extreme macro process shots with sparks into the lens and fast camera moves, an exploded-view assembly that slams together, type that lands hard on the beat",
+    "note": "Corrects the mistake in One Print: every seedance prompt there said 'camera locked off', which killed the drama. Here every prompt demands a rushing, orbiting or whipping camera."
+  },
+  "grid": "120 BPM. Every cut lands on the beat grid the score is built from: 0, 4, 7, 10, 13, 19.5, 23, 27.5 s.",
+  "shots": [
+    { "t": 0.0, "end": 4.0, "scene": "laser", "visual": "extreme macro fiber laser, camera RUSHES the cut line, sparks explode toward the lens (seedance 2.5 t2v)", "vo": "Every part you buy starts as a print. / Cut." },
+    { "t": 4.0, "end": 7.0, "scene": "brake", "visual": "press brake punch descends, camera tracks low and whips up as the metal folds", "vo": "Formed." },
+    { "t": 7.0, "end": 10.0, "scene": "weld", "visual": "TIG arc ignites, camera orbits fast, sparks fill frame", "vo": "Welded." },
+    { "t": 10.0, "end": 13.0, "scene": "coat", "visual": "sage powder coat bursts across the part, camera whips around; graded toward brand sage", "vo": "Finished." },
+    { "t": 13.0, "end": 19.5, "scene": "apart", "visual": "exploded view — four components drift apart, camera orbits (start_image = nano_banana_pro exploded keyframe)", "vo": "Most buyers run that across four shops. Four purchase orders. Four people to call when the holes don't line up." },
+    { "t": 19.5, "end": 23.0, "scene": "slam", "visual": "the four components RUSH together and lock into one assembly, white impact flash, camera pushes in", "vo": "We do it under one roof." },
+    { "t": 23.0, "end": 27.5, "scene": "hero", "visual": "finished assembly hovering, camera orbits, specular streak sweeps the surfaces", "vo": "One print. One project manager. One shop that owns the fit." },
+    { "t": 27.5, "end": 33.0, "scene": "end", "visual": "black; Send us the print. -> badge + Let's build it together. (sage) + Luptons.com", "vo": "Send us the print. Let's build it together. Luptons dot com." }
+  ],
+  "onScreenType": [
+    { "from": 2.9, "to": 4.13, "text": "Cut.", "style": "slam: 2.2x scale + 26px blur, snaps to size in 9 frames" },
+    { "from": 4.4, "to": 7.13, "text": "Formed." },
+    { "from": 7.4, "to": 10.13, "text": "Welded." },
+    { "from": 10.4, "to": 13.13, "text": "Finished.", "style": "sage" },
+    { "from": 13.4, "to": 19.4, "text": "Four shops." },
+    { "from": 15.8, "to": 19.4, "text": "Four purchase orders." },
+    { "from": 17.27, "to": 19.4, "text": "Four people to call." },
+    { "from": 19.93, "to": 23.13, "text": "Under one roof.", "style": "largest type in the film, lands on the impact flash" },
+    { "from": 23.4, "to": 27.43, "text": "One print." },
+    { "from": 24.7, "to": 27.43, "text": "One project manager." },
+    { "from": 26.3, "to": 27.43, "text": "One shop that owns the fit.", "style": "sage" },
+    { "from": 27.77, "to": 29.23, "text": "Send us the print." },
+    { "from": 29.57, "to": 33.0, "text": "Let's build it together." },
+    { "from": 31.1, "to": 33.0, "text": "Luptons.com" }
+  ],
+  "voiceover": {
+    "status": "PLACEHOLDER — v9 narrator clone. Joe is recording his own; see BUILT-vo-script.md.",
+    "source": "two continuous seed_audio takes, split only at the narrator's own pauses (silencedetect), RMS-matched to -20 dB, 12 ms fades",
+    "verified": "audio-only transcription over a black screen confirmed all 8 phrase groups present and in order before slicing",
+    "cues": [
+      { "t": 0.4, "file": "BU1.wav", "text": "Every part you buy starts as a print." },
+      { "t": 2.9, "file": "BU2.wav", "text": "Cut." },
+      { "t": 4.4, "file": "BU3.wav", "text": "Formed." },
+      { "t": 7.4, "file": "BU4.wav", "text": "Welded." },
+      { "t": 10.4, "file": "BU5.wav", "text": "Finished." },
+      { "t": 13.3, "file": "BU6.wav", "text": "Most buyers run that across four shops." },
+      { "t": 15.7, "file": "BU7.wav", "text": "Four purchase orders." },
+      { "t": 17.2, "file": "BU8.wav", "text": "Four people to call when the holes don't line up." },
+      { "t": 19.8, "file": "BU9.wav", "text": "We do it under one roof." },
+      { "t": 23.3, "file": "BU10.wav", "text": "One print." },
+      { "t": 24.6, "file": "BU11.wav", "text": "One project manager." },
+      { "t": 26.2, "file": "BU12.wav", "text": "One shop that owns the fit." },
+      { "t": 27.9, "file": "BU13.wav", "text": "Send us the print." },
+      { "t": 29.5, "file": "BU14.wav", "text": "Let's build it together." },
+      { "t": 31.2, "file": "BU15.wav", "text": "Luptons dot com." }
+    ]
+  },
+  "music": {
+    "bed": "bu_music.wav — original numpy score, 120 BPM. Sub pulse every beat, 16th hats opening up as the film builds, A-minor-pentatonic arpeggio entering at 4 s and lifting an octave at the hero, riser 17.5-19.5 s, big low hit + crack + shimmer on the slam at 19.5 s, resolve at 27.5 s, fade 31.2-33.0 s.",
+    "license": "original — no third-party music, no credit required in the post"
+  },
+  "sfx": "native seedance ambience carried under laser (0.26), brake (0.20), weld (0.24), coat (0.18) and slam (0.22); everything else is score only"
+}
