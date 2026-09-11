@@ -235,9 +235,9 @@ export const Built: React.FC = () => {
           to={T.slam - T.apart - 2}
           size={wide ? 56 : 52}
           lines={[
-            {text: 'Four shops.', at: 12},
-            {text: 'Four purchase orders.', at: 84},
-            {text: 'Four people to call.', at: 128},
+            {text: 'Four shops.', at: 4},
+            {text: 'Four purchase orders.', at: 43},
+            {text: 'Four people to call.', at: 95},
           ]}
         />
       </Sequence>
@@ -247,9 +247,9 @@ export const Built: React.FC = () => {
           to={T.end - T.hero - 2}
           size={wide ? 60 : 54}
           lines={[
-            {text: 'One print.', at: 12},
-            {text: 'One project manager.', at: 51},
-            {text: 'One shop that owns the fit.', at: 99, accent: true},
+            {text: 'One print.', at: 11},
+            {text: 'One project manager.', at: 50},
+            {text: 'One team that owns the fit.', at: 98, accent: true},
           ]}
         />
       </Sequence>
@@ -258,21 +258,22 @@ export const Built: React.FC = () => {
       {/* ---- score: 120 BPM, cuts on the grid, hit on the slam ---- */}
       <Audio src={staticFile('audio/bu_music.wav')} volume={0.5} />
 
-      {/* ---- narration: two continuous cloned takes, split at the narrator's own pauses.
-              Swap BU1-15 for Joe's recording and re-render. ---- */}
+      {/* ---- narration: Joe's own recording, one continuous take, sliced at his own
+              pauses. The problem section (BU6-8) runs 6% faster so his more deliberate
+              read still hands off to the slam line on the beat. ---- */}
       {vo('BU1', 12)}
       {vo('BU2', 87)}
       {vo('BU3', 132)}
       {vo('BU4', 222)}
       {vo('BU5', 312)}
-      {vo('BU6', 399)}
-      {vo('BU7', 471)}
-      {vo('BU8', 516)}
+      {vo('BU6', 372)}
+      {vo('BU7', 431)}
+      {vo('BU8', 483)}
       {vo('BU9', 598)}
       {vo('BU10', 699)}
       {vo('BU11', 738)}
       {vo('BU12', 786)}
-      {vo('BU13', 837)}
+      {vo('BU13', 843)}
       {vo('BU14', 885)}
       {vo('BU15', 936)}
     </AbsoluteFill>

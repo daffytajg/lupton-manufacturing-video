@@ -1,5 +1,10 @@
 # "BUILT" — voiceover script for Joe
 
+> **RECORDED 2026-09-11.** Joe's take is in the cut (`public/audio/BU1-15.wav`).
+> He read it as one continuous ~35 s pass rather than two takes, which worked fine.
+> Two wording changes he made on the day, both kept: "four **different** shops" and
+> "one **team** that owns the fit" (the on-screen line was changed to match his voice).
+
 ~32 seconds. Read it like you're making a point across a table, not reading a brochure.
 Confident, a little clipped. The four process words are hard and flat — almost punched.
 Slow down and open up on the last three lines.
