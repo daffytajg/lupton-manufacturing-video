@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "One Print",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 30.0,
+    "formats": ["1920x1080", "1080x1350"],
+    "style": "Apple product-film rules (from @leomeethewoo's breakdown): black void, one hero object, one loud color, brand type only, invisible cuts on the beat, sparse sound",
+    "concept": "a print becomes a part: blank -> laser cut -> press-brake fold -> TIG gusset -> sage powder coat -> the lineup -> the ask"
+  },
+  "shots": [
+    { "t": 0.0, "end": 2.0, "scene": "print", "visual": "black; the bracket's flat pattern draws itself as white line art (SVG in Remotion)", "vo": "One print." },
+    { "t": 2.0, "end": 5.0, "scene": "blank", "visual": "crossfade to the real flat steel blank drifting in the void, light glint (seedance 2.5 from nano_banana_pro keyframe)", "vo": "" },
+    { "t": 5.0, "end": 9.0, "scene": "cut", "visual": "fiber laser traces the outline, pierces holes and slot, scrap falls away (start=blank, end=cut keyframe)", "vo": "Cut." },
+    { "t": 9.0, "end": 13.0, "scene": "form", "visual": "press-brake punch descends, flange folds to 90 degrees (start=cut, end=bracket keyframe)", "vo": "Formed." },
+    { "t": 13.0, "end": 17.0, "scene": "weld", "visual": "gusset drops in, TIG torch enters, arc, withdraws, seam glows (start=bracket, end=weld keyframe)", "vo": "Welded." },
+    { "t": 17.0, "end": 21.0, "scene": "coat", "visual": "glow fades, sage powder coat sweeps across — the only color in the film (start=weld, end=coat keyframe)", "vo": "Finished." },
+    { "t": 21.0, "end": 24.0, "scene": "roof", "visual": "four parts slide in: coated bracket, machined housing, wire harness, molded enclosure; LUPTON ASSOCIATES lockup; eyebrow SHEET METAL · MACHINING · PLASTICS · HARNESSES", "vo": "Under one roof." },
+    { "t": 24.0, "end": 30.0, "scene": "end", "visual": "black; 'Send us the print.' then badge + 'Let's build it together.' (sage) + Luptons.com", "vo": "Send us the print. Let's build it together. Luptons dot com." }
+  ],
+  "onScreenType": [
+    { "from": 0.47, "to": 4.87, "text": "One print." },
+    { "from": 5.27, "to": 8.87, "text": "Cut." },
+    { "from": 9.27, "to": 12.87, "text": "Formed." },
+    { "from": 13.27, "to": 16.87, "text": "Welded." },
+    { "from": 17.47, "to": 20.87, "text": "Finished." },
+    { "from": 21.33, "to": 23.93, "text": "Under one roof." },
+    { "from": 24.33, "to": 26.2, "text": "Send us the print." },
+    { "from": 26.6, "to": 30.0, "text": "Let's build it together." },
+    { "from": 28.2, "to": 30.0, "text": "Luptons.com" }
+  ],
+  "voiceover": {
+    "source": "one continuous seed_audio take on the v9 narrator clone, split only at the narrator's own pauses (silencedetect), RMS-matched to -20 dB, 12 ms fades",
+    "verified": "audio-only transcription of the raw take confirmed every phrase before slicing; assembled master re-verified audio-only",
+    "cues": [
+      { "t": 0.6, "file": "OP1.wav", "text": "One print." },
+      { "t": 5.33, "file": "OP2.wav", "text": "Cut." },
+      { "t": 9.33, "file": "OP3.wav", "text": "Formed." },
+      { "t": 13.33, "file": "OP4.wav", "text": "Welded." },
+      { "t": 17.53, "file": "OP5.wav", "text": "Finished." },
+      { "t": 21.4, "file": "OP6.wav", "text": "Under one roof." },
+      { "t": 24.47, "file": "OP7.wav", "text": "Send us the print." },
+      { "t": 26.73, "file": "OP8.wav", "text": "Let's build it together." },
+      { "t": 28.33, "file": "OP9.wav", "text": "Luptons dot com." }
+    ]
+  },
+  "music": {
+    "bed": "op_music.wav — original numpy score, one sub pulse per second, chords every 4 s (Am F C G Am F -> C resolve), riser 15-17 s into the color beat, resolve hit at 24 s; no third-party music, no credit required",
+    "sfx": "subbass on the laser cut (5 s), snap on the fold (9.8 s), resolve on the end card (24 s); native seedance ambience mixed at 0.18-0.22 under cut, fold, weld"
+  }
+}

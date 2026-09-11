@@ -1,0 +1,257 @@
+{
+  "meta": {
+    "title": "BUILT",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 33.0,
+    "formats": [
+      "1920x1080",
+      "1080x1350"
+    ],
+    "style": "Cut to the Apple product-film grammar: black is a material, type sits alone on it with enormous margins, headlines build rather than slam, product beats and black type cards alternate, and one colour (the sage) carries the whole film.",
+    "note": "Third pass. The first two were social-video grammar — bottom-pinned captions over wall-to-wall imagery, and a blurred fill behind the 16:9 product shots. Both are the opposite of the reference: 'that emptiness creates the expensive look.' Now the film opens on a black card whose headline types itself, macro process shots run full-bleed with one word each in the lower third, and the object sits alone on pure black — in 16:9 at 82% frame height so the type below it has clear black to live in.",
+    "source": "Joe Guadagnino product photography, supplied 2026-09-11"
+  },
+  "grid": "120 BPM under everything. Shot changes land on Joe's spoken words (2.9, 4.4, 7.4, 10.4 s); the structural beats — fracture, slam, hero, end card — sit on the music grid at 13, 19.85, 23, 27.5 s.",
+  "shots": [
+    {
+      "t": 0.0,
+      "end": 2.9,
+      "scene": "opening",
+      "visual": "black card; 'Every part you buy / starts as a print.' types itself on with a sage caret",
+      "vo": "Every part you buy starts as a print."
+    },
+    {
+      "t": 2.9,
+      "end": 4.4,
+      "scene": "laser",
+      "visual": "Joe's laser macro, full-bleed, push toward the nozzle. One word, lower third.",
+      "vo": "Cut,"
+    },
+    {
+      "t": 4.0,
+      "end": 7.0,
+      "scene": "brake",
+      "visual": "Joe's press-brake macro, full-bleed, settling into the V-die. One word, lower third.",
+      "vo": "Formed."
+    },
+    {
+      "t": 7.0,
+      "end": 10.0,
+      "scene": "weld",
+      "visual": "Joe's MIG arc, full-bleed, push into the arc and the stacked bead. One word, lower third.",
+      "vo": "Welded."
+    },
+    {
+      "t": 10.0,
+      "end": 13.0,
+      "scene": "finished",
+      "visual": "the object alone on pure black, 82% frame height in 16:9, native in 4:5; 'Finished.' in sage below it",
+      "vo": "Finished."
+    },
+    {
+      "t": 13.0,
+      "end": 19.5,
+      "scene": "apart",
+      "visual": "the same object fractured into four slabs drifting apart on black, draining of colour",
+      "vo": "Most buyers run that across four different shops. Four purchase orders, four people to call when the holes don't line up."
+    },
+    {
+      "t": 19.5,
+      "end": 23.0,
+      "scene": "slam",
+      "visual": "the slabs snap shut in 10 frames on the score's hit; white flash; 'Under one roof.' in the black beneath",
+      "vo": "We do it under one roof."
+    },
+    {
+      "t": 23.0,
+      "end": 27.5,
+      "scene": "hero",
+      "visual": "second angle, alone on black, slow push; the three 'one' lines build below it",
+      "vo": "One print, one project manager, one team that owns the fit."
+    },
+    {
+      "t": 27.5,
+      "end": 33.0,
+      "scene": "end",
+      "visual": "black card: Send us the print. -> badge + Let's build it together. (sage) + Luptons.com",
+      "vo": "Send us the print. Let's build it together. Luptons dot com."
+    }
+  ],
+  "onScreenType": [
+    {
+      "from": 2.9,
+      "to": 4.13,
+      "text": "Cut.",
+      "style": "slam: 2.2x scale + 26px blur, snaps to size in 9 frames"
+    },
+    {
+      "from": 4.4,
+      "to": 7.13,
+      "text": "Formed."
+    },
+    {
+      "from": 7.4,
+      "to": 10.13,
+      "text": "Welded."
+    },
+    {
+      "from": 10.4,
+      "to": 13.13,
+      "text": "Finished.",
+      "style": "sage"
+    },
+    {
+      "from": 13.4,
+      "to": 19.4,
+      "text": "Four shops."
+    },
+    {
+      "from": 15.8,
+      "to": 19.4,
+      "text": "Four purchase orders."
+    },
+    {
+      "from": 17.27,
+      "to": 19.4,
+      "text": "Four people to call."
+    },
+    {
+      "from": 19.93,
+      "to": 23.13,
+      "text": "Under one roof.",
+      "style": "largest type in the film, lands on the impact flash"
+    },
+    {
+      "from": 23.4,
+      "to": 27.43,
+      "text": "One print."
+    },
+    {
+      "from": 24.7,
+      "to": 27.43,
+      "text": "One project manager."
+    },
+    {
+      "from": 26.3,
+      "to": 27.43,
+      "text": "One team that owns the fit.",
+      "style": "sage — wording follows Joe’s recorded line"
+    },
+    {
+      "from": 27.77,
+      "to": 29.23,
+      "text": "Send us the print."
+    },
+    {
+      "from": 29.57,
+      "to": 33.0,
+      "text": "Let's build it together."
+    },
+    {
+      "from": 31.1,
+      "to": 33.0,
+      "text": "Luptons.com"
+    }
+  ],
+  "voiceover": {
+    "status": "FINAL — Joe Guadagnino's own recording (Webster_Golf_Club_7.m4a, 34.8 s, one continuous take).",
+    "processing": "highpass 85 Hz to drop room rumble, afftdn nr=10 for broadband hiss, alimiter; sliced only at Joe's own pauses (silencedetect -45 dB / 0.22 s), each phrase RMS-matched to -20 dB with 12 ms fades.",
+    "tempo": "BU6, BU7 and BU8 run atempo=1.06 — Joe's read of the problem section is more deliberate than the placeholder, and the 6% lift lets it hand off to the slam line on the beat. Everything else is at his natural pace.",
+    "wordingChanges": [
+      "Joe said 'four DIFFERENT shops' (script said 'four shops') — on-screen label stays the condensed 'Four shops.'",
+      "Joe said 'one TEAM that owns the fit' (script said 'one shop') — the on-screen line was changed to 'One team that owns the fit.' so the caption matches the voice."
+    ],
+    "verified": "audio-only transcription over black confirmed all phrases and their wording before slicing; assembled master re-verified the same way.",
+    "note": "BU8 joins two of Joe's breaths ('four people to call' / 'when the holes don't line up') with the gap tightened from 0.70 s to 0.18 s.",
+    "cues": [
+      {
+        "t": 0.4,
+        "file": "BU1.wav",
+        "text": "Every part you buy starts as a print."
+      },
+      {
+        "t": 2.9,
+        "file": "BU2.wav",
+        "text": "Cut,"
+      },
+      {
+        "t": 4.4,
+        "file": "BU3.wav",
+        "text": "formed,"
+      },
+      {
+        "t": 7.4,
+        "file": "BU4.wav",
+        "text": "welded,"
+      },
+      {
+        "t": 10.4,
+        "file": "BU5.wav",
+        "text": "finished."
+      },
+      {
+        "t": 12.4,
+        "file": "BU6.wav",
+        "text": "Most buyers run that across four different shops."
+      },
+      {
+        "t": 14.37,
+        "file": "BU7.wav",
+        "text": "Four purchase orders,"
+      },
+      {
+        "t": 16.1,
+        "file": "BU8.wav",
+        "text": "four people to call when the holes don't line up."
+      },
+      {
+        "t": 19.93,
+        "file": "BU9.wav",
+        "text": "We do it under one roof."
+      },
+      {
+        "t": 23.3,
+        "file": "BU10.wav",
+        "text": "One print,"
+      },
+      {
+        "t": 24.6,
+        "file": "BU11.wav",
+        "text": "one project manager,"
+      },
+      {
+        "t": 26.2,
+        "file": "BU12.wav",
+        "text": "one team that owns the fit."
+      },
+      {
+        "t": 28.1,
+        "file": "BU13.wav",
+        "text": "Send us the print."
+      },
+      {
+        "t": 29.5,
+        "file": "BU14.wav",
+        "text": "Let's build it together."
+      },
+      {
+        "t": 31.2,
+        "file": "BU15.wav",
+        "text": "Luptons dot com."
+      }
+    ]
+  },
+  "music": {
+    "bed": "bu_music.wav — original numpy score, 120 BPM. Sub pulse every beat, 16th hats opening up as the film builds, A-minor-pentatonic arpeggio entering at 4 s and lifting an octave at the hero, riser 17.5-19.5 s, big low hit + crack + shimmer on the slam at 19.5 s, resolve at 27.5 s, fade 31.2-33.0 s.",
+    "license": "original — no third-party music, no credit required in the post"
+  },
+  "sfx": "the stills carry no ambience, so only the hits: subbass on the open and on 'Finished.', snap on the brake cut, strike on the weld cut, shatter as the fracture begins, strike on the slam impact, resolve under the end card",
+  "typeSystem": {
+    "scale": "measured against frame height, so type occupies the same share of screen in both cuts",
+    "statement": "54px at 1080-height (the stacks, the opening card)",
+    "emphasis": "96-104px (the single process words, 'Under one roof.')",
+    "reveal": "fade + 16px rise + 1.035 scale over 11 frames, ease-out — it arrives, it does not attack",
+    "position": "dead centre on black cards; lower third when it shares the frame with the object"
+  }
+}

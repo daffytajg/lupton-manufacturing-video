@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "title": "The Part You've Never Seen",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 40.0,
+    "formats": ["1920x1080", "1080x1350"]
+  },
+  "captions": [
+    { "t": 0.3, "end": 4.0, "scene": "hook", "text": "Every product you touched today was made by someone you've never heard of.", "style": "typed, white, center; completes by 2.9s, cursor blinks until cut" },
+    { "t": 4.55, "end": 5.2, "scene": "beat1", "text": "STAMPED.", "style": "stamp over continuous shop one-take; bracket in corner card" },
+    { "t": 5.75, "end": 6.4, "scene": "beat1", "text": "HARNESSED.", "style": "stamp over shop one-take; wire harness in corner card" },
+    { "t": 6.95, "end": 7.6, "scene": "beat1", "text": "MACHINED.", "style": "stamp over shop one-take; machined block in corner card" },
+    { "t": 8.15, "end": 8.8, "scene": "beat1", "text": "POPULATED.", "style": "stamp over shop one-take; PCB in corner card" },
+    { "t": 9.35, "end": 10.0, "scene": "beat1", "text": "MOLDED.", "style": "stamp over shop one-take; molded housing in corner card" },
+    { "t": 10.2, "end": 15.6, "scene": "beat2", "text": "Datacenter. Medical. Heavy truck. Defense. Robotics.", "style": "bottom caption, word highlighted per product" },
+    { "t": 15.6, "end": 17.0, "scene": "beat2", "text": "Same parts. Same sourcing problem.", "style": "big center statement" },
+    { "t": 21.4, "end": 23.2, "scene": "beat3", "text": "Manufacturers all over the US. One team knows them all.", "style": "center under converged node" },
+    { "t": 24.0, "end": 26.0, "scene": "beat4", "text": "Since 1969.", "style": "kinetic slam" },
+    { "t": 26.0, "end": 28.0, "scene": "beat4", "text": "Sheet metal to electronics.", "style": "kinetic slam" },
+    { "t": 28.0, "end": 30.0, "scene": "beat4", "text": "Prototype to production.", "style": "kinetic slam" },
+    { "t": 30.0, "end": 32.0, "scene": "beat4", "text": "One call. Every capability.", "style": "kinetic slam" },
+    { "t": 34.0, "end": 39.5, "scene": "close", "text": "LUPTON ASSOCIATES", "style": "wordmark under badge" },
+    { "t": 34.8, "end": 39.5, "scene": "close", "text": "The manufacturers behind the products you trust.", "style": "small caps tagline" },
+    { "t": 35.8, "end": 39.5, "scene": "close", "text": "MOLDING · CASTING · MACHINING · STAMPING · FABRICATION · ELECTRONICS · PROTOTYPING", "style": "capabilities line" },
+    { "t": 36.6, "end": 39.5, "scene": "close", "text": "LUPTONS.COM", "style": "final URL" }
+  ],
+  "sfx": [
+    { "t": 0.3, "sound": "type_ticks", "note": "soft mechanical key ticks under the typed line, ends 2.9s" },
+    { "t": 4.0, "sound": "subbass_hit", "note": "hard cut on last word; 45Hz drop + click" },
+    { "t": 4.55, "sound": "stamp", "note": "STAMPED caption lands" },
+    { "t": 5.75, "sound": "stamp", "note": "HARNESSED caption lands" },
+    { "t": 6.95, "sound": "stamp", "note": "MACHINED caption lands" },
+    { "t": 8.15, "sound": "stamp", "note": "POPULATED caption lands" },
+    { "t": 9.35, "sound": "stamp", "note": "MOLDED caption lands" },
+    { "t": 10.0, "sound": "snap_whoosh", "note": "parts snap into assembly" },
+    { "t": 11.4, "sound": "tick", "note": "product cycle: medical" },
+    { "t": 12.8, "sound": "tick", "note": "product cycle: heavy truck" },
+    { "t": 14.2, "sound": "tick", "note": "product cycle: defense" },
+    { "t": 15.6, "sound": "subbass_hit", "note": "Same parts. Same sourcing problem." },
+    { "t": 17.0, "sound": "shatter", "note": "freeze-and-shatter into US scatter map" },
+    { "t": 18.2, "sound": "plink_series", "note": "33 principal points, one per ~0.09s until 21.2s" },
+    { "t": 21.2, "sound": "converge_riser", "note": "points converge to upstate NY node" },
+    { "t": 23.2, "sound": "silence", "note": "HARD SILENCE 0.8s — all audio ducked to zero" },
+    { "t": 24.0, "sound": "metal_strike", "note": "Since 1969. + camera shake" },
+    { "t": 26.0, "sound": "metal_strike", "note": "Sheet metal to electronics. + shake" },
+    { "t": 28.0, "sound": "metal_strike", "note": "Prototype to production. + shake" },
+    { "t": 30.0, "sound": "metal_strike", "note": "One call. Every capability. + shake" },
+    { "t": 32.0, "sound": "resolve_hit", "note": "logo particle assembly begins; bed resolves warm" },
+    { "t": 39.5, "sound": "tail", "note": "cut to black; audio tail out by 40.0" }
+  ],
+  "voiceover": [
+    { "t": 0.47, "text": "Every product you touched today was made by someone you've never heard of." },
+    { "t": 4.5, "text": "Every one of them starts in a shop like this." },
+    { "t": 10.33, "text": "The same parts show up in every industry. And it's the same sourcing problem." },
+    { "t": 17.53, "text": "Manufacturers all over the U.S. One team that knows them all." },
+    { "t": 24.17, "text": "Since nineteen sixty-nine." },
+    { "t": 26.17, "text": "Sheet metal to electronics." },
+    { "t": 28.87, "text": "Prototype to production." },
+    { "t": 30.17, "text": "One call. Every capability." },
+    { "t": 33.67, "text": "Lupton Associates. The manufacturers behind the products you trust." }
+  ],
+  "music": {
+    "bed": "Prelude and Action — Kevin MacLeod (incompetech.com), envelope shaped to the timeline; hard silence 23.2-24.0s",
+    "license": "CC BY 4.0 — published posts must credit: Music: Kevin MacLeod (incompetech.com), CC BY 4.0"
+  }
+}
