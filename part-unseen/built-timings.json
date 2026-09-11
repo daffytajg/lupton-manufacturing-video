@@ -8,8 +8,9 @@
       "1920x1080",
       "1080x1350"
     ],
-    "style": "Apple keynote energy — extreme macro process shots with sparks into the lens and fast camera moves, an exploded-view assembly that slams together, type that lands hard on the beat",
-    "note": "Corrects the mistake in One Print: every seedance prompt there said 'camera locked off', which killed the drama. Here every prompt demands a rushing, orbiting or whipping camera."
+    "style": "Apple keynote energy built from Joe's own product photography — macro process stills with pushes along the action, then the finished assembly fracturing into four slabs under 'four shops' and slamming back into one on 'Under one roof.'",
+    "note": "Visuals are Joe's five 4:5 stills (1122x1402), not AI video. The 4:5 cut is a native fit. In the 16:9 cut the macro process shots run full-bleed (they crop well), while the product shots sit at full frame height over a blurred, darkened copy of themselves with the flanks graded to black — cropping those to 16:9 would cut the bracket base and the top of the cover, which is the part the film is selling.",
+    "source": "Joe Guadagnino product photography, supplied 2026-09-11"
   },
   "grid": "120 BPM. Every cut lands on the beat grid the score is built from: 0, 4, 7, 10, 13, 19.5, 23, 27.5 s.",
   "shots": [
@@ -17,49 +18,49 @@
       "t": 0.0,
       "end": 4.0,
       "scene": "laser",
-      "visual": "extreme macro fiber laser, camera RUSHES the cut line, sparks explode toward the lens (seedance 2.5 t2v)",
+      "visual": "Joe's laser macro — push in toward the nozzle, drifting with the spark fan (full-bleed)",
       "vo": "Every part you buy starts as a print. / Cut."
     },
     {
       "t": 4.0,
       "end": 7.0,
       "scene": "brake",
-      "visual": "press brake punch descends, camera tracks low and whips up as the metal folds",
+      "visual": "Joe's press-brake macro — settle down into the V-die as the sage sheet folds (full-bleed)",
       "vo": "Formed."
     },
     {
       "t": 7.0,
       "end": 10.0,
       "scene": "weld",
-      "visual": "TIG arc ignites, camera orbits fast, sparks fill frame",
+      "visual": "Joe's MIG arc on the bracket — push into the arc and the stacked bead (full-bleed)",
       "vo": "Welded."
     },
     {
       "t": 10.0,
       "end": 13.0,
-      "scene": "coat",
-      "visual": "sage powder coat bursts across the part, camera whips around; graded toward brand sage",
+      "scene": "finished",
+      "visual": "the finished assembly, whole, settling out of a push (fitted to frame height)",
       "vo": "Finished."
     },
     {
       "t": 13.0,
       "end": 19.5,
       "scene": "apart",
-      "visual": "exploded view — four components drift apart, camera orbits (start_image = nano_banana_pro exploded keyframe)",
+      "visual": "the same assembly fractured into four vertical slabs that drift apart, rotate slightly, and drain of colour",
       "vo": "Most buyers run that across four different shops. Four purchase orders, four people to call when the holes don't line up."
     },
     {
       "t": 19.5,
       "end": 23.0,
       "scene": "slam",
-      "visual": "the four components RUSH together and lock into one assembly, white impact flash, camera pushes in",
+      "visual": "the four slabs snap shut in 10 frames, white impact flash, full colour returns",
       "vo": "We do it under one roof."
     },
     {
       "t": 23.0,
       "end": 27.5,
       "scene": "hero",
-      "visual": "finished assembly hovering, camera orbits, specular streak sweeps the surfaces",
+      "visual": "second angle of the finished assembly, slow push (fitted to frame height)",
       "vo": "One print, one project manager, one team that owns the fit."
     },
     {
@@ -238,5 +239,5 @@
     "bed": "bu_music.wav — original numpy score, 120 BPM. Sub pulse every beat, 16th hats opening up as the film builds, A-minor-pentatonic arpeggio entering at 4 s and lifting an octave at the hero, riser 17.5-19.5 s, big low hit + crack + shimmer on the slam at 19.5 s, resolve at 27.5 s, fade 31.2-33.0 s.",
     "license": "original — no third-party music, no credit required in the post"
   },
-  "sfx": "native seedance ambience carried under laser (0.26), brake (0.20), weld (0.24), coat (0.18) and slam (0.22); everything else is score only"
+  "sfx": "the stills carry no ambience, so only the hits: subbass on the open and on 'Finished.', snap on the brake cut, strike on the weld cut, shatter as the fracture begins, strike on the slam impact, resolve under the end card"
 }
