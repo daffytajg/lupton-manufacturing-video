@@ -1,0 +1,4 @@
+work/
+clips/
+*.log
+__pycache__/
