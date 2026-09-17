@@ -98,6 +98,23 @@ preferred look, matching the promo / AI-shift reference videos).
   4:5 slot — it throws away two thirds of the width.
 - Punch-in second angles: crop ~1024×576 around the action from the same clip's
   later half, scale up — reads as new coverage for free.
+- A 5s clip does not fill an 8s card. Check every shot's
+  `from + duration × rate` against the source length before rendering: past the
+  end, `OffthreadVideo` goes black silently and the render log says nothing. For
+  a slow product move, build a boomerang (`split` → `reverse` → `concat`) to
+  double the clip rather than dropping the rate below ~0.8, which judders.
+
+## The house style is the brief
+
+Four cuts of "BUILT" were rejected in a row (Sep 2026). Each one chased a
+different borrowed look — social captions, then Apple keynote, then Apple with
+real camera moves — and each was built on black. The thing they all had in
+common is what was wrong with them: **none of them looked like Lupton.** No
+green-charcoal ground, no grid, no capability cards, no paint-swipes, no badge
+end card. Starting from the v7 brand system above and dressing the content into
+it is the default; deviating from it needs a reason, and "it will look more
+cinematic" is not one. If a cut is rejected twice, stop adjusting the borrowed
+look and check whether it is on the house system at all.
 
 ## Copy rules (Alan-approved)
 

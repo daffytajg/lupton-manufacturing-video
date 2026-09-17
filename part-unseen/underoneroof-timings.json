@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Under One Roof",
+    "author": "Joe Guadagnino / Lupton Associates",
+    "fps": 30,
+    "durationSeconds": 40.0,
+    "formats": ["1920x1080", "1080x1350"],
+    "style": "Lupton's own house system — the v7 look the playbook calls preferred. Dark green-charcoal radial ground with a 96px grid at 2.5% and ~60 drifting particles, split capability cards with an opaque left panel bleeding into footage, full-bleed beats captioned bottom-left, counters on a 640px rule with a 96px sage run, sage paint-swipes over every cut, badge end card with the Request a Quote button.",
+    "note": "This replaces BUILT, which was scrapped after four rejected cuts. Those all chased a black Apple-keynote look; this one goes back to the brand system the repo already documents and ships. Joe's recording is unchanged — the same fifteen phrases, re-spaced from 33 s to the house rhythm of ~40 s (v7 is 38.6 s).",
+    "source": "Joe Guadagnino product photography (2026-09-11), animated with Higgsfield seedance 2.5 image-to-video; his own voiceover (2026-09-11)."
+  },
+  "grid": "120 BPM under everything. The cold open, hook and four process beats sit on the beat grid; the turn lands on the score's hit at 22.8 s and the end card resolves at 34.4 s.",
+  "scenes": [
+    {"t": 0.0, "end": 1.0, "name": "cold open", "visual": "Three highest-energy frames in rapid cuts — laser, arc, bend. The playbook's finding: leading with sparks puts the attention peak on second 0."},
+    {"t": 1.0, "end": 4.4, "name": "hook", "visual": "Laser clip at 50% behind a left-weighted scrim; sage dash, then 'Every part you buy / starts as a print.'", "vo": "Every part you buy starts as a print."},
+    {"t": 4.4, "end": 6.2, "name": "01 / 04 cut", "visual": "Laser macro full-bleed, camera rushing in. Caption LASER CUTTING, headline 'Cut.', counter 01 / 04.", "vo": "Cut,"},
+    {"t": 6.2, "end": 8.6, "name": "02 / 04 formed", "visual": "Press brake, slow push with the plate hinging shut. Caption PRESS BRAKE FORMING, headline 'Formed.'", "vo": "formed,"},
+    {"t": 8.6, "end": 11.4, "name": "03 / 04 welded", "visual": "MIG arc, camera arcing around the torch. Caption TIG, MIG AND SPOT, headline 'Welded.'", "vo": "welded,"},
+    {"t": 11.4, "end": 14.4, "name": "04 / 04 finished", "visual": "The finished assembly turning under a raking key. Caption OFF THE LINE, headline 'Finished.'", "vo": "finished."},
+    {"t": 14.4, "end": 22.8, "name": "the problem", "visual": "Split card — panel left, second-angle assembly right. Eyebrow THE USUAL WAY, three lines building, body line lands on 'when the holes don't line up.'", "vo": "Most buyers run that across four different shops. Four purchase orders, four people to call when the holes don't line up."},
+    {"t": 22.8, "end": 25.6, "name": "the turn", "visual": "Full-bleed statement over the arc at 42%. Eyebrow IN THE SAME SHOP, 'We do it / under one roof.' Lands on the score's hit.", "vo": "We do it under one roof."},
+    {"t": 25.6, "end": 31.6, "name": "the payoff", "visual": "Split card — eyebrow WHAT THAT BUYS YOU, the three 'one' lines building, body 'Quoted directly by the shop that runs the work.'", "vo": "One print, one project manager, one team that owns the fit."},
+    {"t": 31.6, "end": 34.4, "name": "the ask", "visual": "Statement on the ground: 'Send us / the print.' with the chip row PART DETAILS · MATERIAL · ANNUAL VOLUME · TIMING", "vo": "Send us the print."},
+    {"t": 34.4, "end": 40.0, "name": "end card", "visual": "Badge, LUPTON ASSOCIATES, the feasibility-estimate ask, 'Let's build it together.' in sage, Request a Quote button, LUPTONS.COM", "vo": "Let's build it together. Luptons dot com."}
+  ],
+  "voiceover": {
+    "status": "FINAL — Joe Guadagnino's own recording (Webster_Golf_Club_7.m4a, 34.8 s, one continuous take). Raw and cleaned files kept at brand-kit/audio/joe_vo_*_2026-09-11.*",
+    "processing": "highpass 85 Hz, afftdn nr=10, alimiter; sliced only at Joe's own pauses (silencedetect -45 dB / 0.22 s), each phrase RMS-matched to -20 dB with 12 ms fades. BU6-BU8 run atempo=1.06.",
+    "wordingChanges": [
+      "Joe said 'four different shops'; the on-screen label stays the condensed 'Four shops.'",
+      "Joe said 'one team that owns the fit'; the caption matches his voice."
+    ],
+    "verified": "Audio-only transcription over black confirms all fifteen phrases in order in the mastered 16:9.",
+    "cues": [
+      {"t": 1.3, "file": "BU1.wav", "text": "Every part you buy starts as a print."},
+      {"t": 4.7, "file": "BU2.wav", "text": "Cut,"},
+      {"t": 6.5, "file": "BU3.wav", "text": "formed,"},
+      {"t": 8.9, "file": "BU4.wav", "text": "welded,"},
+      {"t": 11.7, "file": "BU5.wav", "text": "finished."},
+      {"t": 14.7, "file": "BU6.wav", "text": "Most buyers run that across four different shops."},
+      {"t": 16.8, "file": "BU7.wav", "text": "Four purchase orders,"},
+      {"t": 18.5, "file": "BU8.wav", "text": "four people to call when the holes don't line up."},
+      {"t": 23.0, "file": "BU9.wav", "text": "We do it under one roof."},
+      {"t": 26.0, "file": "BU10.wav", "text": "One print,"},
+      {"t": 27.1, "file": "BU11.wav", "text": "one project manager,"},
+      {"t": 28.7, "file": "BU12.wav", "text": "one team that owns the fit."},
+      {"t": 31.9, "file": "BU13.wav", "text": "Send us the print."},
+      {"t": 35.0, "file": "BU14.wav", "text": "Let's build it together."},
+      {"t": 37.1, "file": "BU15.wav", "text": "Luptons dot com."}
+    ]
+  },
+  "footage": {
+    "source": "Joe's five stills → Higgsfield seedance 2.5, mode omni_reference, start_image, 5 s each. His approved frame is frame one; the model supplies only the camera move.",
+    "files": "public/vid/uor_{laser,brake,weld,heroA,heroB}.mp4",
+    "boomerang": "uor_heroA_x.mp4 and uor_heroB_x.mp4 are forward-plus-reversed builds (10.08 s). The two capability cards run 8.4 s and 6.0 s, which is longer than a 5.04 s clip — without the extension the footage ran out and the card went black. Caught in the frame spot-check, not in the render log.",
+    "cutting": {
+      "laser": "from 0.40 s, 1.0x", "brake": "from 1.50 s, 0.90x", "weld beat": "from 0.40 s, 1.0x",
+      "weld under the turn": "from 2.10 s, 1.0x", "heroA beat": "from 0.20 s, 0.90x",
+      "problem card (heroB_x)": "from 0.10 s, 1.0x", "payoff card (heroA_x)": "from 0.10 s, 0.82x"
+    }
+  },
+  "transitions": "Sage paint-swipe over all ten major cuts: a BG0 slab leads by 2 frames, the sage slab follows, 13-frame sweep, skewed 9 degrees, 1.35x frame width so it covers. whoosh.wav at 0.34 under each.",
+  "music": {
+    "bed": "public/audio/uor_music.wav — original numpy score, 120 BPM, 40 s. Generator kept at brand-kit/music/score_uor_120bpm_40s.py. Sub pulse every beat, thinner through the problem section; 16th hats opening toward the turn; A-minor-pentatonic arp from 1 s, up an octave at the payoff; riser 21.3-22.8; big hit on the turn at 22.8; resolve at 34.4; fade from 38.2.",
+    "license": "original — no third-party music, no credit required in the post"
+  },
+  "master": "noise=alls=3:allf=t film grain, loudnorm to -14 LUFS (measured -14.5), peak -0.7 dBFS, faststart, Joe Guadagnino authorship metadata."
+}
