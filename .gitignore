@@ -1,0 +1,5 @@
+work/
+clips/
+*.log
+__pycache__/
+final_*_silent.mp4
