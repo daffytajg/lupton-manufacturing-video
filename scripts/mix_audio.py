@@ -122,9 +122,13 @@ for i, (t, mx) in enumerate(zip(VO_T, VO_MAX), 1):
 
 # --- sound effects: each clip is normalised to a designed block-RMS level (dBFS) before placement,
 #     because the generated files arrive at wildly different native levels
-def S(name, target_db):
+def S(name, target_db, peak_cap_db=-4.0):
     a = load(os.path.join(AUD, name + ".mp3"))
-    return a * db(target_db - rms_db(a))
+    a = a * db(target_db - rms_db(a))
+    pk = np.abs(a).max()
+    if pk > db(peak_cap_db):          # spiky clips (a tap, a press hit) get their transients capped
+        a *= db(peak_cap_db) / pk
+    return a
 
 place(mix_fx, S("sfx_paper", -30), 1.8, 0, 0.3, 0.8, 6.0)
 place(mix_fx, S("sfx_tap", -22), 7.15, 0, 0.0, 0.1, 1.0)
@@ -169,7 +173,7 @@ stats = subprocess.run(["ffmpeg", "-v", "info", "-i", "work/audio/mix_raw.wav", 
                        capture_output=True, text=True).stderr
 j = json.loads(stats[stats.rindex("{"):stats.rindex("}") + 1])
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", "work/audio/mix_raw.wav", "-af",
-                "loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=%s:measured_TP=%s:measured_LRA=%s:measured_thresh=%s:linear=true"
+                "loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=%s:measured_TP=%s:measured_LRA=%s:measured_thresh=%s:linear=true,alimiter=limit=0.8413:attack=2:release=60:level=false"
                 % (j["input_i"], j["input_tp"], j["input_lra"], j["input_thresh"]),
                 "-ar", str(SR), "-ac", "2", "-c:a", "aac", "-b:a", "192k", "work/audio/mix.m4a"], check=True)
 
