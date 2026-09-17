@@ -33,12 +33,28 @@ BEATS = [
         ("label", "STAMPING · FABRICATION\nMACHINING · MOLDING\nELECTRONICS", 7.9,
          "STAMPING · FABRICATION · MACHINING · MOLDING · ELECTRONICS")]),
     dict(start=15.7, end=23.5, entries=[
-        ("sentence", "Quoted directly by the shop that makes it.", 15.7, None),
+        ("sentence", "We quote it. We make it.", 15.7, None),
         ("strong", "No reseller layer.", 19.6, None)]),
     dict(start=23.5, end=31.3, entries=[
         ("sentence", "Brackets. Housings. Chassis. Bus bars. Harnesses.", 23.5, None),
         ("strong", "Made here and in low cost regions since 1969.", 27.4, None)]),
 ]
+BUG_W, BUG_M = round(W * 0.15), 40
+BUG_END = 31.4  # fully gone by the time the end card's centred logo is in
+_bug = logo_light(BUG_W)
+_shadow = Image.new("RGBA", _bug.size, (0, 0, 0, 0))
+_shadow.putalpha(_bug.split()[3].point(lambda v: int(v * 0.45)))
+BUG_LAYER = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+BUG_LAYER.alpha_composite(_shadow.filter(ImageFilter.GaussianBlur(6)), (W - BUG_M - BUG_W, BUG_M + 2))
+BUG_LAYER.alpha_composite(_bug, (W - BUG_M - BUG_W, BUG_M))
+
+
+def bug_alpha(t):
+    if t < BUG_END - 0.2:
+        return 1.0
+    return round(ease((BUG_END - t) / 0.2), 3)
+
+
 ENDCARD = (31.3, 40.0, "Send us your drawings.\nwww.luptons.com · 585-393-4999\nBook time with our team.")
 
 for beat in BEATS:
@@ -61,6 +77,10 @@ for beat in BEATS:
 
 
 def frame_state(t):
+    return (beat_state(t), bug_alpha(t))
+
+
+def beat_state(t):
     for bi, beat in enumerate(BEATS):
         if beat["start"] <= t < beat["end"]:
             fin = 1.0 if beat["start"] == 0 else ease((t - beat["start"]) / FADE)
@@ -76,6 +96,9 @@ def frame_state(t):
 
 def render(state):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    state, bug_a = state
+    if bug_a > 0:
+        im.alpha_composite(with_alpha(BUG_LAYER, bug_a))
     if state is None:
         return im
     bi, alphas = state
