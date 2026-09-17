@@ -8,11 +8,12 @@
       "1920x1080",
       "1080x1350"
     ],
-    "style": "Cut to the Apple product-film grammar: black is a material, type sits alone on it with enormous margins, headlines build rather than slam, product beats and black type cards alternate, and one colour (the sage) carries the whole film.",
-    "note": "Third pass. The first two were social-video grammar — bottom-pinned captions over wall-to-wall imagery, and a blurred fill behind the 16:9 product shots. Both are the opposite of the reference: 'that emptiness creates the expensive look.' Now the film opens on a black card whose headline types itself, macro process shots run full-bleed with one word each in the lower third, and the object sits alone on pure black — in 16:9 at 82% frame height so the type below it has clear black to live in.",
-    "source": "Joe Guadagnino product photography, supplied 2026-09-11"
+    "style": "Apple product-film grammar on live footage: black is a material, type sits alone on it with enormous margins, headlines build rather than slam, product beats and black type cards alternate, and one colour (the sage) carries the whole film. Every shot moves now \u2014 a real camera move on every frame.",
+    "note": "Fourth pass, and the one that answers 'cinematic'. Joe's five product stills each went into Higgsfield seedance 2.5 (mode omni_reference) as the start_image of an image-to-video generation, so the frame he approved is literally frame one of the clip and the model only supplies the camera move and the physics. Nothing is invented footage. The three macros were pre-cropped to 16:9 and upscaled to 1920x1080; the two hero shots stayed 4:5 native. Earlier passes failed for the opposite reasons: pass 1 and 2 were social-video grammar (bottom-pinned captions over wall-to-wall imagery, a blurred fill behind the 16:9 product shots), pass 3 fixed the grammar but left every frame a static photograph.",
+    "source": "Joe Guadagnino product photography, supplied 2026-09-11",
+    "footage": "Joe Guadagnino product photography (supplied 2026-09-11), animated with Higgsfield seedance 2.5 image-to-video, 5 s each at 32.5 credits. public/img/bu_*.png are the source stills; public/vid/bu_*.mp4 are the clips. bu_fracture.png is the exact frame the heroA orbit stops on, so the cut into the fracture is invisible."
   },
-  "grid": "120 BPM under everything. Shot changes land on Joe's spoken words (2.9, 4.4, 7.4, 10.4 s); the structural beats — fracture, slam, hero, end card — sit on the music grid at 13, 19.85, 23, 27.5 s.",
+  "grid": "120 BPM under everything. Shot changes land on Joe's spoken words (2.9, 4.4, 7.4, 10.4 s); the structural beats \u2014 fracture, slam, hero, end card \u2014 sit on the music grid at 13, 19.85, 23, 27.5 s.",
   "shots": [
     {
       "t": 0.0,
@@ -25,35 +26,35 @@
       "t": 2.9,
       "end": 4.4,
       "scene": "laser",
-      "visual": "Joe's laser macro, full-bleed, push toward the nozzle. One word, lower third.",
+      "visual": "Joe's laser macro. The camera rushes in low along the plate to the cutting head; sparks streak past the lens. One word, lower third.",
       "vo": "Cut,"
     },
     {
       "t": 4.0,
       "end": 7.0,
       "scene": "brake",
-      "visual": "Joe's press-brake macro, full-bleed, settling into the V-die. One word, lower third.",
+      "visual": "Joe's press-brake macro. Slow heavy push-in with a lateral drift; the plate hinges shut about the bend line, a specular highlight travelling the closing line. Slowed to 0.9x.",
       "vo": "Formed."
     },
     {
       "t": 7.0,
       "end": 10.0,
       "scene": "weld",
-      "visual": "Joe's MIG arc, full-bleed, push into the arc and the stacked bead. One word, lower third.",
+      "visual": "Joe's MIG arc. The camera arcs right to left around the torch, low over the table; the arc strobes and the torch advances along the bead.",
       "vo": "Welded."
     },
     {
       "t": 10.0,
       "end": 13.0,
       "scene": "finished",
-      "visual": "the object alone on pure black, 82% frame height in 16:9, native in 4:5; 'Finished.' in sage below it",
+      "visual": "The object alone on pure black, turning in a slow orbit under a raking key. 82% frame height in 16:9, native in 4:5. 'Finished.' in sage below it. Slowed to 0.9x.",
       "vo": "Finished."
     },
     {
       "t": 13.0,
       "end": 19.5,
       "scene": "apart",
-      "visual": "the same object fractured into four slabs drifting apart on black, draining of colour",
+      "visual": "The frame the orbit stops on, fractured into four slabs drifting apart on black, draining of colour",
       "vo": "Most buyers run that across four different shops. Four purchase orders, four people to call when the holes don't line up."
     },
     {
@@ -67,7 +68,7 @@
       "t": 23.0,
       "end": 27.5,
       "scene": "hero",
-      "visual": "second angle, alone on black, slow push; the three 'one' lines build below it",
+      "visual": "Second angle, alone on black, a slow push-in craning down as the part grows in frame; the three 'one' lines build below it. Slowed to 0.92x.",
       "vo": "One print, one project manager, one team that owns the fit."
     },
     {
@@ -136,7 +137,7 @@
       "from": 26.3,
       "to": 27.43,
       "text": "One team that owns the fit.",
-      "style": "sage — wording follows Joe’s recorded line"
+      "style": "sage \u2014 wording follows Joe\u2019s recorded line"
     },
     {
       "from": 27.77,
@@ -155,12 +156,12 @@
     }
   ],
   "voiceover": {
-    "status": "FINAL — Joe Guadagnino's own recording (Webster_Golf_Club_7.m4a, 34.8 s, one continuous take).",
+    "status": "FINAL \u2014 Joe Guadagnino's own recording (Webster_Golf_Club_7.m4a, 34.8 s, one continuous take).",
     "processing": "highpass 85 Hz to drop room rumble, afftdn nr=10 for broadband hiss, alimiter; sliced only at Joe's own pauses (silencedetect -45 dB / 0.22 s), each phrase RMS-matched to -20 dB with 12 ms fades.",
-    "tempo": "BU6, BU7 and BU8 run atempo=1.06 — Joe's read of the problem section is more deliberate than the placeholder, and the 6% lift lets it hand off to the slam line on the beat. Everything else is at his natural pace.",
+    "tempo": "BU6, BU7 and BU8 run atempo=1.06 \u2014 Joe's read of the problem section is more deliberate than the placeholder, and the 6% lift lets it hand off to the slam line on the beat. Everything else is at his natural pace.",
     "wordingChanges": [
-      "Joe said 'four DIFFERENT shops' (script said 'four shops') — on-screen label stays the condensed 'Four shops.'",
-      "Joe said 'one TEAM that owns the fit' (script said 'one shop') — the on-screen line was changed to 'One team that owns the fit.' so the caption matches the voice."
+      "Joe said 'four DIFFERENT shops' (script said 'four shops') \u2014 on-screen label stays the condensed 'Four shops.'",
+      "Joe said 'one TEAM that owns the fit' (script said 'one shop') \u2014 the on-screen line was changed to 'One team that owns the fit.' so the caption matches the voice."
     ],
     "verified": "audio-only transcription over black confirmed all phrases and their wording before slicing; assembled master re-verified the same way.",
     "note": "BU8 joins two of Joe's breaths ('four people to call' / 'when the holes don't line up') with the gap tightened from 0.70 s to 0.18 s.",
@@ -243,15 +244,28 @@
     ]
   },
   "music": {
-    "bed": "bu_music.wav — original numpy score, 120 BPM. Sub pulse every beat, 16th hats opening up as the film builds, A-minor-pentatonic arpeggio entering at 4 s and lifting an octave at the hero, riser 17.5-19.5 s, big low hit + crack + shimmer on the slam at 19.5 s, resolve at 27.5 s, fade 31.2-33.0 s.",
-    "license": "original — no third-party music, no credit required in the post"
+    "bed": "bu_music.wav \u2014 original numpy score, 120 BPM. Sub pulse every beat, 16th hats opening up as the film builds, A-minor-pentatonic arpeggio entering at 4 s and lifting an octave at the hero, riser 17.5-19.5 s, big low hit + crack + shimmer on the slam at 19.5 s, resolve at 27.5 s, fade 31.2-33.0 s.",
+    "license": "original \u2014 no third-party music, no credit required in the post"
   },
   "sfx": "the stills carry no ambience, so only the hits: subbass on the open and on 'Finished.', snap on the brake cut, strike on the weld cut, shatter as the fracture begins, strike on the slam impact, resolve under the end card",
   "typeSystem": {
     "scale": "measured against frame height, so type occupies the same share of screen in both cuts",
     "statement": "54px at 1080-height (the stacks, the opening card)",
     "emphasis": "96-104px (the single process words, 'Under one roof.')",
-    "reveal": "fade + 16px rise + 1.035 scale over 11 frames, ease-out — it arrives, it does not attack",
+    "reveal": "fade + 16px rise + 1.035 scale over 11 frames, ease-out \u2014 it arrives, it does not attack",
     "position": "dead centre on black cards; lower third when it shares the frame with the object"
+  },
+  "cutting": {
+    "laser": "from 0.30 s, 1.0x",
+    "brake": "from 1.50 s, 0.90x",
+    "weld": "from 0.40 s, 1.0x",
+    "heroA": "from 0.20 s, 0.90x",
+    "heroB": "from 0.15 s, 0.92x",
+    "note": "Clips are 24 fps sources in a 30 fps composition; Remotion maps by time, so the rate is the only speed control."
+  },
+  "framing": {
+    "16:9": "macros full-bleed with a bottom scrim; hero clips as plates at 82% frame height on pure black, wide flanks and all.",
+    "4:5": "macros stay 16:9, held as a scope band 1.45x frame width high on black so the single word lives in real black underneath; hero clips are native 4:5 and fill.",
+    "why": "Cropping a 16:9 macro into 4:5 would have thrown away two thirds of the width. A letterboxed band on black is the honest move and reads as deliberate."
   }
 }

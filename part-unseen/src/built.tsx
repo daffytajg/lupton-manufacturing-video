@@ -1,9 +1,13 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig, Easing} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame, useVideoConfig, Easing} from 'remotion';
 import {WHITE, SAGE} from './theme';
 import {FONT, loadInter} from './font';
 
-// "BUILT" — cut to the Apple product-film grammar, from Joe's five product stills.
+// "BUILT" — cut to the Apple product-film grammar, on Joe's five product stills brought to life.
+//
+// Every shot is his own photography: each still went into Higgsfield seedance 2.5 as the
+// first frame of an image-to-video generation, so the frame he approved is frame one and
+// the model only supplies the camera move and the physics. Nothing here is invented footage.
 //
 // What that grammar actually is, read off the keynote reel frame by frame:
 //   · Black is a material, not a background. Type sits alone on it with enormous margins.
@@ -28,7 +32,7 @@ const FR_LEN = T.hero - T.apart;
 const FR_PEAK = T.slam - T.apart;   // 195 — widest
 const FR_SNAP = FR_PEAK + 10;       // 205 — shut, on the score's hit
 
-const AR = 1122 / 1402; // Joe's stills are 4:5
+const AR = 1080 / 1352; // the hero clips are 4:5
 // In 16:9 the object sits in the upper four fifths so the type below it has clear black
 // to live in, rather than crowding the bottom edge of the plate.
 const PLATE_H = 0.82;
@@ -116,47 +120,87 @@ const Opening: React.FC = () => {
   );
 };
 
-// ---------- a still ----------
-// 'bleed'  — fills the frame. For the macro process shots: they are abstractions of
-//            light and sparks, and they crop without losing anything that matters.
-// 'plate'  — the whole object, sized to the frame and centred on pure black. In 16:9
-//            that leaves wide black flanks, which is the point: "the emptiness creates
-//            the expensive look." No blurred fill, no gradient — just black.
-const Still: React.FC<{
-  src: string; frames: number; mode?: 'bleed' | 'plate';
+// ---------- a shot ----------
+// Each one is a Higgsfield clip whose first frame is Joe's own photograph, so the camera
+// move is the only thing the model added. Two ways of sitting in the frame:
+//
+// 'band'  — the 16:9 macros (laser, brake, weld). Full-bleed in the wide cut. In the 4:5
+//           cut they stay 16:9, held as a scope band high on black, rather than being
+//           cropped down to a slot: the word then lives in real black underneath.
+// 'plate' — the 4:5 hero clips. Native in the tall cut; in the wide cut the object sits
+//           at 82% of frame height on pure black, wide flanks and all. That emptiness is
+//           the point, and it is why there is no blurred fill behind it.
+const Shot: React.FC<{
+  src: string; frames: number; mode?: 'band' | 'plate';
+  from?: number;   // seconds into the clip
+  rate?: number;   // playback rate; below 1 is slow motion
   z?: [number, number]; x?: [number, number]; y?: [number, number];
-}> = ({src, frames, mode = 'bleed', z = [1.10, 1.02], x = [0, 0], y = [0, 0]}) => {
+}> = ({src, frames, mode = 'band', from = 0, rate = 1, z = [1.0, 1.0], x = [0, 0], y = [0, 0]}) => {
   const f = useCurrentFrame();
-  const {width, height} = useVideoConfig();
+  const {width, height, fps} = useVideoConfig();
   const wide = width / height > 1.5;
   const e = Easing.inOut(Easing.quad)(clamp(f / frames));
   const scale = interpolate(e, [0, 1], z);
   const tx = interpolate(e, [0, 1], x);
-  const ty = interpolate(e, [0, 1], y) * (wide ? 1 : 0.3);
+  const ty = interpolate(e, [0, 1], y) * (wide ? 1 : 0.4);
+  const move = `scale(${scale}) translate(${tx}%, ${ty}%)`;
+
+  // the clip itself; the generated move does the work, these are only the framing nudges
+  const clip = (
+    <OffthreadVideo
+      src={staticFile(src)}
+      startFrom={Math.round(from * fps)}
+      playbackRate={rate}
+      muted
+      style={{position: 'absolute', inset: 0, width: '100%', height: '100%',
+        objectFit: 'cover', transform: move}}
+    />
+  );
+
+  // the faintest lift under the lower third so white type stays crisp over sparks
+  const scrim = (
+    <AbsoluteFill style={{
+      background: 'linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.22) 18%, rgba(0,0,0,0) 38%)',
+    }} />
+  );
 
   if (mode === 'plate') {
-    const h = height * (wide ? PLATE_H : 1);
+    if (!wide) {
+      return (
+        <AbsoluteFill style={{background: BLACK, opacity: clamp(f / XF), overflow: 'hidden'}}>
+          {clip}
+          {scrim}
+        </AbsoluteFill>
+      );
+    }
+    const h = height * PLATE_H;
     const w = h * AR;
     return (
       <AbsoluteFill style={{background: BLACK, opacity: clamp(f / XF)}}>
-        <Img src={staticFile(src)} style={{
-          position: 'absolute', left: (width - w) / 2, top: 0,
-          width: w, height: h, objectFit: 'cover',
-          transform: `scale(${scale}) translate(${tx}%, ${ty}%)`,
-        }} />
+        <div style={{position: 'absolute', left: (width - w) / 2, top: 0, width: w, height: h,
+          overflow: 'hidden'}}>
+          {clip}
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
+  if (!wide) {
+    const w = width * 1.45;
+    const h = w * 9 / 16;
+    return (
+      <AbsoluteFill style={{background: BLACK, opacity: clamp(f / XF), overflow: 'hidden'}}>
+        <div style={{position: 'absolute', left: (width - w) / 2, top: height * 0.13,
+          width: w, height: h, overflow: 'hidden'}}>
+          {clip}
+        </div>
       </AbsoluteFill>
     );
   }
   return (
     <AbsoluteFill style={{background: BLACK, opacity: clamp(f / XF), overflow: 'hidden'}}>
-      <Img src={staticFile(src)} style={{
-        position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-        transform: `scale(${scale}) translate(${tx}%, ${ty}%)`,
-      }} />
-      {/* the faintest lift under the lower third so white type stays crisp over sparks */}
-      <AbsoluteFill style={{
-        background: 'linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.22) 18%, rgba(0,0,0,0) 38%)',
-      }} />
+      {clip}
+      {scrim}
     </AbsoluteFill>
   );
 };
@@ -209,9 +253,10 @@ const Fracture: React.FC<{src: string}> = ({src}) => {
 
 const Impact: React.FC<{at: number}> = ({at}) => {
   const f = useCurrentFrame();
-  const a = f < at ? 0 : Math.max(0, 1 - (f - at) / 9) ** 2;
+  // short and hard: a full-frame white held any longer reads as a grey veil, not a hit
+  const a = f < at ? 0 : Math.max(0, 1 - (f - at) / 6) ** 2;
   if (a <= 0) return null;
-  return <AbsoluteFill style={{background: '#FFFFFF', opacity: a * 0.72}} />;
+  return <AbsoluteFill style={{background: '#FFFFFF', opacity: a * 0.5}} />;
 };
 
 const Lockup: React.FC<{from: number}> = ({from}) => {
@@ -224,8 +269,11 @@ const Lockup: React.FC<{from: number}> = ({from}) => {
       position: 'absolute', top: 64 * th, left: 76 * th, display: 'flex', alignItems: 'center', gap: 13 * th,
       opacity: a * 0.85,
     }}>
-      <Img src={staticFile('badge.png')} style={{width: 34 * th, height: 34 * th}} />
-      <span style={{fontFamily: FONT, fontWeight: 600, fontSize: 18 * th, letterSpacing: 5.5 * th, color: WHITE}}>
+      <Img src={staticFile('badge.png')} style={{width: 34 * th, height: 34 * th,
+        filter: 'drop-shadow(0 1px 10px rgba(0,0,0,0.85))'}} />
+      {/* in the 4:5 cut this sits over the part rather than over black, so it needs the lift */}
+      <span style={{fontFamily: FONT, fontWeight: 600, fontSize: 18 * th, letterSpacing: 5.5 * th, color: WHITE,
+        textShadow: '0 1px 14px rgba(0,0,0,0.9), 0 0 3px rgba(0,0,0,0.6)'}}>
         LUPTON ASSOCIATES
       </span>
     </div>
@@ -285,29 +333,30 @@ export const Built: React.FC = () => {
       {/* black card — the headline builds itself */}
       <Sequence from={T.open} durationInFrames={T.laser}><Opening /></Sequence>
 
-      {/* process: macro stills, full-bleed, one word each in the lower third */}
+      {/* process: the macros, one word each in the lower third.
+          The camera work is the clip's own — these only nudge the framing. */}
       <Sequence from={T.laser} durationInFrames={T.brake - T.laser + XF}>
-        <Still src="img/bu_laser.png" frames={T.brake - T.laser + XF} z={[1.22, 1.06]} x={[-4, 1]} y={[2, -1]} />
+        <Shot src="vid/bu_laser.mp4" frames={T.brake - T.laser + XF} from={0.3} z={[1.04, 1.0]} />
         <Lower><Line text="Cut." at={4} out={T.brake - T.laser - 6} size={96} weight={800} /></Lower>
       </Sequence>
       <Sequence from={T.brake} durationInFrames={T.weld - T.brake + XF}>
-        <Still src="img/bu_brake.png" frames={T.weld - T.brake + XF} z={[1.20, 1.05]} y={[-4, 3]} />
+        <Shot src="vid/bu_brake.mp4" frames={T.weld - T.brake + XF} from={1.5} rate={0.9} z={[1.03, 1.0]} />
         <Lower><Line text="Formed." at={4} out={T.weld - T.brake - 6} size={96} weight={800} /></Lower>
       </Sequence>
       <Sequence from={T.weld} durationInFrames={T.finished - T.weld + XF}>
-        <Still src="img/bu_weld.png" frames={T.finished - T.weld + XF} z={[1.06, 1.26]} x={[2, -2]} y={[1, -2]} />
+        <Shot src="vid/bu_weld.mp4" frames={T.finished - T.weld + XF} from={0.4} z={[1.03, 1.0]} />
         <Lower><Line text="Welded." at={4} out={T.finished - T.weld - 6} size={96} weight={800} /></Lower>
       </Sequence>
 
-      {/* the object arrives whole, on black */}
+      {/* the object arrives whole, on black, turning slowly under a raking key */}
       <Sequence from={T.finished} durationInFrames={T.apart - T.finished + XF}>
-        <Still src="img/bu_heroA.png" frames={T.apart - T.finished + XF} mode="plate" z={[1.05, 1.0]} />
+        <Shot src="vid/bu_heroA.mp4" frames={T.apart - T.finished + XF} mode="plate" from={0.2} rate={0.9} />
         <Lower><Line text="Finished." at={6} out={T.apart - T.finished - 6} size={96} weight={800} accent /></Lower>
       </Sequence>
 
       {/* it comes apart, then locks back together */}
       <Sequence from={T.apart} durationInFrames={FR_LEN}>
-        <Fracture src="img/bu_heroA.png" />
+        <Fracture src="img/bu_fracture.png" />
         <Impact at={FR_SNAP} />
         <Lower>
           <Line text="Four shops." at={6} out={FR_PEAK - 8} size={50} />
@@ -319,7 +368,7 @@ export const Built: React.FC = () => {
 
       {/* the payoff angle */}
       <Sequence from={T.hero} durationInFrames={T.end - T.hero + XF}>
-        <Still src="img/bu_heroB.png" frames={T.end - T.hero + XF} mode="plate" z={[1.0, 1.06]} />
+        <Shot src="vid/bu_heroB.mp4" frames={T.end - T.hero + XF} mode="plate" from={0.15} rate={0.92} />
         <Lower>
           <Line text="One print." at={13} out={T.end - T.hero - 8} size={50} />
           <Line text="One project manager." at={52} out={T.end - T.hero - 8} size={50} />

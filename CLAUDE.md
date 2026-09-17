@@ -72,6 +72,30 @@ preferred look, matching the promo / AI-shift reference videos).
 - New footage: Higgsfield nano_banana_pro keyframe → seedance_2_0_mini
   image-to-video via `start_image`, 720p 5s `generate_audio:true` (~12.5cr).
   Check `get_cost` first; upscale to 1920 with lanczos + light unsharp.
+- **Joe's own product photography is the preferred source, and it can move.**
+  Put each of his stills into `seedance_2_5` as the `start_image` of an
+  image-to-video generation and the frame he approved becomes frame one of the
+  clip — the model only supplies the camera move and the physics, so nothing is
+  invented. That is the answer to "make it cinematic" without replacing his work.
+  `seedance_2_5` needs `mode:"omni_reference"`; the default `t2v` rejects
+  `start_image` with a 422, and a rejected batch charges nothing. 720p 5s ≈ 32.5cr.
+  Aspect: it snaps 4:5 → 3:4 (860×1076, which is 4:5 in practice). Pre-crop a 4:5
+  still to 16:9 yourself before uploading rather than letting the model reframe.
+- **Prompt the camera, hard.** Every shot names the move first ("rushes in low and
+  fast", "arcs right to left around the torch", "slow turntable orbit"), then the
+  light, then one sentence forbidding deformation ("the plate hinges about the bend
+  line as one rigid piece … never stretches, melts or morphs"). Writing "camera
+  locked off, subtle photoreal motion only" is the mistake that produced the two
+  cuts Joe rejected.
+- Cutting the clips: they come back 24fps into a 30fps comp, so Remotion maps by
+  time and `playbackRate` is the only speed control. 0.9 reads as weight, not
+  slow-mo. Pick the window with `startFrom` rather than speeding a 5s clip up.
+- Cutting from a moving shot into a graphic effect (the fracture): extract the
+  exact frame the move stops on (`ffmpeg -ss <from + dur*rate>`) and build the
+  effect on that still. The cut is then invisible.
+- 16:9 footage in the 4:5 cut: hold it as a scope band ~1.45× frame width, high on
+  black, with the type in real black underneath. Never crop a 16:9 macro down to a
+  4:5 slot — it throws away two thirds of the width.
 - Punch-in second angles: crop ~1024×576 around the action from the same clip's
   later half, scale up — reads as new coverage for free.
 
