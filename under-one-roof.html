@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lupton Associates — Under One Roof</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg0: #0D1213;
+      --bg1: #131A1A;
+      --bg2: #1C2424;
+      --white: #F4F7F4;
+      --sage: #8FBC97;
+      --sage-dim: #6B8E7B;
+      --gray: #9DABA5;
+      --eyebrow: #7E948A;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(120% 90% at 50% 30%, var(--bg2) 0%, var(--bg1) 55%, var(--bg0) 100%);
+      color: var(--white);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 40px 20px;
+    }
+    main { width: min(100%, 1040px); }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: 5px;
+      text-transform: uppercase; color: var(--eyebrow); margin: 0 0 10px;
+    }
+    h1 {
+      margin: 0 0 6px; font-size: clamp(28px, 4vw, 44px); font-weight: 800;
+      letter-spacing: -1.2px; line-height: 1.1;
+    }
+    h1 span { color: var(--sage); }
+    .meta { margin: 0 0 26px; color: var(--gray); font-size: 15px; line-height: 1.6; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 18px; }
+    .tabs button {
+      font: inherit; font-size: 14px; font-weight: 600; letter-spacing: 1px;
+      padding: 10px 20px; border-radius: 6px; cursor: pointer;
+      border: 1px solid rgba(143,188,151,.35);
+      background: transparent; color: var(--gray);
+    }
+    .tabs button[aria-selected="true"] {
+      background: linear-gradient(180deg, #84AC8E 0%, var(--sage-dim) 100%);
+      border-color: transparent; color: var(--bg0);
+    }
+    .stage { display: grid; place-items: center; }
+    video {
+      display: block; width: 100%; max-height: 78vh;
+      background: #000; border-radius: 10px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.55);
+    }
+    video[hidden] { display: none; }
+    .tall { width: min(100%, 520px); }
+    footer {
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      color: var(--eyebrow); font-size: 13px; line-height: 1.7;
+    }
+    footer strong { color: var(--gray); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Lupton Associates</p>
+    <h1>Under One Roof <span>&mdash; 40s</span></h1>
+    <p class="meta">
+      Voiceover and product photography by Joe Guadagnino.
+      Cut, formed, welded and finished in the same shop.
+    </p>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-wide" aria-controls="v-wide" aria-selected="true">16:9</button>
+      <button role="tab" id="tab-tall" aria-controls="v-tall" aria-selected="false">4:5</button>
+    </div>
+
+    <div class="stage">
+      <video id="v-wide" controls playsinline preload="metadata"
+             poster="part-unseen/deliverables/under-one-roof-thumbnail.png">
+        <source src="part-unseen/deliverables/lupton-under-one-roof-16x9.mp4" type="video/mp4">
+        Your browser does not support MP4 video playback.
+      </video>
+      <video id="v-tall" class="tall" controls playsinline preload="metadata" hidden>
+        <source src="part-unseen/deliverables/lupton-under-one-roof-4x5.mp4" type="video/mp4">
+        Your browser does not support MP4 video playback.
+      </video>
+    </div>
+
+    <footer>
+      <strong>Music:</strong> original score &mdash; no third-party credit required in the post.<br>
+      <strong>Masters:</strong> 1920&times;1080 and 1080&times;1350, H.264/AAC, &minus;14.5&nbsp;LUFS integrated.
+    </footer>
+  </main>
+
+  <script>
+    const tabs = {
+      'tab-wide': document.getElementById('v-wide'),
+      'tab-tall': document.getElementById('v-tall'),
+    };
+    for (const [id, video] of Object.entries(tabs)) {
+      document.getElementById(id).addEventListener('click', () => {
+        for (const [otherId, other] of Object.entries(tabs)) {
+          const on = otherId === id;
+          document.getElementById(otherId).setAttribute('aria-selected', String(on));
+          other.hidden = !on;
+          if (!on) other.pause();
+        }
+      });
+    }
+  </script>
+</body>
+</html>
