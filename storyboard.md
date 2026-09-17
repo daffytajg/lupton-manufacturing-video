@@ -165,7 +165,7 @@ Balance 1,192.17 covers the worst case.
 
 ## Music
 
-No music. We do not own a track, so the video ships silent with burned-in captions.
+Added after delivery at Joe's request. One 40-second instrumental generated with ElevenLabs Music v2 (600 ElevenLabs credits, about six cents) on Joe's connected ElevenLabs account; commercial rights follow that account's plan. Prompt: understated modern cinematic-industrial bed, low warm synth pad, soft muted kick, light mechanical percussion, 92 BPM, no build, ends on a held pad. Kept as `assets/music_bed.mp3`. Mixed with `scripts/add_music.sh`: loudness-normalised to about -16 LUFS, 0.5 s fade in, 1.5 s fade out, AAC 48 kHz stereo, video stream copied untouched. The silent masters are kept as `final_4x5_silent.mp4` and `final_1x1_silent.mp4`.
 
 ## Decisions I made that you may want to override
 
@@ -192,4 +192,4 @@ Source clips came back as 1248x1664 HEVC, 24 fps, 8.04 s. Conformed to 30 fps, c
 
 Credits: the `get_cost` preflight said 72 per generation. The transaction log shows **two 72-credit charges per generation** (one at submission, one at completion), so the six generations cost **864 credits** (balance 1,192.17 to 328.17). Shot 3's first submission was rejected by the server in favour of a preset and resubmitted with the preset declined; the log shows no extra charge for that.
 
-Delivered: `final_4x5.mp4` (1080x1350), `final_1x1.mp4` (1080x1080), both H.264 30 fps exactly 40.000 s, silent, metadata stripped except title and artist; `captions.srt`; `contact_sheet.png`; `linkedin_caption.txt`.
+Delivered: `final_4x5.mp4` (1080x1350), `final_1x1.mp4` (1080x1080), both H.264 30 fps exactly 40.000 s with the music bed (silent masters alongside), metadata stripped except title and artist; `captions.srt`; `contact_sheet.png`; `linkedin_caption.txt`.
