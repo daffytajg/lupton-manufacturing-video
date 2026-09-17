@@ -13,8 +13,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
 
-def load(path):
-    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
+def load(path, atempo=1.0):
+    af = ["-af", "atempo=%.4f" % atempo] if abs(atempo - 1.0) > 0.001 else []
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", path] + af + ["-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
                          capture_output=True, check=True).stdout
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
 
@@ -101,31 +102,44 @@ mix_fx = np.zeros((N, 2), np.float32)
 mix_mu = np.zeros((N, 2), np.float32)
 
 # --- voiceover: each line trimmed and levelled to -18 dBFS block RMS, placed 0.3 s after its beat starts
-VO_T = [0.3, 8.1, 15.9, 23.7, 31.6]
+VO_T = [0.3, 8.1, 15.9, 23.5, 32.4]
+VO_MAX = [7.2, 7.2, 7.2, 7.6, 7.0]   # each line must end before the next beat's line starts
+VO_PREFIX = os.environ.get("VO_PREFIX", "vo")
 vo_spans = []
-for i, t in enumerate(VO_T, 1):
-    a = trim_silence(load(os.path.join(AUD, "vo%d.mp3" % i)))
+for i, (t, mx) in enumerate(zip(VO_T, VO_MAX), 1):
+    path = os.path.join(AUD, "%s%d.mp3" % (VO_PREFIX, i))
+    a = trim_silence(load(path))
+    if len(a) / SR > mx:
+        stretch = min(1.10, (len(a) / SR) / mx)
+        a = trim_silence(load(path, atempo=stretch))
+        print("vo%d: time-stretched x%.3f to fit" % (i, stretch))
     a *= db(-18 - rms_db(a))
     span = place(mix_vo, a, t, 0.0, 0.01, 0.05)
+    if vo_spans and span[0] < vo_spans[-1][1]:
+        print("WARNING vo%d starts before vo%d ends" % (i, i - 1))
     vo_spans.append(span)
     print("vo%d: %.2f-%.2f s (%.2f s)" % (i, span[0], span[1], span[1] - span[0]))
 
-# --- sound effects (levels are dBFS-ish relative to the VO at -18)
-S = lambda n: load(os.path.join(AUD, n + ".mp3"))
-place(mix_fx, S("sfx_paper"), 1.8, -16, 0.3, 0.8, 6.0)
-place(mix_fx, S("sfx_tap"), 7.15, -12, 0.0, 0.1, 1.0)
-place(mix_fx, S("sfx_press"), 8.0, -11, 0.02, 0.15, 1.5)
-place(mix_fx, S("sfx_laser"), 9.55, -14, 0.05, 0.15, 1.96)
-place(mix_fx, S("sfx_cnc"), 11.51, -13, 0.05, 0.15, 2.42)
-place(mix_fx, S("sfx_mold"), 13.93, -11, 0.05, 0.4, 2.0)
-place(mix_fx, S("sfx_office"), 15.5, -24, 0.4, 0.5, 8.2)
-place(mix_fx, S("sfx_phone"), 20.85, -15, 0.0, 0.2, 1.5)
-place(mix_fx, S("sfx_whoosh"), 31.05, -14, 0.0, 0.3, 2.0)
-# shop ambience bed: looped to 33 s, quieter during the office beat, gone by the end card
-shop = loop_to(S("sfx_shop"), 33.0)
-g = np.ones(len(shop), np.float32) * db(-27)
+# --- sound effects: each clip is normalised to a designed block-RMS level (dBFS) before placement,
+#     because the generated files arrive at wildly different native levels
+def S(name, target_db):
+    a = load(os.path.join(AUD, name + ".mp3"))
+    return a * db(target_db - rms_db(a))
+
+place(mix_fx, S("sfx_paper", -30), 1.8, 0, 0.3, 0.8, 6.0)
+place(mix_fx, S("sfx_tap", -22), 7.15, 0, 0.0, 0.1, 1.0)
+place(mix_fx, S("sfx_press", -20), 8.0, 0, 0.02, 0.15, 1.5)
+place(mix_fx, S("sfx_laser", -23), 9.55, 0, 0.05, 0.15, 1.96)
+place(mix_fx, S("sfx_cnc", -22), 11.51, 0, 0.05, 0.15, 2.42)
+place(mix_fx, S("sfx_mold", -20), 13.93, 0, 0.05, 0.4, 2.0)
+place(mix_fx, S("sfx_office", -38), 15.5, 0, 0.4, 0.5, 8.2)
+place(mix_fx, S("sfx_phone", -24), 20.85, 0, 0.0, 0.2, 1.5)
+place(mix_fx, S("sfx_whoosh", -24), 31.05, 0, 0.0, 0.3, 2.0)
+# shop ambience bed: looped to 33 s at -36 dBFS, 7 dB quieter during the office beat, gone by the end card
+shop = loop_to(S("sfx_shop", -36), 33.0)
+g = np.ones(len(shop), np.float32)
 tt = np.arange(len(shop)) / SR
-g[(tt > 15.6) & (tt < 23.4)] = db(-34)
+g[(tt > 15.6) & (tt < 23.4)] = db(-7)
 g = np.convolve(g, np.ones(SR // 2) / (SR // 2), mode="same")  # 0.5 s smoothing of level steps
 shop *= g[:, None]
 place(mix_fx, shop, 0.0, 0.0, 0.5, 1.5)

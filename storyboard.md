@@ -45,7 +45,7 @@ Effective on-screen timeline after crossfades:
 |---|---|---|
 | 1 Hook | 0.00 – 8.00 | 0.00–3.60 "SEND US THE DRAWING." then 3.60–7.90 adds "We'll tell you what it costs to make." |
 | 2 Process | 7.80 – 15.80 | 7.90–15.70 "STAMPING · FABRICATION · MACHINING / MOLDING · ELECTRONICS" |
-| 3 Quote path | 15.60 – 23.60 | 15.70–19.60 "Quoted directly by the shop that makes it." then 19.60–23.50 adds "No reseller layer." |
+| 3 Quote path | 15.60 – 23.60 | 15.70–19.60 "We quote it. We make it." then 19.60–23.50 adds "No reseller layer." |
 | 4 Parts | 23.40 – 31.40 | 23.50–27.40 "Brackets. Housings. Chassis. Bus bars. Harnesses." then 27.40–31.30 adds "Made here and in low cost regions since 1969." |
 | 5 End card | 31.20 – 40.00 | rendered into the card: "Send us your drawings." / www.luptons.com · 585-393-4999 / "Book time with our team." |
 
@@ -163,9 +163,28 @@ If a shot comes back with readable garbage text, a face, a wrong hand, or broken
 
 Balance 1,192.17 covers the worst case.
 
-## Music
+## Sound (revised at Joe's request after delivery)
 
-Added after delivery at Joe's request. One 40-second instrumental generated with ElevenLabs Music v2 (600 ElevenLabs credits, about six cents) on Joe's connected ElevenLabs account; commercial rights follow that account's plan. Prompt: understated modern cinematic-industrial bed, low warm synth pad, soft muted kick, light mechanical percussion, 92 BPM, no build, ends on a held pad. Kept as `assets/music_bed.mp3`. Mixed with `scripts/add_music.sh`: loudness-normalised to about -16 LUFS, 0.5 s fade in, 1.5 s fade out, AAC 48 kHz stereo, video stream copied untouched. The silent masters are kept as `final_4x5_silent.mp4` and `final_1x1_silent.mp4`.
+All audio was generated through the ElevenLabs REST API on Joe's **Creator** plan (paid, commercial licence), using his own API key, after the connector's free-tier account turned out to be unusable for commercial work. Cost for the pass: 1,848 ElevenLabs credits of a 130,259 monthly allowance. The first music bed, made on the free-tier connector account, was discarded.
+
+Voiceover, first person, Lupton as the shop, one line per beat, `eleven_multilingual_v2`, library voice "Vino - Warm Leadership Narrator" (alternate takes with the premade voice "Brian" in `assets/audio/alt_brian_vo*.mp3`):
+
+1. "Send us the drawing. We'll tell you what it costs to make." (0.3 s)
+2. "Stamping, fabrication, machining, molding and electronics. We do all of it." (8.1 s)
+3. "We quote it, and we make it. No reseller layer." (15.9 s)
+4. "Brackets. Housings. Chassis. Bus bars. Harnesses. Made here and in low cost regions, since 1969." (23.5 s, tempo +6% so it ends before the end card)
+5. "Send us your drawings. Or book time with our team." (32.4 s)
+
+Sound effects (`eleven_text_to_sound_v2`), timed to the picture: paper slide 1.8 s, fingertip tap 7.15 s, press stroke 8.0 s, laser 9.55 s, end mill 11.51 s, mold open 13.93 s (the last three on the measured cut points), office room tone 15.5–23.7 s, phone buzz 20.85 s (when the screen lights), a shop ambience bed under everything up to the end card, and a soft hit into the end card at 31.05 s.
+
+Music: two 40-second instrumentals (`assets/audio/music_a.mp3` plucked guitar and brushed drums, used; `music_b.mp3` felt piano and low strings, alternate). The bed sits about 6 dB under the voice and ducks a further 8 dB while he speaks.
+
+Mix (`scripts/mix_audio.py`): voice levelled to -18 dBFS, effects placed with fades, music ducked from the voice envelope, sum normalised to -16 LUFS / -1.5 dBTP, AAC 48 kHz stereo, video stream copied untouched. Silent masters kept as `final_*_silent.mp4`.
+
+## Picture changes in the same revision
+
+- Lupton logo (light version) top right on shots 1–4, 15% of frame width, fading out at 31.2–31.4 s as the end card's centred logo takes over.
+- Beat 3 caption recast to first person: "We quote it. We make it." then "No reseller layer." SRT updated.
 
 ## Decisions I made that you may want to override
 
@@ -192,4 +211,4 @@ Source clips came back as 1248x1664 HEVC, 24 fps, 8.04 s. Conformed to 30 fps, c
 
 Credits: the `get_cost` preflight said 72 per generation. The transaction log shows **two 72-credit charges per generation** (one at submission, one at completion), so the six generations cost **864 credits** (balance 1,192.17 to 328.17). Shot 3's first submission was rejected by the server in favour of a preset and resubmitted with the preset declined; the log shows no extra charge for that.
 
-Delivered: `final_4x5.mp4` (1080x1350), `final_1x1.mp4` (1080x1080), both H.264 30 fps exactly 40.000 s with the music bed (silent masters alongside), metadata stripped except title and artist; `captions.srt`; `contact_sheet.png`; `linkedin_caption.txt`.
+Delivered: `final_4x5.mp4` (1080x1350), `final_1x1.mp4` (1080x1080), both H.264 30 fps exactly 40.000 s with voiceover, effects and music (silent masters alongside), metadata stripped except title and artist; `captions.srt`; `contact_sheet.png`; `linkedin_caption.txt`.
