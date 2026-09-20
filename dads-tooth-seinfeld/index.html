@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Tooth — A Bit in Four Parts</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #101013;
+      color: #f4f1e8;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    main { width: min(100%, 720px); padding: 24px; text-align: center; }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 26px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #f2c14e;
+    }
+    .kicker {
+      margin: 0 0 18px;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #8d8d96;
+    }
+    video {
+      display: block;
+      width: 100%;
+      max-height: 78vh;
+      background: #000;
+      border-radius: 10px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.55);
+    }
+    blockquote {
+      margin: 20px 0 0;
+      padding: 0 8px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #d7d4cc;
+      font-style: italic;
+    }
+    .credits {
+      margin: 18px 0 0;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #82828b;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>The Tooth</h1>
+    <p class="kicker">A bit, in one take</p>
+    <video controls playsinline preload="metadata">
+      <source src="dads-tooth-seinfeld.mp4" type="video/mp4">
+      Your browser does not support MP4 video playback.
+    </video>
+    <blockquote>
+      &ldquo;What is the deal with teeth? Thirty-two of &rsquo;em, no instructions.
+      One day you&rsquo;re eating bread &mdash; bread! The softest food we have &mdash;
+      and now I got thirty-one. And the dentist blames <em>me</em>.&rdquo;
+    </blockquote>
+    <p class="credits">
+      Scene and motion generated with Higgsfield. Voice performance generated with ElevenLabs.<br>
+      An original 90s-sitcom-style parody. Not affiliated with or endorsed by any television program.
+    </p>
+  </main>
+</body>
+</html>
