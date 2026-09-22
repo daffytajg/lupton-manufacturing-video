@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mom Sings America the Beautiful</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #0b1f3a;
+      color: #fff7e6;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    main { width: min(100%, 480px); padding: 24px; text-align: center; }
+    video {
+      display: block;
+      width: 100%;
+      max-height: 86vh;
+      background: #000;
+      border-radius: 12px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.5);
+    }
+    h1 { margin: 0 0 14px; font-size: 22px; font-weight: 700; color: #ffd75e; }
+    p { margin: 14px 0 0; color: #dbe4f0; font-size: 14px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Mom Sings America the Beautiful</h1>
+    <video controls playsinline preload="metadata">
+      <source src="mom-sings-america-the-beautiful.mp4" type="video/mp4">
+      Your browser does not support MP4 video playback.
+    </video>
+    <p>A 26-second rendition of the refrain of "America the Beautiful" (public domain).</p>
+  </main>
+</body>
+</html>
