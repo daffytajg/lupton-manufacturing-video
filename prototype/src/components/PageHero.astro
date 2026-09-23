@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import Blueprint from './Blueprint.astro';
+import { img, heroWorthy } from '../lib/images';
+import { rich, words } from '../lib/rich';
+import { org } from '../data/site';
+import type { Stat } from '../data/types';
+
+interface Props {
+  crumbs: { name: string; href: string }[];
+  eyebrow: string;
+  h1: string;
+  lede: string[];
+  image?: string;
+  imageAlt?: string;
+  art?: string;
+  artTitle?: string;
+  stats?: Stat[];
+  primary?: { label: string; href: string };
+}
+const { crumbs, eyebrow, h1, lede, image = '', imageAlt = '', art = 'home', artTitle, stats, primary = { label: 'Send the drawing', href: '/rfq/' } } = Astro.props;
+const photo = heroWorthy(image) ? img(image) : undefined;
+---
+<section class="phero" data-spotlight>
+  <div class="hero-bg" aria-hidden="true">
+    <div class="grid-lines"></div>
+    <div class="aurora a1"></div><div class="aurora a2"></div>
+  </div>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        {crumbs.map((c, i) => (i < crumbs.length - 1 ? <li><a href={c.href}>{c.name}</a></li> : <li aria-current="page">{c.name}</li>))}
+      </ol>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow" data-scramble>{eyebrow}</p>
+        <h1 class="bw">{words(h1).map((w, i) => <span class="w" style={`--i:${i}`}>{w + ' '}</span>)}</h1>
+        <div class="lede" data-reveal style="--d:350">
+          {lede.map((s) => <p set:html={rich(s)} />)}
+        </div>
+        <div class="btn-row" data-reveal style="--d:550">
+          <a class="btn btn-primary" href={primary.href} data-magnetic>{primary.label} <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href={org.bookingUrl} rel="noopener">Book time with our team</a>
+        </div>
+      </div>
+      <div class="hero-art" data-reveal style="--d:200">
+        {photo ? (
+          <div class="hero-photo">
+            <Image src={photo} alt={imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 980px) 92vw, 560px" loading="eager" fetchpriority="high" />
+            <span class="tag">{imageAlt}</span>
+          </div>
+        ) : (
+          <Blueprint kind={art} title={artTitle} />
+        )}
+      </div>
+    </div>
+    {stats && (
+      <div class="stat-row" data-stagger>
+        {stats.map((s) => <div class="stat"><b set:html={rich(s.value)} /><span set:html={rich(s.label)} /></div>)}
+      </div>
+    )}
+  </div>
+</section>

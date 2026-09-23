@@ -1,0 +1,21 @@
+---
+import { org } from '../data/site';
+interface Props { title?: string; text?: string }
+const {
+  title = 'Send the drawing. We’ll find the shop that fits.',
+  text = `Upload the print, material, volume and timing. You get a response within ${org.responsePromise}: whether it fits, what is missing, or the next step.`,
+} = Astro.props;
+---
+<section class="section tight">
+  <div class="cta-band" data-reveal>
+    <div class="ring" aria-hidden="true"></div>
+    <p class="eyebrow">Start here</p>
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <div class="btn-row" style="margin-top:28px">
+      <a class="btn btn-primary" href="/rfq/" data-magnetic>Send an RFQ <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href={org.bookingUrl} rel="noopener">Book time with our team</a>
+      <a class="btn btn-ghost" href={`tel:${org.phoneE164}`}>{org.phone}</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { resources } from '../../data/resources';
+import { rich } from '../../lib/rich';
+import { breadcrumbSchema, webPageSchema } from '../../lib/schema';
+
+const path = '/resources/';
+const title = 'Engineering & Sourcing Answers: Guides and Case Studies | Lupton';
+const description = 'Plain-language answers to real engineering and sourcing questions: process selection, fab vs. stamping break-even, RFQ packages, second sources, and case studies.';
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Resources', href: path }];
+const guides = resources.filter((r) => r.kind === 'Guide');
+const cases = resources.filter((r) => r.kind === 'Case study');
+---
+<Base title={title} description={description} path={path} schema={[webPageSchema(path, title, description), breadcrumbSchema(crumbs)]}>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Resources"
+    h1="Straight answers to engineering and sourcing questions."
+    lede={[
+      'These guides answer the questions design engineers, sourcing engineers and commodity managers ask before an RFQ: which process fits, where the volume break-even sits, what to send, and how to add a second source.',
+      'Case studies keep the facts and figures from Lupton’s published project write-ups, unchanged.',
+    ]}
+    art="proto"
+    artTitle="RESOURCES"
+  />
+  <section class="section tight">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><p class="eyebrow">Guides</p><h2>Answers first.</h2></div>
+      <div class="cards" data-stagger>
+        {guides.map((r) => (
+          <a class="card" href={`/resources/${r.slug}/`}>
+            <span class="num">Guide</span>
+            <h3>{r.h1}</h3>
+            <p set:html={rich(r.lede[0])} />
+            <span class="go">Read <i>→</i></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section paper">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><p class="eyebrow">Case studies</p><h2>Published results.</h2></div>
+      <div class="cards" data-stagger>
+        {cases.map((r) => (
+          <a class="card" href={`/resources/${r.slug}/`}>
+            <span class="num">Case study</span>
+            <h3>{r.h1}</h3>
+            <p set:html={rich(r.lede[0])} />
+            <span class="go">Read <i>→</i></span>
+          </a>
+        ))}
+      </div>
+      <p class="muted" style="margin-top:30px;font-size:15px">Nine more 2018 case studies (graphite die-cast chassis, structural foam housing, defense sheet metal, pressure-formed printer covers, RIM medical covers and others) migrate from the current site as PDFs are rewritten to this format.</p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

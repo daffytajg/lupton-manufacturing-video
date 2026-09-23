@@ -1,0 +1,27 @@
+---
+import { org } from '../data/site';
+// Source: luptons.com/manufacturing-path/ and /manufacturing-path/sheet-metal-fabrication/ ("How the review works").
+const steps = [
+  { k: 'You send', h: 'The drawing and what you know', p: 'Print or model, material, quantity, finish, inspection and timing. Unknowns are fine; label them. No drawing yet? Describe the part and the problem.' },
+  { k: `Within ${org.responsePromise}`, h: 'We check fit before it goes out', p: 'Someone on our team reviews the package, flags gaps, and tells you whether the project appears to fit, what is missing, or the next step. That first response is not a quote.' },
+  { k: 'We route it', h: 'The right shop reviews the work', p: 'The manufacturer whose process, certifications and capacity fit the part confirms feasibility and what it needs to quote.' },
+  { k: 'You get', h: 'A direct quote, or a straight answer', p: 'The shop quotes you directly and you place the order with the shop. If it is not a fit, we say so and point you to a path that is.' },
+];
+---
+<div class="steps">
+  <div class="steps-aside">
+    <p class="eyebrow">How it works</p>
+    <h2>Drawing in. <em class="serif">Direct quote</em> out.</h2>
+    <p class="muted" style="max-width:42ch">Lupton reviews manufacturing fit and moves the project to the right shop. The manufacturer confirms feasibility, capacity, pricing, lead time and terms.</p>
+    <div class="btn-row" style="margin-top:20px"><a class="btn btn-primary" href="/rfq/" data-magnetic>Start with the drawing <span class="arrow">→</span></a></div>
+  </div>
+  <ol class="steps-list">
+    {steps.map((s) => (
+      <li>
+        <span class="k">{s.k}</span>
+        <h3>{s.h}</h3>
+        <p>{s.p}</p>
+      </li>
+    ))}
+  </ol>
+</div>

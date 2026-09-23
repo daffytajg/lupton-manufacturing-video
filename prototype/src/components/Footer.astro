@@ -1,0 +1,43 @@
+---
+import { org } from '../data/site';
+import { topCapabilities, capabilityPath } from '../data/capabilities';
+import { industries } from '../data/industries';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="/img/logo-horizontal-light.webp" alt="Lupton Associates" width="600" height="163" style="height:40px;width:auto;margin-bottom:20px" loading="lazy" />
+        <p class="muted" style="max-width:36ch;font-size:15px">{org.tagline} Custom metal, plastic, cable and electronic parts for OEMs in the United States, Canada and Mexico.</p>
+        <address>
+          {org.address.street}<br />{org.address.city}, {org.address.region} {org.address.postal}<br />
+          <a href={`tel:${org.phoneE164}`}>{org.phone}</a>
+        </address>
+      </div>
+      <nav aria-label="Capabilities">
+        <h2 class="foot-h">Capabilities</h2>
+        <ul>{topCapabilities.map((c) => <li><a href={capabilityPath(c)}>{c.name}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Industries">
+        <h2 class="foot-h">Industries</h2>
+        <ul>{industries.map((i) => <li><a href={`/industries/${i.slug}/`}>{i.name}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Company">
+        <h2 class="foot-h">Company</h2>
+        <ul>
+          <li><a href="/rfq/">Send an RFQ</a></li>
+          <li><a href={org.bookingUrl} rel="noopener">Book time with our team</a></li>
+          <li><a href="/about/">About &amp; team</a></li>
+          <li><a href="/resources/">Resources</a></li>
+          <li><a href="/llms.txt">llms.txt</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wordmark" aria-hidden="true">LUPTON</div>
+    <div class="legal">
+      <span>© {year} {org.name}. Canandaigua, New York. Since {org.founded}.</span>
+      <span>Lupton reviews manufacturing fit; the manufacturer confirms feasibility, capacity, pricing, lead time and terms.</span>
+    </div>
+  </div>
+</footer>

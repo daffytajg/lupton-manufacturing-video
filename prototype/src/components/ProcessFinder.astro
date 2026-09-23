@@ -1,0 +1,39 @@
+---
+// Interactive screening tool built only on the thresholds published on luptons.com:
+// short run ≈ 2,500–100,000 pcs/yr for parts under ≈ 20 × 30 in. flat; progressive > ≈ 100,000.
+---
+<div class="finder" data-finder data-reveal>
+  <div>
+    <p class="eyebrow">Process finder · sheet metal</p>
+    <h3 style="font-size:clamp(1.5rem,2.6vw,2.2rem);font-stretch:112%;margin-bottom:14px">Which metal process pays at your volume?</h3>
+    <p class="muted" style="margin-bottom:26px">Drag to your annual volume. This is the same screening rule we use before a print review.</p>
+    <div class="ctl">
+      <label for="vol">Annual volume (pcs/yr)</label>
+      <output for="vol" aria-live="polite">10,000</output>
+      <input id="vol" class="range" type="range" min="0" max="100" value="50" step="1" />
+      <div style="display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:var(--dim);margin-top:8px"><span>100</span><span>10k</span><span>1M</span></div>
+    </div>
+    <div class="ctl">
+      <label id="flat-l">Flat blank size</label>
+      <div class="seg" role="group" aria-labelledby="flat-l">
+        <button type="button" aria-pressed="true" data-big="false">Under ~20 × 30 in.</button>
+        <button type="button" aria-pressed="false" data-big="true">Larger</button>
+      </div>
+    </div>
+  </div>
+  <div class="lanes" aria-live="polite">
+    <div class="lane" data-lane="fab">
+      <h4>Laser / turret + press brake <small>&lt; ~2,500/yr or large</small></h4>
+      <p>No hard tooling. Best for prototypes, low volume and parts over about 20 × 30 in. flat.</p>
+    </div>
+    <div class="lane" data-lane="short">
+      <h4>Short run stamping <small>~2,500–100,000/yr</small></h4>
+      <p>Die inserts in a master holder. Tooling in weeks. In one published case: $2.65 → $1.45 a piece on a $1,000 tool.</p>
+    </div>
+    <div class="lane" data-lane="prog">
+      <h4>Progressive die <small>&gt; ~100,000/yr</small></h4>
+      <p>Lowest piece price. Dedicated coil-fed die, higher tooling, months to build.</p>
+    </div>
+    <p class="finder-note">Geometry, material, secondary ops and program life move these lines. <a href="/resources/fabrication-vs-stamping-break-even/">How the break-even works →</a></p>
+  </div>
+</div>

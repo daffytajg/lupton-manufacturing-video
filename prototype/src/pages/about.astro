@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Blocks from '../components/Blocks.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { org, team } from '../data/site';
+import { img } from '../lib/images';
+import { breadcrumbSchema, webPageSchema } from '../lib/schema';
+
+const path = '/about/';
+const title = 'About Lupton Associates | Custom Manufacturing Since 1969';
+const description = 'Founded in 1969 in Canandaigua, NY, Lupton Associates helps OEMs get custom parts made across the US, Canada and Mexico. Meet the team.';
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'About', href: path }];
+const leaders = team.filter((p) => p.leadership);
+const rest = team.filter((p) => !p.leadership);
+const aboutPage = { '@type': 'AboutPage', url: `https://luptons.com${path}`, name: title, about: { '@id': 'https://luptons.com/#organization' } };
+---
+<Base title={title} description={description} path={path} schema={[webPageSchema(path, title, description), aboutPage, breadcrumbSchema(crumbs)]}>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="About · since 1969"
+    h1="Five decades of getting hard parts made."
+    lede={[
+      'Lupton Associates was founded in 1969 in Canandaigua, New York, to help OEMs, engineers and sourcing teams move custom components from requirement to a practical manufacturing and quote path.',
+      'Today our business development team covers the United States, Canada and Mexico, bringing territory knowledge, manufacturing-process experience and long customer relationships to every drawing we review.',
+    ]}
+    image="office-entrance"
+    imageAlt="Lupton Associates office entrance in Canandaigua, New York"
+    art="home"
+    stats={[
+      { value: '1969', label: 'founded in Canandaigua, NY' },
+      { value: 'US · CA · MX', label: 'territory coverage' },
+      { value: String(team.length), label: 'people on the team' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><p class="eyebrow">Leadership</p><h2>Leading Lupton forward.</h2></div>
+      <div class="leaders" data-stagger>
+        {leaders.map((p) => {
+          const ph = img(p.photo);
+          return (
+            <div class="leader">
+              {ph && <Image src={ph} alt={`${p.name}, ${p.role} at Lupton Associates`} widths={[300]} sizes="150px" loading="lazy" />}
+              <div>
+                <h3 style="font-size:1.4rem">{p.name}</h3>
+                <p style="color:var(--sage-2);margin:0 0 8px">{p.role}</p>
+                <p class="muted" style="font-size:15px;margin:0">{p.bio}</p>
+                {p.linkedin && <p style="margin:10px 0 0"><a href={p.linkedin} rel="noopener" style="font-size:14px;color:var(--sage-2)">LinkedIn →</a></p>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div class="sec-head" data-reveal style="margin-top:60px"><p class="eyebrow">Our team</p><h2>Experience in the market and at the point of execution.</h2><p>Business development, operations, accounting, engineering support, marketing and inside sales, working together to identify requirements and keep customer and manufacturer communication moving.</p></div>
+      <div class="team" data-stagger>
+        {rest.map((p) => {
+          const ph = img(p.photo);
+          return (
+            <article class="person">
+              <div class="ph">{ph && <Image src={ph} alt={`${p.name}, ${p.role}${p.territory ? ', ' + p.territory : ''}`} widths={[240, 420]} sizes="(max-width:520px) 92vw, 220px" loading="lazy" />}</div>
+              <div class="b">
+                <h3>{p.name}</h3>
+                <p class="r">{p.role}</p>
+                <p class="t">{[p.territory, p.since ? `Since ${p.since}` : ''].filter(Boolean).join(' · ')}</p>
+                <p>{p.bio}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section paper">
+    <div class="wrap grid-2">
+      <div data-reveal>
+        <p class="eyebrow">How we work</p>
+        <h2>Practical review and consistent follow-through.</h2>
+        <p class="muted">What customers bring to us:</p>
+        <Blocks type="send" items={['Drawings, CAD models, specifications and BOMs', 'Process-selection and manufacturability questions', 'Difficult RFQs and incomplete quote packages', 'Second-source, capacity, cost, geography or continuity concerns']} />
+      </div>
+      <div data-reveal style="--d:120">
+        <p class="eyebrow">&nbsp;</p>
+        <h2>What the team moves forward.</h2>
+        <p class="muted">&nbsp;</p>
+        <Blocks type="send" items={['Manufacturing-process and supplier-fit review', 'Technical questions and missing project information', 'Quotation, tooling, quality and lead-time discussions', 'Program communication from review through production follow-up']} />
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:70px" data-reveal>
+      <Blocks type="facts" items={[
+        { label: 'Founded', value: '1969' },
+        { label: 'Office', value: `${org.address.street}, ${org.address.city}, ${org.address.region} ${org.address.postal}` },
+        { label: 'Phone', value: org.phone },
+        { label: 'Territory', value: 'United States, Canada and Mexico' },
+        { label: 'Industries', value: 'Aerospace, medical, transportation, telecommunications, computing and data infrastructure, industrial products, agriculture, construction and alternative energy' },
+      ]} />
+    </div>
+  </section>
+
+  <CtaBand title="Put our team to work on your part." />
+</Base>

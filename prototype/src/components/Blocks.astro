@@ -1,0 +1,55 @@
+---
+// Small shared content blocks, selected by `type` to keep the component count low.
+import { rich } from '../lib/rich';
+import type { Faq, Spec, Table } from '../data/types';
+
+type P =
+  | { type: 'specs'; specs: Spec[] }
+  | { type: 'faq'; faqs: Faq[] }
+  | { type: 'send'; items: string[] }
+  | { type: 'compare'; table: Table }
+  | { type: 'facts'; items: Spec[] };
+const p = Astro.props as P;
+---
+{p.type === 'specs' && (
+  <table class="specs">
+    <tbody>
+      {p.specs.map((s) => (
+        <tr><th scope="row">{s.label}</th><td set:html={rich(s.value)} /></tr>
+      ))}
+    </tbody>
+  </table>
+)}
+{p.type === 'faq' && (
+  <div class="faq">
+    {p.faqs.map((f, i) => (
+      <details open={i === 0}>
+        <summary set:html={rich(f.q)} />
+        <div class="a" set:html={rich(f.a)} />
+      </details>
+    ))}
+  </div>
+)}
+{p.type === 'send' && (
+  <ul class="checklist">
+    {p.items.map((s) => <li set:html={rich(s)} />)}
+  </ul>
+)}
+{p.type === 'compare' && (
+  <div class="cmp-wrap" data-reveal>
+    <table class="cmp">
+      <caption set:html={rich(p.table.caption)} />
+      <thead><tr>{p.table.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+      <tbody>
+        {p.table.rows.map((r) => (
+          <tr>{r.map((c, i) => (i === 0 ? <th scope="row" set:html={rich(c)} /> : <td set:html={rich(c)} />))}</tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+{p.type === 'facts' && (
+  <dl class="facts">
+    {p.items.map((s) => (<><dt>{s.label}</dt><dd set:html={rich(s.value)} /></>))}
+  </dl>
+)}

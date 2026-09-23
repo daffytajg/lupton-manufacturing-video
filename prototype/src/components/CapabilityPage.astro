@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from './PageHero.astro';
+import Blocks from './Blocks.astro';
+import CtaBand from './CtaBand.astro';
+import ProcessFinder from './ProcessFinder.astro';
+import Icon from './Icon.astro';
+import { capabilities, capabilityPath, capabilityBySlug } from '../data/capabilities';
+import { industryBySlug } from '../data/industries';
+import { comboByKey, comboPath } from '../data/combos';
+import { resourceBySlug } from '../data/resources';
+import { rich } from '../lib/rich';
+import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from '../lib/schema';
+import type { Capability } from '../data/types';
+
+interface Props { cap: Capability }
+const { cap } = Astro.props;
+const path = capabilityPath(cap);
+const parent = cap.parent ? capabilityBySlug(cap.parent) : undefined;
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Capabilities', href: '/capabilities/' },
+  ...(parent ? [{ name: parent.name, href: capabilityPath(parent) }] : []),
+  { name: cap.name, href: path },
+];
+const children = (cap.children || []).map((s) => capabilities.find((c) => c.slug === s && c.parent === cap.slug)!).filter(Boolean);
+const proof = (cap.proof || []).map(resourceBySlug).filter(Boolean);
+const combos = (cap.combos || []).map(comboByKey).filter(Boolean);
+const inds = cap.industries.map(industryBySlug).filter(Boolean);
+const showFinder = ['metal-stamping', 'short-run', 'sheet-metal-fabrication'].includes(cap.slug);
+const idx = capabilities.filter((c) => !c.parent).findIndex((c) => c.slug === (parent?.slug ?? cap.slug)) + 1;
+---
+<Base
+  title={cap.title}
+  description={cap.description}
+  path={path}
+  schema={[webPageSchema(path, cap.title, cap.description), serviceSchema(path, cap.name, cap.lede, cap.name), breadcrumbSchema(crumbs), faqSchema(cap.faqs)]}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow={`Capability ${String(idx).padStart(2, '0')}${parent ? ' · ' + parent.name : ''}`}
+    h1={cap.h1}
+    lede={cap.lede}
+    image={cap.image}
+    imageAlt={cap.imageAlt}
+    art={cap.icon}
+    artTitle={cap.name.toUpperCase()}
+    stats={cap.stats}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">{parent ? 'How it works' : 'Routes we cover'}</p>
+        <h2>{parent ? 'The process, plainly.' : `${cap.name}, by route.`}</h2>
+      </div>
+      <div class="cards" data-stagger>
+        {cap.routes.map((r) => {
+          const Tag = r.href ? 'a' : 'div';
+          return (
+            <Tag class="card" href={r.href}>
+              <span class="ico"><Icon name={cap.icon} /></span>
+              <h3>{r.title}</h3>
+              <p set:html={rich(r.text)} />
+              {r.href && <span class="go">Go deeper <i>→</i></span>}
+            </Tag>
+          );
+        })}
+      </div>
+      {cap.compare && <div style="margin-top:40px"><Blocks type="compare" table={cap.compare} /></div>}
+      {showFinder && <div style="margin-top:56px"><ProcessFinder /></div>}
+    </div>
+  </section>
+
+  <section class="section paper">
+    <div class="wrap split">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">Specs</p>
+        <h2>What we can state today.</h2>
+        <p class="muted">Specs without a tag are published on luptons.com. Yellow <mark class="confirm">CONFIRM</mark> tags mark claims that need sign-off before launch. Every spec is confirmed for the specific shop before award.</p>
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="specs" specs={cap.specs} /></div>
+    </div>
+    <div class="wrap split" style="margin-top:clamp(56px,8vw,110px)">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">What to send</p>
+        <h2>Make it quotable on the first pass.</h2>
+        <p class="muted">Unknowns are fine. Label them open so the review resolves them instead of the quote burying an assumption.</p>
+        <div class="btn-row" style="margin-top:18px"><a class="btn btn-primary" href="/rfq/" data-magnetic>Upload the drawing <span class="arrow">→</span></a></div>
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="send" items={cap.send} /></div>
+    </div>
+  </section>
+
+  {children.length > 0 && (
+    <section class="section tight">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><p class="eyebrow">Go deeper</p><h2>{cap.name} in detail.</h2></div>
+        <div class="cards" data-stagger>
+          {children.map((c) => (
+            <a class="card" href={capabilityPath(c)}>
+              <span class="ico"><Icon name={c.icon} /></span>
+              <h3>{c.name}</h3>
+              <p>{c.short}</p>
+              <span class="go">Read <i>→</i></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {(proof.length > 0 || combos.length > 0) && (
+    <section class="section tight">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><p class="eyebrow">Proof & applications</p><h2>Where this shows up.</h2></div>
+        <div class="cards" data-stagger>
+          {combos.map((c) => (
+            <a class="card" href={comboPath(c!)}>
+              <span class="num">{industryBySlug(c!.industry)?.name}</span>
+              <h3>{c!.name}</h3>
+              <p set:html={rich(c!.lede[0].split(/(?<=[.;])\s/)[0])} />
+              <span class="go">Industry page <i>→</i></span>
+            </a>
+          ))}
+          {proof.map((r) => (
+            <a class="card" href={`/resources/${r!.slug}/`}>
+              <span class="num">{r!.kind}</span>
+              <h3>{r!.h1}</h3>
+              <p set:html={rich(r!.lede[0])} />
+              <span class="go">Read <i>→</i></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section tight">
+    <div class="wrap grid-2">
+      <div data-reveal>
+        <p class="eyebrow">Questions</p>
+        <h2>What buyers ask about {cap.name.toLowerCase()}.</h2>
+        <p class="muted" style="margin-top:22px">Industries where we see this work:</p>
+        <ul class="chips">{inds.map((i) => <li style="padding:0;border:0"><a href={`/industries/${i!.slug}/`}>{i!.name}</a></li>)}</ul>
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="faq" faqs={cap.faqs} /></div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

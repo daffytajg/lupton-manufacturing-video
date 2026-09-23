@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Blocks from '../../components/Blocks.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { resources } from '../../data/resources';
+import { capabilityBySlug, capabilityPath } from '../../data/capabilities';
+import { industryBySlug } from '../../data/industries';
+import { img } from '../../lib/images';
+import { rich, words } from '../../lib/rich';
+import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return resources.map((r) => ({ params: { slug: r.slug }, props: { r } }));
+}
+const { r } = Astro.props;
+const path = `/resources/${r.slug}/`;
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Resources', href: '/resources/' }, { name: r.kind, href: path }];
+const pic = r.image ? img(r.image) : undefined;
+const fmt = (d: string) => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<Base title={r.title} description={r.description} path={path} schema={[webPageSchema(path, r.title, r.description), articleSchema(path, r.h1, r.description, r.published, r.updated), breadcrumbSchema(crumbs), r.faqs ? faqSchema(r.faqs) : null]}>
+  <section class="phero" data-spotlight>
+    <div class="hero-bg" aria-hidden="true"><div class="grid-lines"></div><div class="aurora a1"></div></div>
+    <div class="spotlight" aria-hidden="true"></div>
+    <div class="wrap">
+      <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="/">Home</a></li><li><a href="/resources/">Resources</a></li><li aria-current="page">{r.kind}</li></ol></nav>
+      <p class="eyebrow">{r.kind} · updated <time datetime={r.updated}>{fmt(r.updated)}</time></p>
+      <h1 class="bw" style="max-width:22ch;font-size:clamp(2rem,4.4vw,3.8rem)">{words(r.h1).map((w, i) => <span class="w" style={`--i:${i}`}>{w + ' '}</span>)}</h1>
+      <div class="lede" data-reveal style="--d:300;max-width:70ch">{r.lede.map((s) => <p set:html={rich(s)} />)}</div>
+    </div>
+  </section>
+  <section class="section paper" style="padding-top:clamp(40px,6vw,80px)">
+    <div class="wrap">
+      <article class="article">
+        {pic && <Image src={pic} alt={r.imageAlt || ''} widths={[600, 1000]} sizes="(max-width:800px) 92vw, 760px" style="border-radius:18px;margin-bottom:28px" loading="lazy" />}
+        {r.body.map((b) => (
+          b.type === 'h2' ? <h2>{b.text}</h2>
+          : b.type === 'p' ? <p set:html={rich(b.text)} />
+          : b.type === 'ul' ? <ul>{b.items.map((i) => <li set:html={rich(i)} />)}</ul>
+          : b.type === 'ol' ? <ol>{b.items.map((i) => <li set:html={rich(i)} />)}</ol>
+          : b.type === 'callout' ? <p class="callout" set:html={rich(b.text)} />
+          : b.type === 'table' ? <Blocks type="compare" table={b.table} />
+          : b.type === 'facts' ? <div class="factgrid">{b.items.map((f) => <div><span>{f.label}</span><b set:html={rich(f.value)} /></div>)}</div>
+          : null
+        ))}
+        {r.faqs && (<><h2>FAQ</h2><Blocks type="faq" faqs={r.faqs} /></>)}
+        <div class="divider"></div>
+        <p class="muted" style="font-size:15px">Related:{' '}
+          {r.capabilities.map((s) => capabilityBySlug(s)).filter(Boolean).map((c, i) => <>{i > 0 && ' · '}<a href={capabilityPath(c!)}>{c!.name}</a></>)}
+          {r.industries.map((s) => industryBySlug(s)).filter(Boolean).map((ind) => <> · <a href={`/industries/${ind!.slug}/`}>{ind!.name}</a></>)}
+        </p>
+        <p class="muted" style="font-size:13px">Published {fmt(r.published)} by Lupton Associates, Canandaigua, NY.</p>
+      </article>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

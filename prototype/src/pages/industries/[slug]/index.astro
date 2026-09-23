@@ -1,0 +1,111 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Blocks from '../../../components/Blocks.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Icon from '../../../components/Icon.astro';
+import { industries } from '../../../data/industries';
+import { capabilityBySlug, capabilityPath } from '../../../data/capabilities';
+import { comboByKey, comboPath } from '../../../data/combos';
+import { resourceBySlug } from '../../../data/resources';
+import { rich } from '../../../lib/rich';
+import { breadcrumbSchema, faqSchema, webPageSchema, serviceSchema } from '../../../lib/schema';
+
+export function getStaticPaths() {
+  return industries.map((ind, i) => ({ params: { slug: ind.slug }, props: { ind, i } }));
+}
+const { ind, i } = Astro.props;
+const path = `/industries/${ind.slug}/`;
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Industries', href: '/industries/' }, { name: ind.name, href: path }];
+const combos = ind.combos.map(comboByKey).filter(Boolean);
+const proof = (ind.proof || []).map(resourceBySlug).filter(Boolean);
+const artByInd: Record<string, string> = { 'data-center': 'sheet', medical: 'cable', 'heavy-truck': 'stamp', 'military-aerospace': 'mill', robotics: 'proto', energy: 'busbar', 'agriculture-heavy-equipment': 'sheet' };
+---
+<Base title={ind.title} description={ind.description} path={path} schema={[webPageSchema(path, ind.title, ind.description), serviceSchema(path, `${ind.name} components`, ind.lede, 'Custom component manufacturing'), breadcrumbSchema(crumbs), faqSchema(ind.faqs)]}>
+  <PageHero crumbs={crumbs} eyebrow={`Industry ${String(i + 1).padStart(2, '0')} / ${String(industries.length).padStart(2, '0')}`} h1={ind.h1} lede={ind.lede} image={ind.image} imageAlt={ind.imageAlt} art={artByInd[ind.slug]} artTitle={ind.name.toUpperCase()} />
+
+  <section class="section tight">
+    <div class="wrap split">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">Parts we see</p>
+        <h2>What {ind.name.toLowerCase()} buyers send us.</h2>
+      </div>
+      <ul class="checklist" data-reveal style="--d:100">{ind.parts.map((p) => <li set:html={rich(p)} />)}</ul>
+    </div>
+  </section>
+
+  {combos.length > 0 && (
+    <section class="section tight">
+      <div class="wrap">
+        <div class="sec-head" data-reveal><p class="eyebrow">Most-requested</p><h2>{ind.name} × capability.</h2></div>
+        <div class="cards" data-stagger>
+          {combos.map((c) => (
+            <a class="card" href={comboPath(c!)}>
+              <span class="ico"><Icon name={capabilityBySlug(c!.capability)?.icon ?? 'proto'} /></span>
+              <h3>{c!.name}</h3>
+              <p set:html={rich(c!.description)} />
+              <span class="go">Open <i>→</i></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><p class="eyebrow">When buyers call</p><h2>The problems behind the RFQ.</h2></div>
+      <div class="triggers" data-stagger>
+        {ind.problems.map((p, n) => (
+          <div class="trigger"><span class="k">{String(n + 1).padStart(2, '0')}</span><h3>{p.title}</h3><p set:html={rich(p.text)} /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section paper">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><p class="eyebrow">Capabilities</p><h2>Processes we route for {ind.name.toLowerCase()}.</h2></div>
+      <div class="cards" data-stagger>
+        {ind.capabilities.map((c) => {
+          const cap = capabilityBySlug(c.slug)!;
+          return (
+            <a class="card" href={capabilityPath(cap)}>
+              <span class="ico"><Icon name={cap.icon} /></span>
+              <h3>{cap.name}</h3>
+              <p set:html={rich(c.text)} />
+              <span class="go">Capability <i>→</i></span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+    <div class="wrap split" style="margin-top:clamp(56px,8vw,100px)">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">Put this in the RFQ</p>
+        <h2>Requirements that change the quote.</h2>
+        <p class="muted">If a requirement is not settled, mark it open. That is better than letting the quote assume.</p>
+      </div>
+      <ul class="checklist" data-reveal style="--d:100">{ind.requirements.map((r) => <li set:html={rich(r)} />)}</ul>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="wrap grid-2">
+      <div data-reveal>
+        <p class="eyebrow">Questions</p>
+        <h2>{ind.name} FAQ.</h2>
+        {proof.length > 0 && (
+          <div class="cards" style="margin-top:26px">
+            {proof.map((r) => (
+              <a class="card" href={`/resources/${r!.slug}/`}><span class="num">{r!.kind}</span><h3>{r!.h1}</h3><span class="go">Read <i>→</i></span></a>
+            ))}
+          </div>
+        )}
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="faq" faqs={ind.faqs} /></div>
+    </div>
+  </section>
+
+  <CtaBand title={`Working on a ${ind.name.toLowerCase()} program?`} />
+</Base>

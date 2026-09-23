@@ -1,0 +1,372 @@
+import type { Industry } from './types';
+
+// Sources: luptons.com/industries-served/, /data-centers/power-distribution-hardware/,
+// /machined-components/cold-plates/, /about-us/, /field-signal/ (published project notes),
+// and the published case-study list on /resources/.
+
+export const industries: Industry[] = [
+  {
+    slug: 'data-center',
+    name: 'Data center',
+    short: 'Enclosures, bus bars, cold plates, harnesses and PCBAs for power and cooling equipment.',
+    title: 'Data Center Hardware: Enclosures, Bus Bars, Cold Plates | Lupton',
+    description:
+      'Custom sheet metal enclosures and racks, copper bus bars, cold plates, harnesses and PCB assemblies for data center power and cooling equipment.',
+    h1: 'Data center hardware: enclosures, bus bars, cold plates and harnesses',
+    lede: [
+      'Lupton helps data center hardware teams get the custom parts inside power and cooling equipment made: sheet metal enclosures, racks and chassis, copper bus bars, cold plates and heat sinks, cable harnesses, PCB assemblies and insulation, from prototype through production ramp.',
+      'Send the drawing, BOM, material, electrical or thermal requirements, annual volume and launch date; we review it before it goes to quote so the RFQ does not stall on a missing spec.',
+    ],
+    image: 'thermal-components',
+    imageAlt: 'Copper and aluminum thermal management components including cold plates and heat pipes',
+    parts: [
+      'Bus bars and conductive components',
+      'PDU, UPS and switchgear hardware',
+      'Electrical enclosures, cabinets, panels, frames and rack hardware',
+      'Sheet metal brackets, chassis and EMI shields',
+      'Cold plates, heat sinks and thermal-management components',
+      'Machined, cast, stamped, formed and extruded metal parts',
+      'Cable harnesses and custom cable assemblies',
+      'PCB assemblies and box builds',
+      'Insulation, gasketing and related custom components',
+    ],
+    problems: [
+      { title: 'Volume is outrunning the supplier', text: 'Build rates are climbing faster than the current source can support. We look for added capacity or a second source before launch dates slip.' },
+      { title: 'The design mixes power, thermal and enclosure', text: 'One assembly needs a bus bar, a cold plate, sheet metal and a harness. We review the whole package so the pieces fit and get quoted together where it makes sense.' },
+      { title: 'Quotes came back incomplete', text: 'An RFQ with open electrical, plating or test requirements returns quotes you cannot compare. We identify what is missing before it goes back out.' },
+      { title: 'Domestic, offshore or both', text: 'Tariffs, freight and lead time change the math. We price domestic, Mexico and Asia options on the same drawing.' },
+    ],
+    capabilities: [
+      { slug: 'sheet-metal-fabrication', text: 'Enclosures, cabinets, racks, chassis, brackets and EMI shields.' },
+      { slug: 'metal-stamping', text: 'Bus bars, brackets and clips once volume supports tooling.' },
+      { slug: 'cnc-machining', text: 'Cold plates, machined bus bars, brazed and expanded-tube assemblies.' },
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Power cables to 4/0 and signal harnesses.' },
+      { slug: 'extrusions', text: 'Heat sinks, rails and frames.' },
+      { slug: 'electronic-assembly', text: 'Control boards and box builds.' },
+    ],
+    requirements: [
+      'Electrical and thermal requirements; material and conductivity',
+      'Current and voltage conditions; joint, interface and mounting design',
+      'Plating, coating, insulation and corrosion requirements',
+      'Heat load and cooling path; flatness, tolerance and surface requirements',
+      'Short-circuit, dielectric, leak, pressure or flow testing',
+      'Traceability, inspection and documentation',
+      'Prototype and production quantities; launch timing and capacity',
+    ],
+    faqs: [
+      {
+        q: 'What should a data center hardware RFQ include?',
+        a: 'Drawings, BOM, materials, annual volume, launch timing, electrical and thermal requirements, finishes, insulation, testing, inspection, documentation, and any current supplier issue. If a spec is not settled, mark it open rather than letting the quote assume.',
+      },
+      {
+        q: 'Can Lupton help with both power and cooling components?',
+        a: 'Yes. We review power distribution, enclosure, interconnect, machining and thermal-management hardware. Fit is confirmed against the specific drawing and requirements.',
+      },
+      {
+        q: 'Does Lupton manufacture the components?',
+        a: 'No. We review manufacturing fit and connect the project to the right manufacturer, which confirms feasibility, capacity, pricing, lead time and terms and quotes you directly.',
+      },
+    ],
+    combos: ['data-center/sheet-metal-enclosures', 'data-center/copper-busbars', 'data-center/cold-plates'],
+    proof: ['second-source-custom-components'],
+    legacy: ['/data-centers/', '/data-centers/power-distribution-hardware/', 'https://www.luptonsolutions.com/datacenter'],
+  },
+  {
+    slug: 'medical',
+    name: 'Medical',
+    short: 'Harnesses, housings, carts, frames and stampings for device and lab equipment OEMs.',
+    title: 'Medical Device Components: Harnesses, Housings, Frames | Lupton',
+    description:
+      'Cable assemblies, molded and thermoformed housings, RIM covers, sheet metal frames, short-run stampings, machined parts and PCBAs for medical device OEMs.',
+    h1: 'Medical device components: harnesses, housings, frames and stampings',
+    lede: [
+      'Lupton matches medical device and lab equipment OEMs with manufacturers for cable assemblies and harnesses, molded, RIM and thermoformed housings, sheet metal frames and carts, short-run stampings, machined parts and PCB assemblies, with ISO 13485 sources where the program requires it [CONFIRM].',
+      'Send the drawing, material, volume and the documentation your quality system needs (first article, material certs, traceability, cleanliness), and we confirm the source can meet it before it quotes.',
+    ],
+    image: 'medical-imaging',
+    imageAlt: 'Medical imaging equipment assembly with molded covers and a sheet metal frame',
+    parts: [
+      'Medical device housings and covers (injection, RIM, thermoformed)',
+      'Diagnostic and lab equipment parts',
+      'Surgical tool components',
+      'Welded equipment frames and carts',
+      'Short-run stamped brackets, clips and chassis parts',
+      'Cable assemblies and wire harnesses',
+      'PCB assemblies and box builds',
+    ],
+    problems: [
+      { title: 'A late or failing supplier on a validated part', text: 'Changing a source on a medical program means validation work. We build the second-source package (drawing, process, quality history, validation plan) so the change is planned, not rushed.' },
+      { title: 'Low volume, high documentation', text: 'Medical programs often run hundreds or low thousands a year with full traceability. We look for shops set up for that mix, not just high-volume capacity.' },
+      { title: 'Large covers without expensive tooling', text: 'RIM and thermoforming produce large, cosmetic equipment covers at low volume for far less tooling than injection molding.' },
+    ],
+    capabilities: [
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Device and cart harnesses, overmolded cables.' },
+      { slug: 'metal-stamping', text: 'Short-run stamped brackets and chassis parts.' },
+      { slug: 'plastic-molding', text: 'RIM, thermoformed and injection-molded housings.' },
+      { slug: 'sheet-metal-fabrication', text: 'Frames, carts and enclosures with powder coat.' },
+      { slug: 'cnc-machining', text: 'Machined and Swiss-turned components.' },
+      { slug: 'electronic-assembly', text: 'PCBAs and box builds with ISO 13485 when required.' },
+    ],
+    requirements: [
+      'ISO 13485 at the manufacturing source, where required [CONFIRM per source]',
+      'First article inspection and dimensional reports',
+      'Material certifications and lot traceability',
+      'Cleanliness, packaging and labeling requirements',
+      'Change control: notification before process or material changes',
+      'Validation plan for a new or second source',
+    ],
+    faqs: [
+      {
+        q: 'Do your manufacturers hold ISO 13485?',
+        a: 'Several do, across harnesses, molding and electronics. Put the requirement in the RFQ and we will only route to sources that hold it, confirmed before quote. [CONFIRM]',
+      },
+      {
+        q: 'Can you build to our existing drawings and validated process?',
+        a: 'Yes. Send the drawing, current process and quality history. If the current process was chosen for an older volume, we will say so, but any change is yours to approve.',
+      },
+    ],
+    combos: ['medical/wire-harnesses', 'medical/metal-stamping'],
+    proof: ['automated-pharmaceutical-dispensing-machine-structural-frame'],
+    legacy: [],
+  },
+  {
+    slug: 'heavy-truck',
+    name: 'Heavy truck',
+    short: 'Stampings, weldments, castings, harnesses and battery enclosures for vehicle programs.',
+    title: 'Heavy Truck & Specialty Vehicle Components | Lupton Associates',
+    description:
+      'Stamped and welded brackets, structural weldments, castings, wire harnesses to 4/0, molded covers and battery enclosures for heavy truck and off-road OEMs.',
+    h1: 'Heavy truck and specialty vehicle components',
+    lede: [
+      'Lupton works with heavy truck, off-road and specialty vehicle OEMs on stamped and welded brackets, structural weldments, castings, wire harnesses and power cables up to 4/0, molded covers and battery enclosures, from prototypes through production volumes.',
+      'Send the print, annual volume, PPAP level and launch timing, and we will route it to a shop set up for vehicle-program documentation [CONFIRM IATF 16949 where required].',
+    ],
+    image: 'utv',
+    imageAlt: 'Four-seat off-road utility vehicle',
+    parts: [
+      'Chassis and structural components',
+      'Stamped plates, stiffeners, supports and brackets',
+      'Powertrain parts and castings',
+      'Battery housings and enclosures',
+      'Wire harnesses and power cables to 4/0',
+      'Molded and thermoformed covers',
+    ],
+    problems: [
+      { title: 'Launch timing on stamped parts', text: 'On a published UTV program, six stamped structural components went from drawing to the customer’s welding line in three weeks, with tooling in two to three weeks.' },
+      { title: 'Fabricated parts that should be stampings', text: 'Laser-cut brackets that now run thousands a year are classic short run stamping conversions.' },
+      { title: 'Harness supply risk', text: 'Heavy power cable and harness programs where a second source or a Mexico build would lower risk.' },
+    ],
+    capabilities: [
+      { slug: 'metal-stamping', text: 'Brackets, plates and stiffeners, short run to progressive.' },
+      { slug: 'sheet-metal-fabrication', text: 'Weldments, battery enclosures, cab components.' },
+      { slug: 'casting', text: 'Aluminum and iron castings, machined.' },
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Vehicle harnesses and 4/0 power cable.' },
+      { slug: 'plastic-molding', text: 'Covers, fenders, tanks.' },
+    ],
+    requirements: [
+      'PPAP level and submission timing',
+      'IATF 16949 at the source where required [CONFIRM per source]',
+      'Corrosion and coating specs (e-coat, powder, salt-spray hours)',
+      'Weld specs and downstream assembly interfaces',
+      'Annual volume, release pattern and service-part needs',
+    ],
+    faqs: [
+      {
+        q: 'How fast can stamped vehicle parts be tooled?',
+        a: 'Short run stamping tooling typically ships in weeks. On one published UTV program, tooling took two to three weeks and parts reached the customer’s welding line three weeks after kickoff.',
+      },
+    ],
+    combos: [],
+    proof: ['short-run-stamping-part-conversion'],
+    legacy: [],
+  },
+  {
+    slug: 'military-aerospace',
+    name: 'Military & aerospace',
+    short: 'Tight-tolerance machining, castings, weldments and electronics for defense programs.',
+    title: 'Military & Aerospace Components: Machined, Cast, Electronic | Lupton',
+    description:
+      'Tight-tolerance machined parts, specialty castings, welded sheet metal, electronic enclosures, cable assemblies and PCBAs for defense and aerospace programs.',
+    h1: 'Military and aerospace components: machined, cast, fabricated and electronic',
+    lede: [
+      'Lupton helps defense and aerospace programs source tight-tolerance machined parts, specialty castings, welded sheet metal, electronic enclosures, cable assemblies and PCB assemblies, with quality and compliance requirements defined in the RFQ.',
+      'Tell us the requirements up front (ITAR, AS9100, NIST SP 800-171 or CMMC, first article, source inspection) and we route the drawing only to shops that hold them [CONFIRM per shop].',
+    ],
+    image: 'machined-aero-frame',
+    imageAlt: 'Precision-machined aerospace frame with circular bores',
+    parts: [
+      'Aircraft and drone components',
+      'Military vehicle parts',
+      'Electronic enclosures for mission-critical systems',
+      'Graphite and die-cast aluminum chassis',
+      'Machined and welded sheet metal assemblies',
+      'MIL-spec cable assemblies and PCB assemblies',
+    ],
+    problems: [
+      { title: 'Programs moving to rate', text: 'Defense demand is becoming a throughput question. Programs reach rate when process, capacity, documentation, inspection and release timing are understood below the prime level.' },
+      { title: 'Compliance narrows the field', text: 'ITAR registration, AS9100 and NIST SP 800-171 rule out most shops. We start from the requirement, not the capability list.' },
+    ],
+    capabilities: [
+      { slug: 'cnc-machining', text: '5-axis, Swiss, grinding and EDM in exotic alloys.' },
+      { slug: 'casting', text: 'Graphite, investment and die castings for chassis and housings.' },
+      { slug: 'sheet-metal-fabrication', text: 'Machined and welded sheet metal.' },
+      { slug: 'electronic-assembly', text: 'AS9100 / ITAR PCBAs and box builds [CONFIRM].' },
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Military and RF cable assemblies [CONFIRM].' },
+    ],
+    requirements: [
+      'ITAR registration; controlled technical data handled outside the web form',
+      'AS9100 quality system [CONFIRM per shop]',
+      'NIST SP 800-171 / CMMC status [CONFIRM per shop]',
+      'First article inspection (AS9102), source inspection, flow-down clauses',
+      'Material certs, DFARS specialty-metals compliance where required',
+    ],
+    faqs: [
+      {
+        q: 'Can I upload ITAR drawings to the RFQ form?',
+        a: 'No. Do not upload export-controlled technical data through the website. Call (585) 393-4999 and we will arrange a compliant transfer. [CONFIRM process]',
+      },
+    ],
+    combos: ['military-aerospace/cnc-machining'],
+    legacy: [],
+  },
+  {
+    slug: 'robotics',
+    name: 'Robotics',
+    short: 'Arms, chassis, guarding, high-flex cables and covers at robot-program volumes.',
+    title: 'Robotics & Automation Components: Chassis, Cables, Covers | Lupton',
+    description:
+      'Machined and cast arm components, sheet metal chassis and guarding, cable assemblies, molded covers and PCBAs at low-to-mid robot program volumes.',
+    h1: 'Robotics and automation components',
+    lede: [
+      'Lupton helps robotics and automation builders get the physical parts of a robot made (machined and cast arm components, sheet metal chassis and guarding, cable assemblies and harnesses, molded covers and PCB assemblies) at the low-to-mid volumes typical of robot programs.',
+      'Send the model, BOM, annual build rate and which parts are still changing; we will recommend processes that do not lock you into expensive tooling before the design settles.',
+    ],
+    image: 'sm-assembly',
+    imageAlt: 'Electromechanical assembly station with sheet metal chassis and harnesses',
+    parts: [
+      'Machined and cast arm and joint components',
+      'Sheet metal chassis, frames and guarding',
+      'Molded and thermoformed covers',
+      'Cable assemblies and harnesses',
+      'PCB assemblies and control box builds',
+    ],
+    problems: [
+      { title: 'Designs still changing', text: 'Low-tooling routes (machining, graphite casting, thermoforming, short run stamping) keep revisions affordable until the design settles.' },
+      { title: 'Durable covers at low volume', text: 'A published project note covered a molded cover for a ground-based robotic system using aluminum tooling, heat-staked compression limiters and DFM review for a low-volume program.' },
+    ],
+    capabilities: [
+      { slug: 'cnc-machining', text: 'Arm, joint and gearbox components.' },
+      { slug: 'plastic-molding', text: 'Covers with aluminum tooling at low volume.' },
+      { slug: 'sheet-metal-fabrication', text: 'Chassis, frames, guarding.' },
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Harnesses and cable assemblies; high-flex constructions [CONFIRM].' },
+      { slug: 'prototyping', text: 'Prototype to pilot builds.' },
+    ],
+    requirements: [
+      'Annual build rate and pilot quantities',
+      'Parts still under revision',
+      'Flex-life and cable routing requirements',
+      'Cosmetic class for visible covers',
+    ],
+    faqs: [
+      {
+        q: 'What volume do you support for robot programs?',
+        a: 'Prototype and pilot builds through low-to-mid production. Tell us the build rate and we will match the process to it.',
+      },
+    ],
+    combos: [],
+    legacy: [],
+  },
+  {
+    slug: 'energy',
+    name: 'Energy',
+    short: 'Enclosures, bus bars, cold plates and harnesses for storage, charging and grid gear.',
+    title: 'Energy Storage & EV Charging Components | Lupton Associates',
+    description:
+      'Cabinets, enclosures, bus bars, cold plates, harnesses and electronic assemblies for battery storage, EV charging, inverters and grid equipment.',
+    h1: 'Energy storage, EV charging and power conversion components',
+    lede: [
+      'Lupton helps energy equipment makers get the enclosures, cabinets, bus bars, cold plates, harnesses and electronic assemblies that go into battery storage, EV charging, inverters and grid equipment made, from first prototypes through production ramp.',
+      'Send the drawing, current and thermal requirements, environmental rating, annual volume and launch date, and we will review the package and route it to shops with the right process and capacity.',
+    ],
+    image: 'sm-paintline',
+    imageAlt: 'Enclosure panels on racks moving through a powder coat finishing line',
+    parts: [
+      'Battery housings and enclosures',
+      'Outdoor cabinets and charger enclosures',
+      'Copper and aluminum bus bars',
+      'Cold plates and heat sinks',
+      'Power cables and harnesses',
+      'Control PCBAs and box builds',
+    ],
+    problems: [
+      { title: 'Outdoor enclosures that last', text: 'Coating, gasketing and corrosion requirements drive the process as much as geometry does. We review them before quote.' },
+      { title: 'Ramp without re-sourcing', text: 'Pick a path that works from pilot to production volume, or plan the conversion to stamping or offshore up front.' },
+    ],
+    capabilities: [
+      { slug: 'sheet-metal-fabrication', text: 'Cabinets, enclosures and battery housings.' },
+      { slug: 'metal-stamping', text: 'Bus bars and brackets at volume.' },
+      { slug: 'cnc-machining', text: 'Cold plates and machined conductors.' },
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Power cables to 4/0.' },
+      { slug: 'electronic-assembly', text: 'Control boards and box builds.' },
+      { slug: 'low-cost-region-manufacturing', text: 'High-volume enclosures offshore.' },
+    ],
+    requirements: [
+      'Environmental rating and coating spec',
+      'Current, voltage and dielectric requirements',
+      'Heat load and cooling path',
+      'Certification path of the end product (UL / CSA) [CONFIRM]',
+    ],
+    faqs: [
+      {
+        q: 'Can the same shop build the cabinet and integrate the bus bars and harness?',
+        a: 'Often. Turnkey assembly with boards, cables and backplanes, plus hi-pot and functional testing, is available at sheet metal sources. Send the full scope.',
+      },
+    ],
+    combos: [],
+    legacy: [],
+  },
+  {
+    slug: 'agriculture-heavy-equipment',
+    name: 'Agriculture & heavy equipment',
+    short: 'Weldments, heavy-gauge sheet metal, castings, rotomolded tanks and harnesses.',
+    title: 'Agriculture & Heavy Equipment Components | Lupton Associates',
+    description:
+      'Weldments and structural frames, heavy-gauge sheet metal, castings, rotomolded tanks and fenders, thermoformed covers and harnesses for ag and off-highway equipment.',
+    h1: 'Agriculture and heavy equipment components',
+    lede: [
+      'Lupton works with agricultural, construction and off-highway equipment makers on weldments and structural frames, heavy-gauge sheet metal, castings, rotomolded tanks and fenders, thermoformed covers and harnesses: parts built for dirt, vibration and a long service life.',
+      'Send the print, annual volume, finish and operating environment, and we will compare fabrication, casting and molding options before you commit to tooling.',
+    ],
+    image: 'sm-weld',
+    imageAlt: 'Welder building a heavy steel structural weldment',
+    parts: [
+      'Structural weldments and frames',
+      'Heavy-gauge brackets and guards',
+      'Castings for housings and mounts',
+      'Rotomolded tanks, fenders and housings',
+      'Thermoformed covers and panels',
+      'Off-highway harnesses',
+    ],
+    problems: [
+      { title: 'Low volume, big parts', text: 'Equipment runs hundreds to low thousands a year. Rotomolding, thermoforming and fabrication keep tooling proportional to volume.' },
+      { title: 'Long service life', text: 'Weld quality, coating and material choices decide whether the part lasts. We put those requirements in the RFQ, not in a later argument.' },
+    ],
+    capabilities: [
+      { slug: 'sheet-metal-fabrication', text: 'Weldments, frames, guards.' },
+      { slug: 'casting', text: 'Iron and aluminum castings.' },
+      { slug: 'plastic-molding', text: 'Rotomolded tanks and fenders; thermoformed covers.' },
+      { slug: 'wire-harnesses-cable-assemblies', text: 'Off-highway harnesses.' },
+    ],
+    requirements: ['Weld specs and inspection', 'Coating and corrosion requirements', 'Annual volume and service-part needs', 'Operating environment (UV, chemicals, temperature)'],
+    faqs: [
+      {
+        q: 'Rotomolding or thermoforming for a tank or fender?',
+        a: 'Rotational molding makes hollow one-piece parts like tanks; thermoforming makes open shapes like fenders and covers from sheet. Both keep tooling low at equipment volumes.',
+      },
+    ],
+    combos: [],
+    legacy: [],
+  },
+];
+
+export const industryBySlug = (slug: string) => industries.find((i) => i.slug === slug);

@@ -1,0 +1,67 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL, PROTOTYPE, org } from '../data/site';
+import { graph } from '../lib/schema';
+import { plain } from '../lib/rich';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  schema?: (object | null | undefined)[];
+  noindex?: boolean;
+  ogImage?: string;
+}
+const { title, description, path, schema = [], noindex = false, ogImage = '/img/og-default.jpg' } = Astro.props;
+const canonical = `${SITE_URL}${path}`;
+const robots = PROTOTYPE || noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1';
+const ld = graph(...schema);
+const desc = plain(description);
+---
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{plain(title)}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#050e17" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={org.name} />
+    <meta property="og:title" content={plain(title)} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE_URL}${ogImage}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <script is:inline>
+      // Hide-then-reveal classes apply only when JS runs. Safety net: if the motion module
+      // fails to load within 2.5s, drop the class so nothing stays invisible.
+      document.documentElement.classList.add('js');
+      setTimeout(function () { if (!document.documentElement.classList.contains('motion-ready')) document.documentElement.classList.remove('js'); }, 2500);
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="progress" aria-hidden="true"></div>
+    {PROTOTYPE && (
+      <div class="proto-bar" role="note">
+        PROTOTYPE FOR REVIEW · not luptons.com · forms do not submit · <a href="/review/">yellow CONFIRM tags = unverified claims</a>
+      </div>
+    )}
+    <Nav path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/motion.ts';
+    </script>
+  </body>
+</html>
