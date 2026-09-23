@@ -86,11 +86,11 @@ Status: **proposal for review.** The prototype in [`prototype/`](prototype/) bui
 | Template | Order of sections | Schema |
 |---|---|---|
 | **Capability** | Hero (eyebrow · H1 · two-sentence answer · Send the drawing / Book time · photo or animated drawing · key stats) → routes we cover → decision table → process finder (sheet metal pages) → **specs** (verified vs [CONFIRM]) → **what to send** checklist → sub-pages → proof & applications → FAQ + industries → CTA band | WebPage, Service, BreadcrumbList, FAQPage |
-| **Industry** | Hero → parts we see → capability × industry cards → the problems behind the RFQ → capabilities we route → requirements that change the quote → FAQ + proof → CTA | WebPage, Service, BreadcrumbList, FAQPage |
+| **Industry** | Hero → parts we see → (data center: exploded power-shelf part scene) → capability × industry cards → the problems behind the RFQ → capabilities we route → requirements that change the quote → FAQ + proof → CTA | WebPage, Service, BreadcrumbList, FAQPage |
 | **Capability × industry** | Hero → parts + requirements → process finder (stamping) → specs → RFQ package → FAQ + related → CTA | WebPage, Service, BreadcrumbList, FAQPage |
 | **Resource** | Answer-first lede → body (tables, fact grids, lists) → FAQ → related links, publish date | WebPage, Article, BreadcrumbList, FAQPage |
 | **RFQ** | One-screen form (upload first) → what happens next → what helps → FAQ | WebPage, BreadcrumbList, FAQPage |
-| **Home** | Hero → process marquee → 10-capability bento → "a part and a problem" triggers → process finder → industries (horizontal scroll) → how it works → published results → since-1969 story video → at-a-glance facts + FAQ → CTA | Organization/ProfessionalService, WebSite, WebPage, FAQPage |
+| **Home** | Hero → process marquee → 10-capability bento → "a part and a problem" triggers → exploded power-shelf part scene → process finder → industries (horizontal scroll) → how it works → published results → since-1969 story video → at-a-glance facts + FAQ → CTA | Organization/ProfessionalService, WebSite, WebPage, FAQPage |
 
 Every page also carries the Organization node: name, address, phone, founding date, areaServed (US/CA/MX), knowsAbout (processes) and leadership.
 

@@ -8,6 +8,7 @@ import Steps from '../components/Steps.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Blocks from '../components/Blocks.astro';
 import Icon from '../components/Icon.astro';
+import PartScene from '../components/PartScene.astro';
 import { org, processes } from '../data/site';
 import { topCapabilities, capabilityPath } from '../data/capabilities';
 import { industries } from '../data/industries';
@@ -91,6 +92,7 @@ const industryImg: Record<string, string> = { 'data-center': 'thermal-components
         </div>
       </div>
       <div class="hero-art" data-reveal style="--d:250">
+        <span class="ghost" aria-hidden="true">1969</span>
         <Blueprint kind="home" title="ENCLOSURE · FLAT" />
       </div>
     </div>
@@ -154,6 +156,11 @@ const industryImg: Record<string, string> = { 'data-center': 'thermal-components
         ))}
       </div>
     </div>
+  </section>
+
+  <!-- ───────── PART SCENE ───────── -->
+  <section class="section" style="padding-bottom:0">
+    <div class="wrap"><PartScene /></div>
   </section>
 
   <!-- ───────── PROCESS FINDER ───────── -->

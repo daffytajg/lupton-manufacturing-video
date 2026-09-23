@@ -8,6 +8,9 @@ for (const [path, mod] of Object.entries(files)) {
   byName[name] = mod.default;
 }
 
+/** The generated drawing-view layer for a photo (scripts/make-drawings.mjs), if one exists. */
+export const drawingOf = (name: string) => (name ? byName[`${name}--drawing`] : undefined);
+
 export function img(name: string): ImageMetadata | undefined {
   return name ? byName[name] : undefined;
 }

@@ -4,6 +4,7 @@ import PageHero from '../../../components/PageHero.astro';
 import Blocks from '../../../components/Blocks.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Icon from '../../../components/Icon.astro';
+import PartScene from '../../../components/PartScene.astro';
 import { industries } from '../../../data/industries';
 import { capabilityBySlug, capabilityPath } from '../../../data/capabilities';
 import { comboByKey, comboPath } from '../../../data/combos';
@@ -33,6 +34,12 @@ const artByInd: Record<string, string> = { 'data-center': 'sheet', medical: 'cab
       <ul class="checklist" data-reveal style="--d:100">{ind.parts.map((p) => <li set:html={rich(p)} />)}</ul>
     </div>
   </section>
+
+  {ind.slug === 'data-center' && (
+    <section class="section tight">
+      <div class="wrap"><PartScene heading='Inside a rack power shelf: <em class="serif">who makes what.</em>' intro='A power shelf combines sheet metal, bus bars, a cold plate, an extruded heat sink, a control board, a harness and a molded bezel. Select a part to see how it is made and what to send.' /></div>
+    </section>
+  )}
 
   {combos.length > 0 && (
     <section class="section tight">

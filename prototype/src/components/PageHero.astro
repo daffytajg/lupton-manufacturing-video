@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Blueprint from './Blueprint.astro';
-import { img, heroWorthy } from '../lib/images';
+import { img, heroWorthy, drawingOf } from '../lib/images';
 import { rich, words } from '../lib/rich';
 import { org } from '../data/site';
 import type { Stat } from '../data/types';
@@ -20,6 +20,7 @@ interface Props {
 }
 const { crumbs, eyebrow, h1, lede, image = '', imageAlt = '', art = 'home', artTitle, stats, primary = { label: 'Send the drawing', href: '/rfq/' } } = Astro.props;
 const photo = heroWorthy(image) ? img(image) : undefined;
+const drawing = photo ? drawingOf(image) : undefined;
 ---
 <section class="phero" data-spotlight>
   <div class="hero-bg" aria-hidden="true">
@@ -47,8 +48,15 @@ const photo = heroWorthy(image) ? img(image) : undefined;
       </div>
       <div class="hero-art" data-reveal style="--d:200">
         {photo ? (
-          <div class="hero-photo">
+          <div class:list={['hero-photo', { spot: drawing }]} data-spot={drawing ? '' : undefined}>
             <Image src={photo} alt={imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 980px) 92vw, 560px" loading="eager" fetchpriority="high" />
+            {drawing && (
+              <>
+                <Image class="spot-reveal" src={drawing} alt="" aria-hidden="true" widths={[480, 800, 1200]} sizes="(max-width: 980px) 92vw, 560px" loading="lazy" />
+                <span class="spot-ring" aria-hidden="true"><i>DRAWING VIEW</i></span>
+                <span class="spot-hint" aria-hidden="true"><b class="h-hover">Hover to see the drawing</b><b class="h-touch">Drag to see the drawing</b></span>
+              </>
+            )}
             <span class="tag">{imageAlt}</span>
           </div>
         ) : (

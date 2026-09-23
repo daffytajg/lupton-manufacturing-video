@@ -16,22 +16,24 @@ Start at `/` and `/review/`. The review page lists every unverified claim ([CONF
 
 | | Astro (chosen) | Next.js `output: 'export'` |
 |---|---|---|
-| JS shipped to a content page | **None by default.** This site ships one 6.6 KB motion module (2.6 KB gzipped). | React runtime plus hydration on every page, typically 80–100 KB+ before any site code |
+| JS shipped to a content page | **None by default.** This site ships one 10.8 KB motion module (4 KB gzipped). | React runtime plus hydration on every page, typically 80–100 KB+ before any site code |
 | What crawlers and AI bots get | Complete HTML for every page | Complete HTML too, but with a large JS payload the page doesn't need |
 | Content model | Typed TS data (`src/data/*.ts`) → 40 pages from 5 templates | Same is possible |
 | Images | `astro:assets` generates responsive WebP with width/height at build | `next/image` optimization is not available in static export without a loader |
 | Hosting | Any static host (Cloudflare Pages, Netlify, S3), or behind the existing Cloudflare zone | Same |
 | Future CMS | Content collections or headless WordPress later | Same |
 
-This is a marketing and content site with almost no app state, so shipping zero framework JS is the deciding factor. It is also the main reason the prototype scores 93–97 on mobile Lighthouse performance against the live site's 35–53.
+This is a marketing and content site with almost no app state, so shipping zero framework JS is the deciding factor. It is also the main reason the prototype scores 92–96 on mobile Lighthouse performance against the live site's 35–53.
 
 ## Results (measured 2026-09-23, Lighthouse 12, mobile)
 
 | Page | Live site perf / a11y / best practices | Prototype perf / a11y / best practices |
 |---|---|---|
-| Home | 35 / 91 / 79 (LCP 19.3 s, 4.8 MB, 166 requests) | **93 / 100 / 100** (LCP 2.8 s, 314 KB) |
-| Short run stamping | 46 / 92 / 75 (LCP 14.9 s, 5.3 MB) | **96 / 98→100 / 100** (LCP 2.4 s, 235 KB) |
-| RFQ | 53 / 87 / 75 | **96 / 100 / 100** (LCP 2.3 s, 215 KB) |
+| Home | 35 / 91 / 79 (LCP 19.3 s, 4.8 MB, 166 requests) | **92 / 100 / 100** (LCP 2.9 s, 323 KB) |
+| Short run stamping | 46 / 92 / 75 (LCP 14.9 s, 5.3 MB) | **95 / 100 / 100** (LCP 2.6 s, 328 KB) |
+| RFQ | 53 / 87 / 75 | **96 / 100 / 100** (LCP 2.3 s, 218 KB) |
+
+Prototype numbers were re-measured after the spotlight and part-scene update. Total blocking time is 0 ms and CLS ≤ 0.003 on every page measured.
 
 The live site was measured through the container's proxy and the prototype on localhost, so absolute timings favor the prototype. Page weight and request counts compare directly. The prototype's SEO category scores 69 only because prototype pages are deliberately `noindex`. In a production build (`PUBLIC_PROTOTYPE=false`) that check passes.
 
@@ -45,6 +47,7 @@ src/
     industries.ts    7 industries
     combos.ts        6 capability × industry pages
     resources.ts     4 guides + 3 case studies
+    scene.ts         the 7 parts in the exploded power-shelf scene
     redirects.ts     301 map from every indexable legacy URL
   components/      PageHero, CapabilityPage, Blueprint (animated drawings), ProcessFinder, Steps, Blocks, …
   pages/           routes (file-based), llms.txt, llms-full.txt, robots.txt, review page
@@ -52,7 +55,8 @@ src/
   scripts/motion.ts  the only client JS
   styles/global.css  design tokens + all styles
 public/            logo variants, OG image, favicon, the 38-second story video (re-encoded to 2 MB)
-scripts/           check-site.mjs (post-build QA), architecture-table.mjs (feeds /sitemap.md)
+scripts/           check-site.mjs (post-build QA), architecture-table.mjs (feeds /sitemap.md),
+                   make-drawings.mjs (generates the drawing-view layers for the spotlight)
 ```
 
 ## The [CONFIRM] system
@@ -67,6 +71,9 @@ MotionSites (motionsites.ai) sells a prompt library for AI-built landing pages: 
 
 | Pattern | Where | How |
 |---|---|---|
+| **Spotlight loupe: photo → drawing** (adapted from the Nival prompt) | Every hero photo | The cursor unmasks an engineering-drawing rendering of the same photo through a soft radial alpha mask that eases after the pointer. Pointer math is scale-corrected (`offsetWidth / rect.width`). One automatic teaser sweep makes it discoverable, and touch users drag. The drawing layers are generated from Lupton's own photos by `scripts/make-drawings.mjs` (Sobel edges on a blueprint grid), so they register exactly. |
+| **Exploded part scene** (adapted from the VEYRA prompt) | Home, Data center | An isometric rack power shelf with 7 image-relative hotspots. Hover isolates a part and lifts the lid. Click zooms the drawing plane onto the part and opens a detail panel with three toggleable points, the process page link, Back and Next. Escape returns and focus goes back to the hotspot. Clicks are ignored during transitions (overview → entering → detail → returning). Without JS it is a plain linked list. |
+| Ghost typography (Nival) | Home hero | A giant outlined "1969" behind the drawing, with slight pointer parallax |
 | Animated background hero | Every hero | Drifting blueprint grid, three slow aurora glows, film grain, cursor spotlight (CSS) |
 | **Laser toolpath drawing** (signature) | Hero art on home and on pages without a strong photo | SVG part drawing (enclosure flat pattern, bracket, bus bar, harness, heat sink, PCB…) draws itself, then a hot laser head traces the outline throwing sparks, then an inspection scan sweeps |
 | Blur-in headline | Every H1 | Words un-blur and rise in sequence (text stays in HTML for crawlers) |
@@ -83,6 +90,13 @@ MotionSites (motionsites.ai) sells a prompt library for AI-built landing pages: 
 | Footer wordmark reveal | Site-wide | Giant LUPTON wordmark wipes in |
 
 All of it respects `prefers-reduced-motion`. Content is visible without JS, and a 2.5 s safety net un-hides everything if the module fails to load.
+
+**Where this deliberately differs from the two source prompts:**
+- **The mask is a CSS `radial-gradient` driven by custom properties.** The Nival prompt re-encodes a canvas to a data URL every frame. The rAF loop here also stops once the loupe settles, so an idle page uses no CPU.
+- **On pointer leave, the loupe shrinks in place** instead of jumping to (-9999, -9999).
+- **Nival's fixed, transform-scaled 1536×1024 stage is not used.** A content site has to reflow, stay crawlable and stay readable.
+- **VEYRA's video hover is replaced by SVG transforms.** VEYRA's rule is not to fabricate media, and there are no approved Lupton hover videos.
+- **Neither prompt's assets are used.** The Nival android images and the VEYRA car belong to other brands.
 
 ## RFQ form → Gravity Forms #1 field mapping
 
