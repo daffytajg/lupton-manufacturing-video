@@ -10,8 +10,9 @@ MONT = "/usr/share/fonts/truetype/montserrat/Montserrat-{}.ttf"
 INTER = "/usr/share/fonts/opentype/inter/Inter-{}.otf"
 DEJAVU = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
-NAVY = (7, 12, 28)
-MINT = (34, 230, 164)
+NAVY = (11, 27, 51)  # Guad Squad navy
+MINT = (18, 191, 160)  # Guad Squad teal
+OCEAN = (10, 134, 176)
 RED = (255, 59, 78)
 WHITE = (255, 255, 255)
 GRAY = (150, 160, 182)
@@ -199,10 +200,16 @@ def waveform(d, cx, cy, width, n, hmax, color):
 
 def screen_ai():
     img = screen_base((6, 34, 38), (4, 8, 18))
-    img = glow(img, 450, 820, 360, MINT, 90)
+    img = glow(img, 450, 820, 360, OCEAN, 90)
+    img = glow(img, 450, 820, 240, MINT, 70)
     d = ImageDraw.Draw(img)
     status_bar(d, "2:47")
-    text_c(d, 450, 215, "GUAD SQUAD", font(MONT.format("ExtraBold"), 40), MINT, spacing=8)
+    logo = Image.open(os.path.join(OUT, "logo_reverse.png")).convert("RGBA")
+    lh = s(92)
+    logo = logo.resize((int(logo.width * lh / logo.height), lh), Image.LANCZOS)
+    img.alpha_composite(logo, (s(450) - logo.width // 2, s(118)))
+    d = ImageDraw.Draw(img)
+    text_c(d, 450, 222, "GUAD SQUAD", font(MONT.format("ExtraBold"), 40), MINT, spacing=8)
     text_c(d, 450, 275, "Agent Assistant", font(INTER.format("Bold"), 76), WHITE)
     # live pill
     d = tr_rrect(img, [s(290), s(390), s(610), s(460)], s(35), (255, 255, 255, 30))
@@ -293,7 +300,7 @@ def card_booked():
     check_circle(img, 230, 290, 125, MINT)
     d = ImageDraw.Draw(img)
     d.text((s(400), s(95)), "SHOWING BOOKED", font=font(MONT.format("ExtraBold"), 80), fill=NAVY)
-    d.text((s(400), s(205)), "Sat · 10:00 AM", font=font(INTER.format("Bold"), 76), fill=(10, 150, 105))
+    d.text((s(400), s(205)), "Sat · 10:00 AM", font=font(INTER.format("Bold"), 76), fill=(8, 150, 132))
     d.text((s(400), s(305)), "42 Maple Ln · Sarah M.", font=font(INTER.format("SemiBold"), 56), fill=(60, 70, 90))
     d.text((s(400), s(395)), "Synced to your calendar + CRM", font=font(INTER.format("Medium"), 44), fill=(120, 130, 150))
     save(img, "card_booked.png")
@@ -313,28 +320,16 @@ def chip(name, label, fill=MINT, fg=NAVY):
     save(img, name)
 
 
-def emblem():
-    r = 300
-    img = canvas(2 * r, 2 * r)
-    d = ImageDraw.Draw(img)
-    d.rounded_rectangle([0, 0, s(2 * r) - 1, s(2 * r) - 1], radius=s(150), fill=MINT)
-    g, pos = handset(d, r, r + 10, 330, NAVY, 0)
-    img.alpha_composite(g, pos)
-    check_circle(img, 2 * r - 120, 120, 95, NAVY, MINT)
-    save(img, "emblem.png")
-
-
 if __name__ == "__main__":
     screen_incoming()
     screen_missed()
     screen_ai()
     screen_booked()
     bubble("bubble_caller1.png", "CALLER", ["Hi! Is 42 Maple", "still available?"], (238, 241, 247), NAVY, (110, 120, 140), "left")
-    bubble("bubble_ai.png", "AGENT ASSISTANT", ["It is! 3 bed, 2 bath.", "Want a tour this week?"], MINT, NAVY, (6, 80, 60), "right")
+    bubble("bubble_ai.png", "AGENT ASSISTANT", ["It is! 3 bed, 2 bath.", "Want a tour this week?"], MINT, NAVY, (8, 70, 64), "right")
     bubble("bubble_caller2.png", "CALLER", ["Saturday morning?"], (238, 241, 247), NAVY, (110, 120, 140), "left", w=900)
     card_booked()
     chip("chip_answers.png", "ANSWERS EVERY CALL")
     chip("chip_questions.png", "HANDLES QUESTIONS")
     chip("chip_books.png", "BOOKS THE SHOWING")
-    emblem()
     print("ok")

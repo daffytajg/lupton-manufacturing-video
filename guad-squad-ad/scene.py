@@ -42,7 +42,8 @@ def lin(hexstr, a=1.0):
 
 
 NAVY = lin("#070C1C")
-MINT = lin("#22E6A4")
+MINT = lin("#12BFA0")  # Guad Squad teal
+OCEAN = lin("#0A86B0")  # Guad Squad ocean blue
 RED = lin("#FF3B4E")
 BLUE = lin("#3D7BFF")
 WHITE = lin("#FFFFFF")
@@ -58,7 +59,8 @@ scene.render.resolution_y = 1920
 scene.render.resolution_percentage = 50 if PREVIEW else 100
 scene.render.engine = "BLENDER_EEVEE"
 ee = scene.eevee
-ee.taa_render_samples = 8 if PREVIEW else 16
+SAMPLES = int(argv[argv.index("--samples") + 1]) if "--samples" in argv else 16
+ee.taa_render_samples = 8 if PREVIEW else SAMPLES
 ee.use_bloom = True
 ee.bloom_threshold = 0.85
 ee.bloom_intensity = 0.06
@@ -67,7 +69,7 @@ ee.use_soft_shadows = True
 ee.use_gtao = True
 ee.gtao_distance = 0.4
 ee.use_ssr = False
-ee.use_motion_blur = not PREVIEW
+ee.use_motion_blur = not PREVIEW and "--no-mblur" not in argv
 ee.motion_blur_shutter = 0.45
 ee.bokeh_max_size = 60
 scene.view_settings.view_transform = "Standard"
@@ -345,7 +347,7 @@ nt.links.new(ramp.outputs[0], mood_mix.inputs[1])
 nt.links.new(mood_mix.outputs[0], em.inputs[0])
 nt.links.new(em.outputs[0], o.inputs[0])
 BG_MOOD = [(0, lin("#1B2E6B")), (100, lin("#1B2E6B")), (106, lin("#5A0F1C")), (150, lin("#5A0F1C")),
-           (160, lin("#0B4A3C")), (330, lin("#0B4A3C")), (345, lin("#0E3B44"))]
+           (160, lin("#0A4A4A")), (330, lin("#0A4A4A")), (345, lin("#0B3A5C"))]
 elem = ramp.color_ramp.elements[1]
 for f, c in BG_MOOD:
     elem.color = c
@@ -373,7 +375,7 @@ mr.inputs["To Max"].default_value = 1.5
 pn.links.new(oi.outputs["Random"], mr.inputs["Value"])
 pn.links.new(mr.outputs[0], pe.inputs[1])
 pn.links.new(pe.outputs[0], po.inputs[0])
-for f, c in [(0, BLUE), (100, BLUE), (106, RED), (150, RED), (160, MINT)]:
+for f, c in [(0, BLUE), (100, BLUE), (106, RED), (150, RED), (160, MINT), (330, MINT), (345, lin("#1597C4"))]:
     pe.inputs[0].default_value = c
     pe.inputs[0].keyframe_insert("default_value", frame=f)
 proto = bpy.data.meshes.new("pt")
@@ -470,9 +472,9 @@ screen_switch(0, 99)   # -> missed
 screen_switch(1, 163)  # -> AI (while back faces camera)
 screen_switch(2, 288)  # -> booked
 
-# emblem on the back
-back = image_plane("BackLogo", os.path.join(ASSETS, "emblem.png"), 0.62, 0, 0, parent=body)
-back.location = (0, PD / 2 + 0.004, 0.55)
+# Guad Squad logo on the back
+back = image_plane("BackLogo", os.path.join(ASSETS, "logo_reverse.png"), 0.8, 0, 0, parent=body)
+back.location = (0, PD / 2 + 0.004, 0.2)
 back.rotation_euler = (math.radians(-90), 0, math.radians(180))
 # camera bump
 bump = link(bpy.data.objects.new("Bump", rounded_rect_mesh("bump", 0.62, 0.62, 0.16)))
@@ -586,6 +588,10 @@ pop_out(t4b, 176)
 # Beat 5 — Agent Assistant at work
 t5a = make_text("t5a", "GUAD SQUAD", XB, 0.22, MINT, 0, 3.12, parent=hud, strength=1.4, spacing=1.35)
 t5b = make_text("t5b", "AGENT ASSISTANT", BLACK, 0.40, WHITE, 0, 2.68, parent=hud, maxw=SAFE_W)
+bpy.context.view_layer.update()
+t5logo = image_plane("t5logo", os.path.join(ASSETS, "logo_reverse.png"), 0.3, -t5a.dimensions.x / 2 - 0.24, 3.12, parent=hud)
+pop_in(t5logo, 179, over=1.2)
+pop_out(t5logo, 330)
 pop_in(t5a, 181)
 pop_in(t5b, 185)
 pop_out(t5a, 331)
@@ -627,12 +633,12 @@ pop_in(t5c, 314, over=1.2)
 pop_out(t5c, 333)
 
 # Beat 6 — end card: "Hear it live: (585) 667-8982"
-emb = image_plane("emb", os.path.join(ASSETS, "emblem.png"), 1.05, 0, 2.2, parent=hud, strength=1.1)
+emb = image_plane("emb", os.path.join(ASSETS, "logo_reverse.png"), 1.25, 0, 2.35, parent=hud, strength=1.1)
 pop_in(emb, 337, over=1.2, dur=8)
 key(emb, "rotation_euler", 337, (0, 0, R(-30)))
 key(emb, "rotation_euler", 345, (0, 0, 0))
-g1 = make_text("g1", "GUAD", BLACK, 0.66, WHITE, -0.93, 1.1, parent=hud)
-g2 = make_text("g2", "SQUAD", BLACK, 0.66, MINT, 0.0, 1.1, parent=hud, strength=1.4)
+g1 = make_text("g1", "GUAD", BLACK, 0.66, WHITE, -0.93, 1.15, parent=hud)
+g2 = make_text("g2", "SQUAD", BLACK, 0.66, MINT, 0.0, 1.15, parent=hud, strength=1.4)
 bpy.context.view_layer.update()
 gap = 0.14
 wtot = g1.dimensions.x + g2.dimensions.x + gap
@@ -645,15 +651,15 @@ if wtot > SAFE_W:
         g.location.x *= s_
 pop_in(g1, 340, over=1.2)
 pop_in(g2, 343, over=1.2)
-g3 = make_text("g3", "AI AGENT ASSISTANT FOR REALTORS", SB, 0.155, SOFT, 0, 0.63, parent=hud, spacing=1.15, maxw=SAFE_W)
+g3 = make_text("g3", "AI AGENT ASSISTANT FOR REALTORS", SB, 0.155, SOFT, 0, 0.72, parent=hud, spacing=1.15, maxw=SAFE_W)
 pop_in(g3, 347)
 
-h1 = make_text("h1", "HEAR IT LIVE — CALL THE DEMO", XB, 0.2, MINT, 0, -0.13, parent=hud, strength=1.4, spacing=1.1, maxw=SAFE_W)
+h1 = make_text("h1", "HEAR IT LIVE — CALL THE DEMO", XB, 0.2, MINT, 0, 0.0, parent=hud, strength=1.4, spacing=1.1, maxw=SAFE_W)
 pop_in(h1, 342)
 
 # number: three groups revealed as spoken
 parts = ["(585)", "667-", "8982"]
-nums = [make_text(f"n{i}", p, BLACK, 0.56, WHITE, 0, -0.77, parent=hud, strength=1.25) for i, p in enumerate(parts)]
+nums = [make_text(f"n{i}", p, BLACK, 0.56, WHITE, 0, -0.62, parent=hud, strength=1.25) for i, p in enumerate(parts)]
 bpy.context.view_layer.update()
 gap = 0.16
 widths = [n.dimensions.x for n in nums]
@@ -679,20 +685,24 @@ bar = link(bpy.data.objects.new("bar", rounded_rect_mesh("barm", 1.0, 0.075, 0.0
 bar.data.materials.append(emission_mat("bar_m", MINT, 1.8))
 bar.parent = hud
 bar.rotation_euler = (R(90), 0, 0)
-bar.location = (0, -1.28, 0)
+bar.location = (0, -1.12, 0)
 key(bar, "scale", 0, (0, 1, 1))
 key(bar, "scale", 398, (0, 1, 1))
 key(bar, "scale", 408, (total + 0.1, 1, 1))
 
-tag = make_text("tag", "Never miss a lead again.", SB, 0.27, WHITE, 0, -1.85, parent=hud, maxw=SAFE_W)
+tag = make_text("tag", "Never miss a lead again.", SB, 0.27, WHITE, 0, -1.62, parent=hud, maxw=SAFE_W)
 pop_in(tag, 404)
+url = make_text("url", "guadsquadai.com", SB, 0.2, SOFT, 0, -2.0, parent=hud, spacing=1.05, maxw=SAFE_W)
+pop_in(url, 410)
 
-# emblem glow ring pulse on the end card
+# hexagon pulse around the logo on the end card
 for k in range(2):
-    rr = link(bpy.data.objects.new(f"embring{k}", rounded_rect_mesh(f"err{k}", 1.08, 1.08, 0.27)))
+    hexme = bpy.data.meshes.new(f"hex{k}")
+    hexme.from_pydata([(0.8 * math.cos(R(90 + 60 * i)), 0, 0.8 * math.sin(R(90 + 60 * i))) for i in range(6)], [], [tuple(range(6))])
+    rr = link(bpy.data.objects.new(f"embring{k}", hexme))
     rr.parent = hud
     rr.rotation_euler = (R(90), 0, 0)
-    rr.location = (0, 2.2, -0.02)
+    rr.location = (0, 2.35, -0.02)
     wf = rr.modifiers.new("wf", "WIREFRAME")
     wf.thickness = 0.02
     m = emission_mat(f"embring{k}_m", MINT, 2.0, blend=True)
@@ -707,7 +717,7 @@ for k in range(2):
         nkey(op, f0 + 1, 0.8)
         nkey(op, f0 + 22, 0.0)
         key(rr, "scale", f0, (1, 1, 1))
-        key(rr, "scale", f0 + 22, (1.6, 1, 1.6))
+        key(rr, "scale", f0 + 22, (1.5, 1, 1.5))
 
 # ------------------------------------------------------------------ render
 os.makedirs(OUT_DIR, exist_ok=True)
