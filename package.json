@@ -1,0 +1,14 @@
+{
+  "name": "trident-wealth-redesign",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Trident Wealth Management Group — website redesign concept with the Navigator AI concierge and Planning Lab.",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve -l 4173 .",
+    "check": "node --check assets/js/knowledge.js && node --check assets/js/site.js && node --check assets/js/motion.js && node --check assets/js/hero.js && node --check assets/js/assistant.js && node --check assets/js/lab.js && node --check api/chat.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0"
+  }
+}

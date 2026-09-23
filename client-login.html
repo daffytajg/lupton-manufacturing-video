@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Client Login | Trident Wealth Management Group</title>
+  <meta name="description" content="Secure online access 24/7. Review, transact and explore your accounts through the Wealthscape and Envestnet investor portals.">
+  <meta name="twm-ai-endpoint" content="">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="login" data-root="" data-assistant-context="login">
+  <a class="sr-only" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <section class="page-hero grain">
+      <svg class="page-hero__lines" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true"><path d="M0 380 C 200 300, 400 460, 600 360 S 1000 260, 1200 340"/><path d="M0 420 C 250 340, 450 500, 650 400 S 1050 300, 1200 390"/><path d="M0 340 C 180 260, 380 420, 580 320 S 980 220, 1200 300"/></svg>
+      <div class="container">
+        <div class="breadcrumb" data-reveal><a href="index.html">Home</a><span>/</span><span>Client Login</span></div>
+        <span class="eyebrow" data-reveal>Secure safekeeping · Online access 24/7</span>
+        <h1 data-split>Review. Transact. <span class="italic gold">Explore.</span></h1>
+        <p class="lead" data-reveal>Access your accounts through Wealthscape and Envestnet. Not sure which one you need? Navigator can point you to the right portal.</p>
+      </div>
+    </section>
+
+    <section class="section section--light">
+      <div class="container">
+        <div class="grid grid--2" id="portal-grid" data-reveal-stagger></div>
+        <p class="small muted mt-3" data-reveal>*National Financial Services, LLC (Fidelity) is where your monies and assets are held in custody. Portals open in a new tab on the provider’s secure site; Trident Wealth Management Group never sees or stores your credentials.</p>
+      </div>
+    </section>
+
+    <section class="section section--dark grain">
+      <div class="container">
+        <div class="section__head"><span class="eyebrow" data-reveal>Stay safe</span><h2 data-split>Three habits that stop most fraud.</h2></div>
+        <div class="grid grid--3" data-reveal-stagger>
+          <div class="card"><span class="card__spot"></span><span class="card__num">01</span><h3>We will never ask for your password.</h3><p>No one from Trident, &amp;Partners or Fidelity will ever call, text or email asking for your portal password or a one-time code.</p></div>
+          <div class="card"><span class="card__spot"></span><span class="card__num">02</span><h3>Verify money movement by voice.</h3><p>Urgent requests to wire funds — even ones that look like they come from us or a family member — get a call back to a number you already know.</p></div>
+          <div class="card"><span class="card__spot"></span><span class="card__num">03</span><h3>Type the address yourself.</h3><p>Reach the portals from this page or by typing the address, not from links in unexpected emails. Enable two-factor authentication where offered.</p></div>
+        </div>
+        <div class="btn-row mt-4" data-reveal><a class="btn btn--ghost magnetic" href="insights/protect-yourself-from-financial-fraud.html">Read: Protect yourself from financial fraud</a><button class="btn btn--gold magnetic" type="button" data-open-assistant="I forgot my password">Need help logging in?</button></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="assets/js/knowledge.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    (function () {
+      const K = window.TWM, I = K.icons, { h } = K.util;
+      document.getElementById('portal-grid').innerHTML = K.portals.map((p) => `
+        <article class="card tilt portal"><span class="card__spot"></span>
+          <div><div class="flex between"><span class="pillar__icon">${I.lock}</span><span class="lock">${I.shield} Secure · ${h(p.by)}</span></div><h3>${h(p.name)}</h3><p>${h(p.desc)}</p></div>
+          <div><p class="small" style="font-weight:600;margin-bottom:6px">Here you can:</p><ul>${p.features.map((f) => `<li>${h(f)}</li>`).join('')}</ul><p class="note">${h(p.note)} Need help logging in? Contact your advisor for assistance.</p></div>
+          <div class="btn-row"><a class="btn btn--navy magnetic" href="${p.href}" target="_blank" rel="noopener">Log in to ${h(p.name.split(' ')[0])} ↗</a><button class="btn btn--ghost btn--sm" type="button" data-open-assistant="What can I do in ${h(p.name)}?">Ask Navigator</button></div>
+        </article>`).join('');
+    })();
+  </script>
+  <script src="assets/js/motion.js"></script>
+  <script src="assets/js/assistant.js"></script>
+</body>
+</html>
