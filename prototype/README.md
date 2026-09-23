@@ -108,7 +108,7 @@ Checks one H1 per page, title ≤ 75 chars, meta description 70–165 chars, val
 
 ## Launch checklist (not done; needs approval)
 
-1. Resolve every item on `/review/` (99 chips across ~55 claims).
+1. Resolve every item on `/review/` (98 claims).
 2. Decide the open questions in `/sitemap.md` → "Decisions needed".
 3. Wire the RFQ form backend. Add GA4 events.
 4. Build the ◻ migrate pages (plastic molding sub-pages, other solutions, newsletters, privacy).
