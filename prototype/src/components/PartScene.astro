@@ -1,0 +1,139 @@
+---
+// Exploded isometric drawing of a rack power shelf with image-relative hotspots (adapted from the
+// VEYRA hotspot/detail model). Geometry is simple 3D boxes projected at build time, so hotspots and
+// drawing always agree. Hover/focus isolates a part (the lid lifts for internal parts); click zooms
+// into a detail view with three toggleable points, Back and Escape. Works as a plain list without JS.
+import { sceneParts } from '../data/scene';
+
+interface Props { heading?: string; intro?: string }
+const {
+  heading = 'One power shelf. <em class="serif">Seven processes.</em>',
+  intro = 'Every custom part in a piece of equipment comes from a different kind of shop. Select a part to see how it is made, what to send, and where to go next.',
+} = Astro.props;
+
+type V3 = [number, number, number];
+const C = 0.8660254, S = 0.5;
+const P = ([x, y, z]: V3): [number, number] => [(x - y) * C, (x + y) * S - z];
+const all: [number, number][] = [];
+const pts = (a: V3[]) => a.map((p) => { const q = P(p); all.push(q); return `${q[0].toFixed(1)},${q[1].toFixed(1)}`; }).join(' ');
+const box = (x0: number, x1: number, y0: number, y1: number, z0: number, z1: number, cls = '') =>
+  `<polygon class="f-y ${cls}" points="${pts([[x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]])}"/>` +
+  `<polygon class="f-x ${cls}" points="${pts([[x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [x1, y0, z1]])}"/>` +
+  `<polygon class="f-t ${cls}" points="${pts([[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]])}"/>`;
+const ring = (cx: number, cy: number, z: number, r: number) =>
+  `<polygon class="hole" points="${pts(Array.from({ length: 14 }, (_, i) => [cx + r * Math.cos((i / 14) * Math.PI * 2), cy + r * Math.sin((i / 14) * Math.PI * 2), z] as V3))}"/>`;
+const line = (a: V3[], cls: string) => `<polyline class="${cls}" points="${pts(a)}"/>`;
+
+// Cubic Bézier in 3D for the harness
+const bez = (p0: V3, p1: V3, p2: V3, p3: V3, t: number): V3 => {
+  const u = 1 - t;
+  return [0, 1, 2].map((k) => u * u * u * p0[k] + 3 * u * u * t * p1[k] + 3 * u * t * t * p2[k] + t * t * t * p3[k]) as V3;
+};
+const H: [V3, V3, V3, V3] = [[40, 322, 52], [210, 340, 96], [390, 330, 70], [574, 266, 22]];
+const harnessPts = Array.from({ length: 28 }, (_, i) => bez(...H, i / 27));
+
+const LID_Z = 128;
+const g: Record<string, string> = {
+  // chassis, far side (drawn first)
+  chassisBack:
+    box(0, 620, 0, 360, 0, 4, 'soft') +
+    box(0, 4, 0, 360, 4, 100) +
+    box(0, 620, 0, 4, 4, 100, 'soft'),
+  busbar:
+    [22, 46, 70].map((z) => box(16, 40, 24, 336, z, z + 10) + ring(28, 52, z + 10, 6) + ring(28, 308, z + 10, 6)).join(''),
+  coldplate:
+    box(110, 330, 40, 230, 4, 16) +
+    line([[124, 68, 22], [312, 68, 22], [312, 108, 22], [128, 108, 22], [128, 148, 22], [312, 148, 22], [312, 188, 22], [124, 188, 22]], 'tube') +
+    box(96, 110, 60, 76, 12, 28) + box(96, 110, 180, 196, 12, 28),
+  heatsink:
+    box(370, 570, 40, 210, 4, 12) +
+    Array.from({ length: 8 }, (_, i) => box(370, 570, 46 + i * 21, 51 + i * 21, 12, 62)).join(''),
+  pcba:
+    box(370, 590, 236, 340, 4, 8) +
+    box(400, 450, 252, 296, 8, 16) + box(470, 505, 256, 282, 8, 13) + box(530, 575, 300, 330, 8, 20) + box(560, 588, 250, 280, 8, 22) +
+    line([[380, 320, 8], [470, 320, 8], [500, 290, 8]], 'trace') + line([[380, 250, 8], [398, 270, 8]], 'trace'),
+  harness:
+    line(harnessPts, 'wire w1') + line(harnessPts.map(([x, y, z]) => [x, y + 7, z] as V3), 'wire w2') + line(harnessPts.map(([x, y, z]) => [x, y - 7, z + 3] as V3), 'wire w3') +
+    [0.28, 0.52, 0.76].map((t) => { const [x, y, z] = bez(...H, t); return line([[x, y - 12, z + 4], [x, y + 12, z - 2]], 'tie'); }).join(''),
+  // chassis, near side (drawn after internals, translucent so the inside stays readable)
+  chassisFront:
+    box(0, 620, 356, 360, 4, 100, 'glass') +
+    box(612, 620, -44, 0, 0, 100) + box(612, 620, 360, 404, 0, 100) +
+    line([[620, -30, 20], [620, -14, 20]], 'slot') + line([[620, -30, 80], [620, -14, 80]], 'slot') +
+    line([[620, 374, 20], [620, 390, 20]], 'slot') + line([[620, 374, 80], [620, 390, 80]], 'slot'),
+  bezel:
+    box(700, 714, -44, 404, 0, 100) +
+    Array.from({ length: 9 }, (_, i) => line([[714, 10 + i * 22, 24], [714, 10 + i * 22, 76]], 'vent')).join('') +
+    `<polygon class="window" points="${pts([[714, 250, 36], [714, 360, 36], [714, 360, 72], [714, 250, 72]])}"/>`,
+  lid:
+    box(0, 620, 0, 360, LID_Z, LID_Z + 4, 'lidf') +
+    Array.from({ length: 10 }, (_, i) => line([[80 + i * 46, 60, LID_Z + 4], [80 + i * 46, 150, LID_Z + 4]], 'vent')).join(''),
+};
+
+// Hotspot anchors → % of the drawing
+const anchors: Record<string, V3> = Object.fromEntries(sceneParts.map((p) => [p.id, p.anchor]));
+anchors.harness = bez(...H, 0.5);
+const xs = all.map((p) => p[0]), ys = all.map((p) => p[1]);
+const pad = 34;
+const vb = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, w: Math.max(...xs) - Math.min(...xs) + pad * 2, h: Math.max(...ys) - Math.min(...ys) + pad * 2 };
+const pct = (id: string) => { const [X, Y] = P(anchors[id]); return { left: ((X - vb.x) / vb.w) * 100, top: ((Y - vb.y) / vb.h) * 100 }; };
+const order = ['chassisBack', 'busbar', 'coldplate', 'heatsink', 'pcba', 'harness', 'chassisFront', 'bezel', 'lid'];
+const partOf = (k: string) => (k.startsWith('chassis') || k === 'lid' ? 'chassis' : k);
+---
+<div class="scene" data-scene data-state="overview">
+  <div class="sec-head" data-reveal>
+    <p class="eyebrow">Inside the equipment</p>
+    <h2 id="scene-h" set:html={heading} />
+    <p>{intro}</p>
+  </div>
+  <div class="scene-frame" data-reveal>
+    <div class="scene-plane" style={`aspect-ratio:${vb.w.toFixed(0)} / ${vb.h.toFixed(0)}`}>
+      <svg viewBox={`${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}`} role="img" aria-labelledby="scene-h scene-desc">
+        <desc id="scene-desc">Exploded isometric drawing of a rack power shelf: sheet metal chassis with rack ears, lifted lid, copper bus bars, liquid cold plate, extruded heat sink, control board, power harness and front bezel.</desc>
+        <defs>
+          <pattern id="sg" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="rgba(201,230,212,.06)" /></pattern>
+          <filter id="sglow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+        </defs>
+        <rect x={vb.x} y={vb.y} width={vb.w} height={vb.h} fill="url(#sg)" />
+        {order.map((k) => <g class={`part ${k === 'lid' ? 'lid' : ''}`} data-part={partOf(k)} set:html={g[k]} />)}
+      </svg>
+      {sceneParts.map((p) => {
+        const at = pct(p.id);
+        return (
+          <button class="hot" type="button" data-hot={p.id} style={`left:${at.left.toFixed(2)}%;top:${at.top.toFixed(2)}%`} aria-label={`${p.name}: ${p.process}. Show details`}>
+            <span class="disc" aria-hidden="true"></span>
+            <span class="lbl" aria-hidden="true"><b>{p.name}</b>{p.process}</span>
+          </button>
+        );
+      })}
+    </div>
+    <div class="scene-detail">
+      {sceneParts.map((p, i) => (
+        <div class="sd" data-detail={p.id} hidden>
+          <p class="eyebrow">{p.process}</p>
+          <h3 tabindex="-1">{p.name}</h3>
+          <ol class="sd-points">
+            {p.points.map((pt, n) => (
+              <li>
+                <button type="button" class="sd-row" aria-expanded={n === 0 ? 'true' : 'false'} aria-controls={`sd-${p.id}-${n}`}>
+                  <span class="n">{String(n + 1).padStart(2, '0')}</span>{pt.title}
+                </button>
+                <p id={`sd-${p.id}-${n}`} hidden={n !== 0}>{pt.text}</p>
+              </li>
+            ))}
+          </ol>
+          <a class="sd-link" href={p.href}>{p.linkLabel} →</a>
+          <div class="sd-nav">
+            <button type="button" class="btn btn-ghost btn-sm" data-back>← Back</button>
+            <button type="button" class="btn btn-ghost btn-sm" data-next={sceneParts[(i + 1) % sceneParts.length].id}>Next: {sceneParts[(i + 1) % sceneParts.length].name} →</button>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="scene-tag">Illustrative drawing · not a specific customer product</p>
+  </div>
+  <p class="scene-status" role="status" aria-live="polite">Select a part to begin.</p>
+  <ul class="scene-legend" aria-label="Parts in this drawing">
+    {sceneParts.map((p) => <li><a href={p.href}><b>{p.name}</b> {p.process}</a></li>)}
+  </ul>
+</div>

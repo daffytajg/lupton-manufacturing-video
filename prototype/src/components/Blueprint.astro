@@ -1,0 +1,143 @@
+---
+// Animated "engineering drawing" hero art. The part outline draws itself, then a laser head
+// traces it throwing sparks, then an inspection scan sweeps. Pure SVG + one small rAF loop.
+interface Props { kind?: string; title?: string; label?: string }
+const { kind = 'home', title = 'FLAT PATTERN', label } = Astro.props;
+
+type Draw = { main: string; details: string[]; bends?: string[]; dims: string[]; calls: [number, number, number, number, string][] };
+
+const fins = (() => {
+  let d = 'M100,330 H420 V300';
+  const n = 8, x0 = 404, w = 12, gap = (300 - n * w) / (n - 1) + w;
+  for (let i = 0; i < n; i++) {
+    const x = x0 - i * gap;
+    d += ` H${x} V120 H${x - w} V300`;
+  }
+  return d + ' H100 Z';
+})();
+
+const blade = (i: number) => {
+  const a = (i * Math.PI) / 3, cx = 260, cy = 240;
+  const p = (r: number, t: number) => `${(cx + r * Math.cos(t)).toFixed(1)},${(cy + r * Math.sin(t)).toFixed(1)}`;
+  return `<path d="M${p(40, a)} Q${p(95, a + 0.55)} ${p(128, a + 0.2)}"/>`;
+};
+
+const drawings: Record<string, Draw> = {
+  home: {
+    main: 'M180,100 H232 V86 Q232,82 236,82 H284 Q288,82 288,86 V100 H340 V170 H410 V290 H340 V360 H180 V290 H110 V170 H180 Z',
+    details: [
+      '<circle cx="195" cy="185" r="5"/>', '<circle cx="325" cy="185" r="5"/>', '<circle cx="195" cy="275" r="5"/>', '<circle cx="325" cy="275" r="5"/>',
+      '<rect x="360" y="205" width="30" height="50" rx="3"/>', '<circle cx="260" cy="92" r="4"/>', '<circle cx="145" cy="200" r="4"/>', '<circle cx="145" cy="260" r="4"/>',
+      ...[0, 1, 2, 3, 4].map((i) => `<rect x="${203 + i * 24}" y="310" width="10" height="34" rx="5"/>`),
+    ],
+    bends: ['M180,170 H340', 'M180,290 H340', 'M180,170 V290', 'M340,170 V290'],
+    dims: ['M110,392 H410', 'M110,384 V400', 'M410,384 V400', 'M444,82 V360', 'M436,82 H452', 'M436,360 H452'],
+    calls: [[340, 230, 452, 150, 'BEND UP 90° ×4'], [195, 185, 60, 120, 'Ø.201 THRU ×4'], [390, 240, 500, 310, 'CUTOUT J1'], [251, 344, 150, 430, 'LOUVER ×5']],
+  },
+  stamp: {
+    main: 'M120,140 H330 Q340,140 340,150 V230 H420 Q430,230 430,240 V330 Q430,340 420,340 H130 Q120,340 120,330 V150 Q120,140 130,140 Z',
+    details: ['<circle cx="170" cy="190" r="7"/>', '<circle cx="290" cy="190" r="7"/>', '<circle cx="170" cy="290" r="7"/>', '<rect x="232" y="272" width="64" height="16" rx="8"/>', '<circle cx="385" cy="285" r="6"/>'],
+    bends: ['M340,230 V340'],
+    dims: ['M120,384 H430', 'M120,376 V392', 'M430,376 V392', 'M84,140 V340', 'M76,140 H92', 'M76,340 H92'],
+    calls: [[340, 285, 452, 196, 'BEND UP 90°'], [170, 190, 60, 110, 'Ø.281 THRU ×3'], [264, 280, 230, 430, 'SLOT .25 × 1.50'], [120, 384, 300, 460, '≤ 20 × 30 FLAT']],
+  },
+  mill: {
+    main: 'M128,110 H392 Q410,110 410,128 V332 Q410,350 392,350 H128 Q110,350 110,332 V128 Q110,110 128,110 Z',
+    details: ['<rect x="150" y="150" width="150" height="160" rx="14"/>', '<circle cx="352" cy="165" r="22"/>', '<circle cx="352" cy="165" r="11"/>', '<circle cx="352" cy="295" r="22"/>', '<circle cx="352" cy="295" r="11"/>', '<circle cx="130" cy="130" r="5"/>', '<circle cx="390" cy="130" r="5"/>', '<circle cx="130" cy="330" r="5"/>', '<circle cx="390" cy="330" r="5"/>'],
+    bends: ['M352,130 V200', 'M318,165 H386', 'M352,260 V330', 'M318,295 H386'],
+    dims: ['M110,392 H410', 'M110,384 V400', 'M410,384 V400'],
+    calls: [[352, 165, 460, 110, "C'BORE ×2"], [225, 230, 70, 90, 'POCKET .750 DP'], [390, 330, 450, 420, 'TAP ×4'], [110, 392, 250, 455, '5-AXIS · ONE SETUP']],
+  },
+  cable: {
+    main: 'M130,240 C220,240 240,150 400,150',
+    details: ['<rect x="70" y="200" width="60" height="80" rx="6"/>', '<rect x="400" y="120" width="60" height="60" rx="6"/>', '<rect x="400" y="300" width="60" height="60" rx="6"/>', '<path d="M250,208 C300,262 330,330 400,330"/>', '<path d="M136,226 C222,226 246,136 400,136"/>', '<path d="M136,254 C222,254 238,164 400,164"/>', '<rect x="158" y="228" width="34" height="24" rx="4"/>'],
+    bends: ['M250,196 V224'],
+    dims: ['M130,400 H400', 'M130,392 V408', 'M400,392 V408'],
+    calls: [[100, 240, 50, 150, 'J1'], [430, 150, 470, 100, 'P2'], [430, 330, 470, 400, 'P3'], [175, 240, 150, 330, 'OVERMOLD'], [265, 400, 250, 450, '24 AWG – 4/0']],
+  },
+  mold: {
+    main: 'M120,140 H400 Q420,140 420,160 V320 Q420,350 390,350 H130 Q100,350 100,320 V160 Q100,140 120,140 Z',
+    details: ['<path d="M180,170 V320"/>', '<path d="M260,170 V320"/>', '<path d="M340,170 V320"/>', '<circle cx="150" cy="190" r="10"/>', '<circle cx="370" cy="190" r="10"/>', '<circle cx="150" cy="310" r="10"/>', '<circle cx="370" cy="310" r="10"/>'],
+    bends: ['M86,245 H434'],
+    dims: ['M100,392 H420', 'M100,384 V400', 'M420,384 V400'],
+    calls: [[434, 245, 470, 200, 'PARTING LINE'], [260, 180, 300, 90, 'RIB ×3'], [150, 310, 60, 420, 'BOSS ×4'], [420, 300, 470, 330, 'DRAFT 1°']],
+  },
+  cast: {
+    main: 'M120,240 A140,140 0 1,0 400,240 A140,140 0 1,0 120,240 Z',
+    details: ['<circle cx="260" cy="240" r="36"/>', '<circle cx="260" cy="240" r="14"/>', ...[0, 1, 2, 3, 4, 5].map(blade)],
+    bends: ['M100,240 H420', 'M260,80 V400'],
+    dims: ['M120,420 H400', 'M120,412 V428', 'M400,412 V428'],
+    calls: [[260, 226, 330, 110, 'MACH. BORE'], [320, 180, 440, 120, 'BLADE ×6'], [140, 300, 60, 380, 'AS-CAST']],
+  },
+  extrude: {
+    main: fins,
+    details: ['<path d="M100,345 H420" stroke-dasharray="2 4"/>'],
+    bends: ['M90,300 H430'],
+    dims: ['M100,392 H420', 'M100,384 V400', 'M420,384 V400', 'M444,120 V330', 'M436,120 H452', 'M436,330 H452'],
+    calls: [[260, 120, 300, 70, 'FIN ×8'], [100, 330, 60, 430, 'PROFILE A-A'], [420, 300, 470, 250, '6063-T5']],
+  },
+  pcb: {
+    main: 'M114,110 H406 Q420,110 420,124 V336 Q420,350 406,350 H114 Q100,350 100,336 V124 Q100,110 114,110 Z',
+    details: ['<rect x="220" y="180" width="90" height="90" rx="4"/>', '<rect x="340" y="150" width="46" height="30" rx="3"/>', '<rect x="340" y="280" width="46" height="30" rx="3"/>', '<rect x="100" y="200" width="24" height="80" rx="3"/>', '<path d="M124,220 H180 L220,200"/>', '<path d="M124,250 H190 L220,240"/>', '<path d="M310,210 H330 L340,165"/>', '<path d="M310,250 H330 L340,295"/>', '<circle cx="120" cy="130" r="7"/>', '<circle cx="400" cy="130" r="7"/>', '<circle cx="120" cy="330" r="7"/>', '<circle cx="400" cy="330" r="7"/>'],
+    bends: [],
+    dims: ['M100,392 H420', 'M100,384 V400', 'M420,384 V400'],
+    calls: [[265, 225, 300, 90, 'U1 · BGA'], [112, 240, 50, 170, 'J1'], [400, 330, 460, 420, 'MTG ×4']],
+  },
+  proto: {
+    main: 'M260,90 L400,170 V330 L260,410 L120,330 V170 Z',
+    details: ['<path d="M120,170 L260,250 L400,170"/>', '<path d="M260,250 V410"/>', '<circle cx="330" cy="290" r="14"/>', '<rect x="160" y="250" width="50" height="40" rx="4" transform="skewY(30) translate(0,-120)"/>'],
+    bends: ['M190,130 L330,210'],
+    dims: ['M120,440 H400', 'M120,432 V448', 'M400,432 V448'],
+    calls: [[260, 90, 330, 50, 'REV A'], [330, 290, 460, 340, 'FIT · FORM · FUNCTION']],
+  },
+  globe: {
+    main: 'M110,240 A150,150 0 1,0 410,240 A150,150 0 1,0 110,240 Z',
+    details: ['<ellipse cx="260" cy="240" rx="60" ry="150"/>', '<ellipse cx="260" cy="240" rx="115" ry="150"/>', '<path d="M122,180 H398"/>', '<path d="M122,300 H398"/>', '<circle cx="190" cy="190" r="6"/>', '<circle cx="205" cy="290" r="6"/>', '<circle cx="360" cy="210" r="6"/>'],
+    bends: ['M190,190 Q280,110 360,210', 'M205,290 Q170,240 190,190'],
+    dims: [],
+    calls: [[190, 190, 70, 120, 'US'], [205, 290, 70, 380, 'MEXICO'], [360, 210, 460, 130, 'ASIA']],
+  },
+  busbar: {
+    main: 'M80,190 H440 V250 H80 Z',
+    details: ['<circle cx="120" cy="220" r="9"/>', '<circle cx="170" cy="220" r="9"/>', '<circle cx="360" cy="220" r="9"/>', '<circle cx="410" cy="220" r="9"/>', '<rect x="232" y="182" width="56" height="76" rx="6" stroke-dasharray="5 4"/>'],
+    bends: ['M220,176 V264', 'M300,176 V264'],
+    dims: ['M80,320 H440', 'M80,312 V328', 'M440,312 V328', 'M40,190 V250', 'M32,190 H48', 'M32,250 H48'],
+    calls: [[220, 176, 160, 110, 'BEND 90° ×2'], [120, 220, 90, 400, 'Ø.406 ×4'], [260, 258, 320, 400, 'INSULATE'], [410, 250, 460, 130, 'C110 · TIN']],
+  },
+};
+drawings.sheet = drawings.home;
+const d = drawings[kind] ?? drawings.home;
+---
+<div class="bp" data-toolpath data-speed="120" aria-hidden="true">
+  <svg viewBox="0 0 520 480" preserveAspectRatio="xMidYMid meet" role="presentation">
+    <defs>
+      <pattern id={`g-${kind}`} width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" class="bp-grid" /></pattern>
+      <filter id="glow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="3.5" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+      <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fc0a4" stop-opacity="0" /><stop offset=".9" stop-color="#8fc0a4" stop-opacity=".22" /><stop offset="1" stop-color="#c9e6d4" stop-opacity=".9" /></linearGradient>
+      <marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="rgba(201,230,212,.6)" /></marker>
+    </defs>
+    <rect x="0" y="0" width="520" height="480" fill={`url(#g-${kind})`} />
+    <path class="bp-frame" d="M10,10 H510 V470 H10 Z M10,28 H22 M498,10 V22 M510,452 H498 M22,470 V458" data-draw style="--dur:1.6s" />
+    <rect class="scan" x="12" y="0" width="496" height="46" style="--scan-h: 420px" />
+    <path class="part tool-main" d={d.main} data-draw style="--dur:2.6s;--delay:.25s" />
+    <g class="detail fade" set:html={d.details.join('')} style="--delay:1.4s" />
+    {d.bends?.map((b, i) => <path class="bend fade" d={b} style={`--delay:${1.8 + i * 0.12}s`} />)}
+    {d.dims.map((m, i) => <path class="dim fade" d={m} style={`--delay:${2 + i * 0.05}s`} marker-start={i % 3 === 0 ? 'url(#ar)' : undefined} marker-end={i % 3 === 0 ? 'url(#ar)' : undefined} />)}
+    {d.calls.map(([x1, y1, x2, y2, t], i) => (
+      <g class="fade" style={`--delay:${2.2 + i * 0.18}s`}>
+        <path class="dim" d={`M${x1},${y1} L${x2},${y2}`} />
+        <circle cx={x1} cy={y1} r="2.2" fill="#c9e6d4" />
+        <text class="call-t" x={x2 > 260 ? x2 - 4 : x2 + 4} y={y2 - 6} text-anchor={x2 > 260 ? 'end' : 'start'}>{t}</text>
+      </g>
+    ))}
+    <g class="fade" style="--delay:2.8s">
+      <path class="bp-frame" d="M290,420 H510 V470 H290 Z M290,438 H510" />
+      <text class="dim-t" x="298" y="433">LUPTON ASSOCIATES</text>
+      <text class="dim-t" x="502" y="433" text-anchor="end">REV A</text>
+      <text class="dim-t" x="298" y="459">{title.length > 26 ? title.slice(0, 25) + '…' : title}</text>
+    </g>
+    <g class="sparks" />
+    <circle class="head" r="4.5" cx="-20" cy="-20" />
+  </svg>
+  {label && <span class="bp-label">{label}</span>}
+</div>

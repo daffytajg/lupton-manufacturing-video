@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { industries } from '../../data/industries';
+import { combos, comboPath } from '../../data/combos';
+import { img } from '../../lib/images';
+import { rich } from '../../lib/rich';
+import { breadcrumbSchema, webPageSchema } from '../../lib/schema';
+
+const path = '/industries/';
+const title = 'Industries: Data Center, Medical, Truck, Defense & More | Lupton';
+const description = 'Custom components for data center, medical, heavy truck, military and aerospace, robotics, energy, and agriculture and heavy equipment OEMs.';
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Industries', href: path }];
+const pics: Record<string, string> = { 'data-center': 'thermal-components', medical: 'medical-imaging', 'heavy-truck': 'utv', 'military-aerospace': 'cnc-center', robotics: 'sm-assembly', energy: 'sm-paintline', 'agriculture-heavy-equipment': 'sm-weld' };
+---
+<Base title={title} description={description} path={path} schema={[webPageSchema(path, title, description), breadcrumbSchema(crumbs)]}>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Industries"
+    h1="Parts for the equipment that runs data centers, hospitals, fleets and factories."
+    lede={[
+      'Lupton works with OEMs in seven core industries (data center, medical, heavy truck, military and aerospace, robotics, energy, and agriculture and heavy equipment) on the custom metal, plastic, cable and electronic parts inside their products.',
+      'Each industry page lists the parts we see, the requirements that change the quote, and the processes we route them to.',
+    ]}
+    art="globe"
+    artTitle="INDUSTRIES"
+  />
+  <section class="section tight">
+    <div class="wrap">
+      <div class="bento" data-stagger>
+        {industries.map((ind, i) => {
+          const pic = img(pics[ind.slug]);
+          return (
+            <a class={`card photo ${i < 2 ? 'wide' : ''}`} href={`/industries/${ind.slug}/`}>
+              {pic && <div class="bgimg"><Image src={pic} alt="" widths={[400, 800]} sizes="(max-width:640px) 92vw, 50vw" loading="lazy" /></div>}
+              <div class="body">
+                <span class="mono" style="font-size:12px;color:var(--sage-3)">{String(i + 1).padStart(2, '0')}</span>
+                <h3 style="font-size:1.7rem;font-stretch:112%">{ind.name}</h3>
+                <p set:html={rich(ind.short)} />
+                <span class="go">Open <i>→</i></span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+  <section class="section tight">
+    <div class="wrap">
+      <div class="sec-head" data-reveal><p class="eyebrow">Capability × industry</p><h2>The most-requested combinations.</h2></div>
+      <ul class="chips" data-stagger>
+        {combos.map((c) => <li style="padding:0;border:0"><a href={comboPath(c)}>{c.name} · {industries.find((i) => i.slug === c.industry)?.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

@@ -1,0 +1,9 @@
+---
+import CapabilityPage from '../../../components/CapabilityPage.astro';
+import { capabilities } from '../../../data/capabilities';
+export function getStaticPaths() {
+  return capabilities.filter((c) => c.parent).map((cap) => ({ params: { parent: cap.parent!, slug: cap.slug }, props: { cap } }));
+}
+const { cap } = Astro.props;
+---
+<CapabilityPage cap={cap} />

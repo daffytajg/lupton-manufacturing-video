@@ -1,0 +1,90 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Blocks from '../../../components/Blocks.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import ProcessFinder from '../../../components/ProcessFinder.astro';
+import { combos, comboPath } from '../../../data/combos';
+import { industryBySlug } from '../../../data/industries';
+import { capabilityBySlug, capabilityPath } from '../../../data/capabilities';
+import { resourceBySlug } from '../../../data/resources';
+import { rich } from '../../../lib/rich';
+import { breadcrumbSchema, faqSchema, serviceSchema, webPageSchema } from '../../../lib/schema';
+
+export function getStaticPaths() {
+  return combos.map((c) => ({ params: { slug: c.industry, combo: c.slug }, props: { c } }));
+}
+const { c } = Astro.props;
+const ind = industryBySlug(c.industry)!;
+const cap = capabilityBySlug(c.capability)!;
+const path = comboPath(c);
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Industries', href: '/industries/' },
+  { name: ind.name, href: `/industries/${ind.slug}/` },
+  { name: c.name, href: path },
+];
+const proof = (c.proof || []).map(resourceBySlug).filter(Boolean);
+const art = c.slug === 'copper-busbars' ? 'busbar' : cap.icon;
+const siblings = combos.filter((x) => x !== c && (x.industry === c.industry || x.capability === c.capability));
+---
+<Base title={c.title} description={c.description} path={path} schema={[webPageSchema(path, c.title, c.description), serviceSchema(path, c.name, c.lede, cap.name), breadcrumbSchema(crumbs), faqSchema(c.faqs)]}>
+  <PageHero crumbs={crumbs} eyebrow={`${ind.name} × ${cap.name}`} h1={c.h1} lede={c.lede} image={c.image} imageAlt={c.imageAlt} art={art} artTitle={c.name.toUpperCase()} />
+
+  <section class="section tight">
+    <div class="wrap grid-2">
+      <div data-reveal>
+        <p class="eyebrow">Parts</p>
+        <h2>What this covers.</h2>
+        <ul class="checklist">{c.parts.map((p) => <li set:html={rich(p)} />)}</ul>
+      </div>
+      <div data-reveal style="--d:120">
+        <p class="eyebrow">Requirements</p>
+        <h2>What changes the quote.</h2>
+        <ul class="checklist">{c.requirements.map((p) => <li set:html={rich(p)} />)}</ul>
+      </div>
+    </div>
+  </section>
+
+  {c.capability === 'metal-stamping' && <section class="section tight"><div class="wrap"><ProcessFinder /></div></section>}
+
+  <section class="section paper">
+    <div class="wrap split">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">Specs</p>
+        <h2>What we can state today.</h2>
+        <p class="muted">Untagged specs are published on luptons.com. <mark class="confirm">CONFIRM</mark> = needs sign-off before launch.</p>
+        <p class="muted">Full process detail: <a href={capabilityPath(cap)}>{cap.name} →</a></p>
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="specs" specs={c.specs} /></div>
+    </div>
+    <div class="wrap split" style="margin-top:clamp(56px,8vw,100px)">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">What to send</p>
+        <h2>The RFQ package.</h2>
+        <div class="btn-row" style="margin-top:18px"><a class="btn btn-primary" href="/rfq/" data-magnetic>Upload the drawing <span class="arrow">→</span></a></div>
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="send" items={c.send} /></div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="wrap grid-2">
+      <div data-reveal>
+        <p class="eyebrow">Questions</p>
+        <h2>{c.name} FAQ.</h2>
+        <div class="cards" style="margin-top:26px">
+          {proof.map((r) => (
+            <a class="card" href={`/resources/${r!.slug}/`}><span class="num">{r!.kind}</span><h3>{r!.h1}</h3><span class="go">Read <i>→</i></span></a>
+          ))}
+          {siblings.map((s) => (
+            <a class="card" href={comboPath(s)}><span class="num">{industryBySlug(s.industry)?.name}</span><h3>{s.name}</h3><span class="go">Open <i>→</i></span></a>
+          ))}
+        </div>
+      </div>
+      <div data-reveal style="--d:120"><Blocks type="faq" faqs={c.faqs} /></div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

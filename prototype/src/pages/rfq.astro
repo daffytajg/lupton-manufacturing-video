@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { org } from '../data/site';
+import { topCapabilities } from '../data/capabilities';
+import { breadcrumbSchema, faqSchema, webPageSchema } from '../lib/schema';
+import Blocks from '../components/Blocks.astro';
+import { words } from '../lib/rich';
+
+const path = '/rfq/';
+const title = 'Request a Quote for a Custom Part | Upload Drawings | Lupton Associates';
+const description = `Upload your drawing, material, volume and timing. Lupton reviews it and responds within ${org.responsePromise} with fit, missing information or next step.`;
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Request a quote', href: path }];
+const faqs = [
+  { q: 'What happens after I submit?', a: `Someone on our team reviews the package and responds within ${org.responsePromise} to confirm whether the project appears to fit, identify information still needed, or recommend the next step. The initial response is not a quotation or a commitment on manufacturability, capacity, price or lead time.` },
+  { q: 'What if I do not know the manufacturing process?', a: 'That is normal. Describe the part, material or performance need, volume and timing, and what remains open. Choosing the process is part of the review.' },
+  { q: 'Does submitting guarantee a quote?', a: 'No. Lupton reviews the project first. The manufacturer confirms fit, capacity, testing, pricing, lead time and commercial terms.' },
+  { q: 'Can you sign an NDA before I send drawings?', a: 'Yes. Ask for one in the message or call us, and we will send it before you upload files. [CONFIRM process]' },
+];
+// Field set mirrors Gravity Forms #1 on luptons.com; the launch field mapping is in prototype/README.md.
+---
+<Base title={title} description={description} path={path} schema={[webPageSchema(path, title, description), breadcrumbSchema(crumbs), faqSchema(faqs)]}>
+  <section class="phero" data-spotlight>
+    <div class="hero-bg" aria-hidden="true"><div class="grid-lines"></div><div class="aurora a1"></div><div class="aurora a2"></div></div>
+    <div class="spotlight" aria-hidden="true"></div>
+    <div class="wrap">
+      <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="/">Home</a></li><li aria-current="page">Request a quote</li></ol></nav>
+      <p class="eyebrow" data-scramble>RFQ · one screen · no account</p>
+      <h1 class="bw" style="max-width:17ch">{words('Send the part you’re stuck on.').map((w, i) => <span class="w" style={`--i:${i}`}>{w + ' '}</span>)}</h1>
+      <div class="lede" data-reveal style="--d:300">
+        <p>Upload the drawing and tell us the material, annual volume and timing you know. We respond within <strong>{org.responsePromise}</strong> with whether it fits, what is missing, or the practical next step, then route it to the shop that fits for a direct quote.</p>
+      </div>
+
+      <div class="rfq" style="margin-top:44px">
+        <form class="form" data-rfq action="#" method="post" enctype="multipart/form-data" novalidate data-reveal>
+          <div class="drop">
+            <input id="files" name="files" type="file" aria-label="Upload drawings, models or photos" multiple accept=".pdf,.step,.stp,.igs,.iges,.dxf,.dwg,.x_t,.sldprt,.zip,.jpg,.jpeg,.png" aria-describedby="files-help" />
+            <span style="display:inline-grid;place-items:center;width:52px;height:52px;border-radius:14px;background:rgba(143,192,164,.1);color:var(--sage-2);margin-bottom:10px"><Icon name="upload" size={26} /></span>
+            <strong>Drop drawings, models or photos here</strong>
+            <span id="files-help">PDF, STEP, IGES, DXF, DWG, Parasolid, SolidWorks or ZIP. No drawing yet? Skip this and describe the part below.</span>
+            <ul class="files" aria-live="polite"></ul>
+          </div>
+          <div class="field">
+            <label for="solve">What are you trying to make or solve? *</label>
+            <textarea id="solve" name="solve" required placeholder="e.g. Stainless bracket, laser-cut today at 8,000/yr, want a stamping quote. Or: our harness supplier missed three deliveries and we need a second source."></textarea>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="process">Process <small>(if you know it)</small></label>
+              <select id="process" name="process">
+                <option value="">Not sure, recommend one</option>
+                {topCapabilities.map((c) => <option>{c.name}</option>)}
+              </select>
+            </div>
+            <div class="field">
+              <label for="reason">Why are you quoting? <small>(optional)</small></label>
+              <select id="reason" name="reason">
+                <option value="">Choose one</option>
+                <option>New program / NPI</option>
+                <option>Second source / supplier issue</option>
+                <option>Cost-down</option>
+                <option>Lead time / capacity</option>
+                <option>Tariff or region change</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="volume">Annual volume or quantity <small>(optional)</small></label><input id="volume" name="volume" placeholder="e.g. 10,000/yr in releases of 2,500" /></div>
+            <div class="field"><label for="material">Material or performance need <small>(optional)</small></label><input id="material" name="material" placeholder="e.g. 304 SS, 14 ga · or UL94 V-0" /></div>
+          </div>
+          <div class="field"><label for="timing">Timing <small>(optional)</small></label><input id="timing" name="timing" placeholder="e.g. First articles by March, production in Q3" /></div>
+          <div class="row2">
+            <div class="field"><label for="name">First and last name *</label><input id="name" name="name" required autocomplete="name" /></div>
+            <div class="field"><label for="email">Work email *</label><input id="email" name="email" type="email" required autocomplete="email" /></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="company">Company *</label><input id="company" name="company" required autocomplete="organization" /></div>
+            <div class="field"><label for="phone">Phone <small>(optional)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
+          </div>
+          <p class="warn"><strong>Export-controlled (ITAR/EAR) drawings:</strong> do not upload them here. Call {org.phone} and we will arrange a compliant transfer.</p>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="submit" data-magnetic>Send for review <span class="arrow">→</span></button>
+            <span class="form-note">Prototype: this form does not send anything.</span>
+          </div>
+          <div class="form-done" role="status">
+            <p class="eyebrow" style="justify-content:center">Received</p>
+            <h2 style="font-size:2rem">Thanks. We’ll be in touch within {org.responsePromise}.</h2>
+            <p class="muted">In the live site this confirmation fires after the submission is stored and routed. In this prototype nothing was sent.</p>
+          </div>
+        </form>
+
+        <aside data-reveal style="--d:150">
+          <h2 class="eyebrow" style="font-weight:400">What happens next</h2>
+          <ol class="steps-list" style="padding-left:38px">
+            <li><span class="k">Today</span><h3 style="font-size:1.25rem">We read the package</h3><p>Someone on our team reviews the drawing and requirements.</p></li>
+            <li><span class="k">Within {org.responsePromise}</span><h3 style="font-size:1.25rem">You hear back</h3><p>Fit, what is missing, or the next step. Not a form letter.</p></li>
+            <li><span class="k">Next</span><h3 style="font-size:1.25rem">The shop quotes you</h3><p>The manufacturer that fits confirms feasibility, capacity, price and lead time directly.</p></li>
+          </ol>
+          <div class="card" style="margin-top:8px">
+            <h3>Rather talk it through?</h3>
+            <p>Bring the part, the process questions and the sourcing problem.</p>
+            <div class="btn-row" style="margin-top:12px">
+              <a class="btn btn-ghost btn-sm" href={org.bookingUrl} rel="noopener"><Icon name="cal" size={16} /> Book time with our team</a>
+              <a class="btn btn-ghost btn-sm" href={`tel:${org.phoneE164}`}><Icon name="phone" size={16} /> {org.phone}</a>
+            </div>
+          </div>
+          <address class="muted" style="font-style:normal;font-size:15px;margin-top:22px;line-height:1.7">
+            <strong style="color:var(--text)">Lupton Associates</strong><br />
+            {org.address.street}<br />{org.address.city}, {org.address.region} {org.address.postal}
+          </address>
+          <p class="muted" style="font-size:14px;margin-top:14px">Manufacturers, job seekers and other inquiries: call {org.phone} or use the same form and say so in the first line.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <section class="section paper">
+    <div class="wrap grid-2">
+      <div data-reveal>
+        <p class="eyebrow">What helps the review</p>
+        <h2>Nice to have, not required.</h2>
+        <Blocks type="send" items={['Drawing, CAD model, BOM or a clear part description', 'Material or performance requirement', 'Expected annual volume and release quantities', 'Critical dimensions and tolerances', 'Finish, testing, inspection and documentation needs', 'Prototype, validation and production timing', 'Current supplier issue or reason for the review']} />
+        <p class="muted" style="margin-top:20px"><a href="/resources/what-to-send-with-an-rfq/">The full RFQ checklist →</a></p>
+      </div>
+      <div data-reveal style="--d:120">
+        <p class="eyebrow">RFQ questions</p>
+        <h2>Before you hit send.</h2>
+        <Blocks type="faq" faqs={faqs} />
+      </div>
+    </div>
+  </section>
+</Base>

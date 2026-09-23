@@ -1,0 +1,54 @@
+---
+// Reviewer page: every [CONFIRM] claim by page, plus the 301 map. Never indexed, never in the sitemap.
+import Base from '../layouts/Base.astro';
+import { confirmRegister } from '../lib/confirm';
+import { capabilities, capabilityPath } from '../data/capabilities';
+import { industries } from '../data/industries';
+import { combos, comboPath } from '../data/combos';
+import { resources } from '../data/resources';
+import { rich } from '../lib/rich';
+import { redirects } from '../data/redirects';
+
+const pageLevel = [
+  { page: '/', field: 'faq', text: 'There is no fee to the buyer for Lupton’s review; you buy from the manufacturer at the manufacturer’s price. [CONFIRM]' },
+  { page: '/rfq/', field: 'faq', text: 'NDA before drawings are uploaded [CONFIRM process]' },
+  { page: '/rfq/ + /capabilities/cnc-machining/', field: 'ITAR handling', text: 'Controlled drawings transferred by phone arrangement, not the web form [CONFIRM process]' },
+  { page: 'site-wide', field: 'org.email', text: 'Shared inbox to publish in plain text (live site hides it behind Cloudflare obfuscation) [CONFIRM]' },
+  { page: 'site-wide', field: 'org.legalName / LinkedIn company URL', text: 'Legal entity name and company LinkedIn URL for schema sameAs [CONFIRM]' },
+  { page: 'site-wide', field: 'Steps', text: '“You place the order with the shop”: confirm for offshore programs invoiced through a US entity [CONFIRM]' },
+  { page: '/about/', field: 'team', text: 'Team list mirrors luptons.com/about-us (Sept 2026). LinkedIn shows Sabrina Worboys joined as Finance Manager on 2026-09-04; add her? [CONFIRM]' },
+  { page: '/industries/data-center/copper-busbars/', field: 'image', text: 'No verified bus bar photograph; page shows a line drawing [CONFIRM photo]' },
+];
+const items = confirmRegister(pageLevel);
+const byPage = items.reduce<Record<string, typeof items>>((a, x) => ((a[x.page] ||= []).push(x), a), {});
+const pages = [
+  '/', ...capabilities.map(capabilityPath), '/industries/', ...industries.map((i) => `/industries/${i.slug}/`), ...combos.map(comboPath),
+  '/rfq/', '/about/', '/resources/', ...resources.map((r) => `/resources/${r.slug}/`),
+];
+---
+<Base title="Review: unverified claims and redirect map" description="Internal review page for the Lupton redesign prototype." path="/review/" noindex>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Reviewer page · not part of the site</p>
+      <h1 style="font-size:clamp(2rem,4vw,3.4rem)">{items.length} claims to confirm before launch</h1>
+      <p class="lede">Every string tagged <mark class="confirm">CONFIRM</mark> in the prototype, grouped by page. Untagged specs come from copy published on luptons.com as of 2026-09-23. [CONFIRM] claims are automatically excluded from JSON-LD and llms.txt.</p>
+      {Object.entries(byPage).map(([page, list]) => (
+        <div style="margin-top:40px">
+          <h2 style="font-size:1.3rem;font-family:var(--f-mono);letter-spacing:0"><a href={page.startsWith('/') && !page.includes(' ') ? page : undefined}>{page}</a> <span class="muted" style="font-size:.8em">({list.length})</span></h2>
+          <table class="specs"><tbody>
+            {list.map((x) => <tr><th>{x.field}</th><td set:html={rich(x.text)} /></tr>)}
+          </tbody></table>
+        </div>
+      ))}
+      <div class="divider"></div>
+      <h2 id="redirects">301 redirect map ({redirects.length})</h2>
+      <p class="muted">Every indexable legacy URL on luptons.com and its new home. Nothing here is live. The map is applied at launch.</p>
+      <div class="cmp-wrap"><table class="cmp"><thead><tr><th>Old URL</th><th>New URL / note</th></tr></thead><tbody>
+        {redirects.map(([from, to, note]) => <tr><td class="mono" style="font-size:13px">{from}</td><td class="mono" style="font-size:13px">{to.startsWith('/') ? <a href={to}>{to}</a> : to}{note && <div class="muted" style="font-family:var(--f-body)">{note}</div>}</td></tr>)}
+      </tbody></table></div>
+      <div class="divider"></div>
+      <h2>All prototype pages ({pages.length})</h2>
+      <ul class="chips">{pages.map((p) => <li style="padding:0;border:0"><a href={p}>{p}</a></li>)}</ul>
+    </div>
+  </section>
+</Base>

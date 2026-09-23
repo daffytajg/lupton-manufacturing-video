@@ -1,0 +1,25 @@
+---
+import { nav, org } from '../data/site';
+interface Props { path: string }
+const { path } = Astro.props;
+---
+<header class="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="Lupton Associates home">
+        <img src="/img/logo-horizontal-light.webp" alt="Lupton Associates" width="600" height="163" />
+      </a>
+      <ul class="nav-links">
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+      <div class="nav-cta">
+        <a class="nav-phone" href={`tel:${org.phoneE164}`}>{org.phone}</a>
+        <a class="btn btn-ghost btn-sm" href={org.bookingUrl} rel="noopener">Book time</a>
+        <a class="btn btn-primary btn-sm" href="/rfq/" data-magnetic>Send an RFQ</a>
+        <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>

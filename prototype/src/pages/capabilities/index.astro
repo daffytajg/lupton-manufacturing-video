@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Blocks from '../../components/Blocks.astro';
+import Icon from '../../components/Icon.astro';
+import { topCapabilities, capabilityPath, otherSolutions } from '../../data/capabilities';
+import { rich } from '../../lib/rich';
+import { breadcrumbSchema, webPageSchema } from '../../lib/schema';
+
+const path = '/capabilities/';
+const title = 'Capabilities: Metal, Plastic, Cable & Electronics | Lupton';
+const description = 'Stamping, sheet metal, CNC machining, casting, extrusion, plastic molding, wire harnesses, PCB assembly, prototyping and low-cost region manufacturing.';
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Capabilities', href: path }];
+const itemList = { '@type': 'ItemList', itemListElement: topCapabilities.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://luptons.com${capabilityPath(c)}`, name: c.name })) };
+---
+<Base title={title} description={description} path={path} schema={[webPageSchema(path, title, description), breadcrumbSchema(crumbs), itemList]}>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Capabilities"
+    h1="Every process behind a custom part, reviewed against your drawing."
+    lede={[
+      'Lupton covers ten process families: metal stamping, sheet metal fabrication, CNC machining, casting, extrusion, plastic molding, wire harnesses and cable assemblies, electronic assembly, prototyping and low-cost region manufacturing.',
+      'If you are not sure which one your part needs, send the drawing and volume and we will compare the routes before anyone builds tooling.',
+    ]}
+    art="home"
+    artTitle="CAPABILITIES"
+  />
+  <section class="section tight">
+    <div class="wrap">
+      <div class="cards" data-stagger>
+        {topCapabilities.map((c, i) => (
+          <a class="card" href={capabilityPath(c)}>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="ico"><Icon name={c.icon} /></span>
+            <h3>{c.name}</h3>
+            <p set:html={rich(c.short)} />
+            <span class="go">Explore <i>→</i></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section paper">
+    <div class="wrap split">
+      <div class="sticky" data-reveal>
+        <p class="eyebrow">Not sure?</p>
+        <h2>Pick the process by the part, not the other way around.</h2>
+        <p class="muted"><a href="/resources/choose-manufacturing-process-custom-part/">How to choose a process →</a></p>
+      </div>
+      <div data-reveal>
+        <Blocks type="compare" table={{
+          caption: 'Screening tool, not a manufacturability decision',
+          head: ['Process', 'Often reviewed when'],
+          rows: [
+            ['CNC machining', 'Tolerances need direct material removal, the design is changing, or volume is limited'],
+            ['Casting', 'Metal geometry, consolidation or volume may justify tooling'],
+            ['Stamping', 'Sheet metal parts with repeat volume and geometry that supports tooling'],
+            ['Sheet metal fabrication', 'Parts need cutting, bending, welding, hardware or enclosure assembly'],
+            ['Injection molding', 'Plastic parts that support production tooling and repeat volume'],
+            ['Rotational molding / thermoforming', 'Large hollow or open plastic parts at low to mid volume'],
+            ['Electronics / box build', 'PCBAs, harnesses, cables or integration'],
+          ],
+        }} />
+        <p class="muted" style="margin-top:28px;font-size:15px">Also sourced (pages migrate as-is): {otherSolutions.map((o) => o.name).join(' · ')}.</p>
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
