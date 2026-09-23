@@ -6,7 +6,7 @@
 |---|---|---|
 | 0–4.8 s | RFQ sheets storm around a racing red clock | "RFQ · DAY 21 / STILL NO QUOTE." then "PROMISED: 6 WEEKS / NOW IT'S 14." |
 | 4.9 s | 3D Lupton LA tile slams in, shockwave clears the storm | (none) |
-| 5.3–11.3 s | Sheet metal, CNC, molded, PCBA and cable parts orbit the logo | "SEND US THE DRAWING." + Drawing / Material / Annual volume / Timing, then "WE GET IT TO A SHOP THAT CAN RUN IT." |
+| 5.3–11.3 s | Sheet metal, CNC, molded, PCBA and cable parts orbit the logo | "SEND US THE DRAWING." + Drawing / Material / Annual volume / Timing, then "WE QUOTE IT. WE BUILD IT." |
 | 11.7–15 s | Parts line up under the logo | "Straight answers on quotes and lead times." LUPTON ASSOCIATES, "Servicing the working world since 1969", luptons.com |
 
 ## How it was made

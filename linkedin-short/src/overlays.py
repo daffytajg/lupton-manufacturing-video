@@ -110,8 +110,8 @@ def frame(i):
         chip_row(d, 1590, ["DRAWING", "MATERIAL", "ANNUAL VOLUME", "TIMING"], a3, s3)
         d.rectangle([W / 2 - 60, 1690 + s3, W / 2 + 60, 1695 + s3], fill=SAGE + (int(255 * a3),))
     if a4 > 0:
-        draw_text(d, (0, 1400 + s4), "WE GET IT TO A SHOP", HEAD(104), CREAM, a4, anchor_center=True)
-        draw_text(d, (0, 1500 + s4), "THAT CAN RUN IT.", HEAD(104), SAGE, a4, anchor_center=True)
+        draw_text(d, (0, 1400 + s4), "WE QUOTE IT.", HEAD(104), CREAM, a4, anchor_center=True)
+        draw_text(d, (0, 1500 + s4), "WE BUILD IT.", HEAD(104), SAGE, a4, anchor_center=True)
         draw_text(d, (0, 1640 + s4), "SHEET METAL · MACHINING · MOLDING", MONO(33), CREAM, a4, anchor_center=True)
         draw_text(d, (0, 1688 + s4), "PCBAs · CABLE ASSEMBLIES", MONO(33), CREAM, a4, anchor_center=True)
 
