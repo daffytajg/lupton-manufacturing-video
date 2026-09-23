@@ -3,38 +3,282 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lupton Associates — Manufacturing Solutions</title>
-  <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #07192a;
-      color: #f7f4ec;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    main { width: min(100%, 720px); padding: 24px; text-align: center; }
-    video {
-      display: block;
-      width: 100%;
-      max-height: 86vh;
-      background: #000;
-      border-radius: 10px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.45);
-    }
-    p { margin: 14px 0 0; color: #d9e1e8; font-size: 14px; }
-  </style>
+  <title>Trident Wealth Management Group — Strength. Skill. Value.</title>
+  <meta name="description" content="Let us put our Strength, Skill and Value to work for you. Retirement income, comprehensive wealth management, hedging and tax alpha strategies from a long-tenured Pittsford, NY team.">
+  <meta name="twm-ai-endpoint" content="">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
-  <main>
-    <video controls playsinline preload="metadata">
-      <source src="lupton-manufacturing-v9.mp4" type="video/mp4">
-      Your browser does not support MP4 video playback.
-    </video>
-    <p>Lupton Associates</p>
+<body data-page="home" data-root="" data-assistant-context="home">
+  <a class="sr-only" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+
+  <main id="main">
+    <!-- ============================================================ HERO -->
+    <section class="hero grain">
+      <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero__glow hero__glow--gold" aria-hidden="true"></div>
+      <div class="hero__glow hero__glow--aqua" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div>
+          <span class="eyebrow" data-reveal>Pittsford, New York · Serving families for 50 years</span>
+          <h1 data-split>Let us put our <span class="accent">Strength,</span> <span class="accent">Skill</span> and <span class="accent">Value</span> to work for you.</h1>
+          <p class="lead" data-reveal>A long-tenured team of wealth and retirement income specialists — now with an AI concierge that answers at 2 a.m., a planning lab that stress-tests your future in seconds, and advisors who pick up the phone.</p>
+          <div class="btn-row" data-reveal>
+            <a class="btn btn--gold btn--lg magnetic" href="contact.html">Start a conversation <span aria-hidden="true">→</span></a>
+            <button class="btn btn--ghost btn--lg magnetic" type="button" data-open-assistant>Ask Navigator</button>
+          </div>
+          <div class="hero__meta" data-reveal>
+            <div><strong data-count="50">0</strong><span>Years of client trust</span></div>
+            <div><strong data-count="6">0</strong><span>Advisors &amp; partners</span></div>
+            <div><strong>Forbes</strong><span>Best-In-State Team 2024*</span></div>
+          </div>
+        </div>
+        <div class="console tilt" data-float data-reveal="scale">
+          <span class="console__spark" aria-hidden="true"></span>
+          <div class="console__head">
+            <div class="console__id"><span class="console__avatar"><svg viewBox="0 0 52.45 97.45"><use href="#trident-path"/></svg></span><div><strong>Navigator</strong><span><i class="live-dot"></i> AI concierge · working</span></div></div>
+            <span class="badge badge--aqua">Live</span>
+          </div>
+          <div class="console__feed" id="console-feed"></div>
+          <div class="console__foot"><span>Ask anything about the team, fees or retirement income</span><span class="typing"><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">Scroll</div>
+    </section>
+
+    <!-- ========================================================= MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">Forbes Best-In-State Wealth Management Team 2024*</span>
+        <span class="marquee__item">Retirement Income Certified Professional® on the team</span>
+        <span class="marquee__item">Assets custodied at Fidelity / National Financial Services</span>
+        <span class="marquee__item">Securities &amp; advisory services through &amp;Partners · Member FINRA / SIPC</span>
+        <span class="marquee__item">Transparent, upfront fees</span>
+        <span class="marquee__item">In person or by phone — your preference</span>
+      </div>
+    </div>
+
+    <!-- ========================================================= PILLARS -->
+    <section class="section section--dark" id="pillars">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-reveal>The power of three</span>
+          <h2 data-split>Three words. One standard.</h2>
+          <p class="lead" data-reveal>Our name and logo pay homage to our founder, Mark Dick — a tribute to his service as a Navy Frogman, and to the three things every client should expect from us.</p>
+        </div>
+        <div class="story">
+          <div class="story__sticky">
+            <div class="story__visual">
+              <div class="layer is-active"><svg viewBox="0 0 24 24" fill="none" stroke="#ebb974" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="idx">01 / 03</span><span class="word">Strength</span></div>
+              <div class="layer"><svg viewBox="0 0 24 24" fill="none" stroke="#ebb974" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="idx">02 / 03</span><span class="word">Skill</span></div>
+              <div class="layer"><svg viewBox="0 0 24 24" fill="none" stroke="#ebb974" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6a3 3 0 0 1 3 3v7a3 3 0 0 0 3 3h6"/><path d="M3 4v6M21 17v6M8 7v3M12 13h3"/></svg><span class="idx">03 / 03</span><span class="word">Value</span></div>
+            </div>
+          </div>
+          <div class="story__steps">
+            <div class="story__step">
+              <span class="eyebrow">01 · Strength</span>
+              <h3>A long-tenured team, across every market cycle.</h3>
+              <p>Our advisors and support staff bring decades of seasoned experience together — from EF Hutton in the 1970s to institutional prime brokerage on Wall Street. That experience covers many economic and market cycles, enabling durable plans that adapt to change.</p>
+              <ul><li>Six advisors and partners, three client service associates</li><li>Founded on the principles of Mark Dick</li><li>Affiliated with &amp;Partners for technology and platform depth</li></ul>
+              <a class="pillar__link" href="strength.html">Meet the team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+            <div class="story__step">
+              <span class="eyebrow">02 · Skill</span>
+              <h3>Accumulate, distribute and protect.</h3>
+              <p>Generating income in retirement takes a different approach than growing wealth. We pair comprehensive planning with retirement income specialization, hedging strategies that soften volatility, and tax alpha strategies that aim to boost after-tax returns.</p>
+              <ul><li>Comprehensive wealth management through every life stage</li><li>Retirement income specialists (RICP®)</li><li>Hedged and “buffered” portfolios · tax-loss harvesting</li></ul>
+              <a class="pillar__link" href="skill.html">Explore what we do <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+            <div class="story__step">
+              <span class="eyebrow">03 · Value</span>
+              <h3>Transparent fees. Client first. Always.</h3>
+              <p>We are upfront about fees so there are no surprises. We customize our engagement to your communication preferences, and we work to reduce wealth management expenses so a larger share of your returns stays with you.</p>
+              <ul><li>Transparency that builds trust</li><li>Engagement on your schedule — in person or by phone</li><li>Quality advice at a fair price</li></ul>
+              <a class="pillar__link" href="value.html">How we work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= PERSONAS -->
+    <section class="section section--light" id="who">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-reveal>Who we serve</span>
+          <h2 data-split>Tell us where you are. We’ll show you what matters.</h2>
+        </div>
+        <div id="persona" data-reveal>
+          <div class="persona">
+            <button class="chip is-active" type="button" data-persona="retire">Approaching retirement</button>
+            <button class="chip" type="button" data-persona="family">Multi-generational family</button>
+            <button class="chip" type="button" data-persona="owner">Business owner</button>
+            <button class="chip" type="button" data-persona="nextgen">Next generation</button>
+          </div>
+          <div class="persona__panel">
+            <div>
+              <h3 id="persona-title" style="font-size:clamp(1.8rem,3.4vw,2.8rem)"></h3>
+              <p class="lead" id="persona-lead"></p>
+              <div class="btn-row mt-3"><a class="btn btn--navy magnetic" href="contact.html">Talk with an advisor</a><button class="btn btn--ghost" type="button" data-open-assistant="Estimate my retirement income">Run a quick estimate</button></div>
+            </div>
+            <ul class="persona__list" id="persona-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================== AI SHOWCASE -->
+    <section class="section section--deep grain" id="navigator">
+      <div class="container">
+        <div class="showcase">
+          <div>
+            <span class="eyebrow" data-reveal>Meet Navigator</span>
+            <h2 data-split>An AI concierge that knows the firm — and knows its limits.</h2>
+            <p class="lead" data-reveal>Navigator answers questions about the team, summarizes our insights, runs educational estimates and arranges introductions. It never gives personalized advice — it hands you to a person who can.</p>
+            <div class="showcase__list" data-reveal-stagger>
+              <div class="feature is-active"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><strong>Insight summaries on demand</strong><span>“Give me the 30-second version” — key takeaways from any article, with a link to the full piece.</span></div></div>
+              <div class="feature"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-6 4 3 5-8"/></svg></span><div><strong>Educational estimates</strong><span>Retirement income, RMD ages, Social Security timing — illustrative, transparent and one click from the Planning Lab.</span></div></div>
+              <div class="feature"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><strong>Introductions, not forms</strong><span>Navigator collects what the team needs and routes it — you never fill in a web form unless you want to.</span></div></div>
+              <div class="feature"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div><strong>Guardrails built in</strong><span>No stock picks, no “should I sell” — questions that need a plan go to an advisor, with disclosures on every reply.</span></div></div>
+            </div>
+            <div class="btn-row mt-4" data-reveal><button class="btn btn--gold magnetic" type="button" data-open-assistant>Try Navigator now</button><span class="small muted">Voice input supported · nothing you type is shared without your consent</span></div>
+          </div>
+          <div class="device tilt" data-reveal="scale">
+            <div class="device__screen">
+              <div class="device__bar"><span class="console__avatar"><svg viewBox="0 0 52.45 97.45"><use href="#trident-path"/></svg></span><div><strong>Navigator</strong><span><i class="live-dot"></i> Trident AI concierge</span></div></div>
+              <div class="device__msgs" id="demo-msgs"></div>
+              <div class="device__input"><span>Ask about retirement income, fees, the team…</span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== PLANNING LAB -->
+    <section class="section section--sand" id="lab-teaser">
+      <div class="container">
+        <div class="section__head section__head--center">
+          <span class="eyebrow" data-reveal>Planning Lab</span>
+          <h2 data-split>See your plan move before you make a move.</h2>
+          <p class="lead" data-reveal>Three interactive tools that run entirely in your browser. Nothing is stored, nothing is sent — just clarity.</p>
+        </div>
+        <div class="grid grid--3" data-reveal-stagger>
+          <a class="card tilt pillar" href="planning-lab.html#readiness"><span class="card__spot"></span><span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></span><div><span class="badge badge--aqua">2 minutes</span><h3 class="mt-2">Retirement Readiness Pulse</h3><p>Seven questions, one score, and the three things worth doing next.</p></div><span class="pillar__link">Check your pulse <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="card tilt pillar" href="planning-lab.html#scenario"><span class="card__spot"></span><span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-6 4 3 5-8"/></svg></span><div><span class="badge badge--aqua">1,000 market paths</span><h3 class="mt-2">Scenario Lab</h3><p>Drag the sliders and watch a Monte Carlo simulation redraw your retirement in real time.</p></div><span class="pillar__link">Open the lab <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+          <a class="card tilt pillar" href="planning-lab.html#social-security"><span class="card__spot"></span><span class="pillar__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><span class="badge badge--aqua">62 · 67 · 70</span><h3 class="mt-2">Social Security Timing</h3><p>Compare claiming ages and find the break-even point for waiting.</p></div><span class="pillar__link">Compare ages <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= TEAM -->
+    <section class="section section--light" id="team">
+      <div class="container">
+        <div class="section__head flex between" style="max-width:none">
+          <div><span class="eyebrow" data-reveal>Strength</span><h2 data-split>People you’ll know for decades.</h2></div>
+          <a class="btn btn--ghost magnetic" href="strength.html" data-reveal>Meet the whole team</a>
+        </div>
+        <div class="team-grid" id="home-team" data-reveal-stagger></div>
+      </div>
+    </section>
+
+    <!-- ========================================================== PROCESS -->
+    <section class="section section--deep" id="process">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-reveal>How it works</span>
+          <h2 data-split>A plan you can see, managed through every life stage.</h2>
+        </div>
+        <div class="timeline" data-reveal>
+          <div class="timeline__line" aria-hidden="true"></div>
+          <div class="timeline__step" data-step="1"><h3>Discover</h3><p>We take the time to really get to know you, your family and your long-term ambitions — and we’re upfront about fees from the first conversation.</p></div>
+          <div class="timeline__step" data-step="2"><h3>Design</h3><p>A comprehensive strategy for accumulating, distributing and protecting wealth: investments, retirement income, risk management and taxes, together.</p></div>
+          <div class="timeline__step" data-step="3"><h3>Implement</h3><p>Accounts custodied at Fidelity through National Financial Services, with the &amp;Partners platform behind every trade and document.</p></div>
+          <div class="timeline__step" data-step="4"><h3>Monitor &amp; adapt</h3><p>Durable plans that adapt to change, reviewed on your schedule — in person or by phone — and held steady when markets aren’t.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= INSIGHTS -->
+    <section class="section section--light" id="insights">
+      <div class="container">
+        <div class="section__head flex between" style="max-width:none">
+          <div><span class="eyebrow" data-reveal>Insights</span><h2 data-split>Thinking worth your time.</h2></div>
+          <a class="btn btn--ghost magnetic" href="insights.html" data-reveal>All insights</a>
+        </div>
+        <div class="grid grid--3" id="home-insights" data-reveal-stagger></div>
+      </div>
+    </section>
+
+    <!-- ========================================================== FOUNDER -->
+    <section class="section section--dark grain" id="founder">
+      <div class="container">
+        <div class="split">
+          <div class="photo photo--portrait" data-reveal="scale"><img src="https://www.trident-wealth.com/wp-content/uploads/2024/08/AAA-Mark-Dick-new-photo_640x640-jpg.webp" alt="Mark Dick, founder" loading="lazy" data-scrub-scale onerror="this.style.display='none'"><span class="photo__caption">Mark Dick · Founder · Navy Frogman</span></div>
+          <div>
+            <span class="eyebrow" data-reveal>Our founder</span>
+            <p class="statement" data-reveal>“Mark has not only inspired countless financial advisors across the industry — he inspired our team to <em>carry on his principles</em> and his passion for working tirelessly to help clients realize their financial goals.”</p>
+            <p class="lead mt-3" data-reveal>The trident symbol is a tribute to Mark’s service as a Navy Frogman, the predecessor to today’s Navy SEALs. It also represents the power of three: Strength, Skill and Value.</p>
+            <a class="pillar__link" href="strength.html#founder" data-reveal>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== CTA -->
+    <section class="section cta">
+      <svg class="cta__rings" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" stroke-dasharray="2 4"/><circle cx="50" cy="50" r="36" stroke-dasharray="1 3"/><circle cx="50" cy="50" r="22"/></svg>
+      <div class="container cta__inner">
+        <div>
+          <span class="eyebrow" data-reveal>Strength. Skill. Value.</span>
+          <h2 data-split>Let’s talk about what you’re trying to accomplish.</h2>
+          <p class="lead" data-reveal>Call, write, or let Navigator arrange an introduction. And if a family member or friend has a question about their retirement plan, we are happy to meet with them too.</p>
+        </div>
+        <div class="btn-row" data-reveal style="justify-content:flex-end">
+          <a class="btn btn--gold btn--lg magnetic" href="contact.html">Contact us</a>
+          <a class="btn btn--ghost btn--lg magnetic" href="tel:585-833-7022">585-833-7022</a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div id="site-footer"></div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="trident-path" d="M29.22,48.64h11.61c1.03-11.74,2.03-23.26,3.15-36.06,3.6,4.2,6.43,7.51,8.47,9.9-1,2.69-2.09,4.37-2.17,6.1-.24,5.32,0,10.66-.12,15.99-.14,6.7-3.58,10.22-10.19,10.29-9.16.11-18.33.11-27.49,0-6.72-.08-10-3.49-10.1-10.28-.08-5.33.13-10.67-.11-15.99-.08-1.68-1.19-3.32-2.27-6.09,1.88-2.24,4.59-5.49,8.36-9.99,0,9.2,0,16.91,0,24.62,0,12.81.98,13.58,14.91,11.12,0-11.31.08-22.75-.14-34.18-.02-1.04-2-2.03-3.31-3.28,1.88-3.22,3.87-6.64,6.29-10.79,2.41,3.96,4.45,7.3,5.79,9.49-1.15,3.13-2.53,5.21-2.58,7.32-.23,10.46-.1,20.92-.1,31.82Z M29.33,97.45h-5.99v-29.5c-4.74-.31-9.57.32-10.35-6.03h26.24q-1.45,5.18-9.89,6.14v29.38Z"/></defs></svg>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="assets/js/knowledge.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    // Home-only: render team preview and latest insights from the knowledge base.
+    (function () {
+      const K = window.TWM, I = K.icons, { h, fmtDate } = K.util;
+      document.getElementById('home-team').innerHTML = K.team.map((t) => `
+        <a class="team-card" href="strength.html#${t.slug}" data-cursor="Profile">
+          <div class="team-card__fallback">${t.initials}</div>
+          <img class="team-card__img" src="${t.img}" alt="${h(t.name)}" loading="lazy" onerror="this.style.display='none'">
+          <span class="team-card__link">${I.arrow}</span>
+          <div class="team-card__body"><strong>${h(t.name)}</strong><span>${h(t.title)}</span><p>${h(t.focus.split('. ')[0])}.</p></div>
+        </a>`).join('');
+      document.getElementById('home-insights').innerHTML = K.articles.slice(0, 3).map((a) => `
+        <article class="card article-card">
+          <span class="card__spot"></span>
+          <div class="article-card__meta"><span class="badge">${h(a.category)}</span><span>${fmtDate(a.date)}</span></div>
+          <a href="insights/${a.slug}.html" data-cursor="Read"><h3>${h(a.title)}</h3></a>
+          <p>${h(a.summary)}</p>
+          <div class="article-card__foot"><span class="read">${a.readMin} min read</span><button class="ai-btn" type="button" data-summarize="${a.slug}">${I.spark} AI takeaways</button></div>
+          <div class="ai-summary" id="sum-${a.slug}"><div class="lbl">${I.spark} Navigator summary</div><div class="ai-summary__txt"></div></div>
+        </article>`).join('');
+    })();
+  </script>
+  <script src="assets/js/motion.js"></script>
+  <script src="assets/js/assistant.js"></script>
+  <script src="assets/js/hero.js"></script>
 </body>
 </html>

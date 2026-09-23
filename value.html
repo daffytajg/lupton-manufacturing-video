@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Value — How We Work | Trident Wealth Management Group</title>
+  <meta name="description" content="Transparency, a client-first approach and quality advice at a fair price. We are upfront about fees and work to reduce wealth management expenses so clients keep more of their returns.">
+  <meta name="twm-ai-endpoint" content="">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <style>
+    .fee-bars { display: grid; gap: 22px; }
+    .fee-bar { display: grid; gap: 8px; }
+    .fee-bar__head { display: flex; justify-content: space-between; font-size: .9rem; }
+    .fee-bar__head strong { font-variant-numeric: tabular-nums; }
+    .fee-bar__track { height: 22px; border-radius: 6px; background: var(--sand); overflow: hidden; }
+    .fee-bar__fill { height: 100%; width: 0; border-radius: 6px 4px 4px 6px; background: var(--navy-500); transition: width 1.8s var(--ease-out); }
+    .fee-bar--accent .fee-bar__fill { background: linear-gradient(90deg, var(--gold-500), var(--gold-400)); }
+    .fee-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px; }
+    @media (max-width: 560px) { .fee-controls { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="value" data-root="" data-assistant-context="value">
+  <a class="sr-only" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <section class="page-hero grain">
+      <svg class="page-hero__lines" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true"><path d="M0 380 C 200 300, 400 460, 600 360 S 1000 260, 1200 340"/><path d="M0 420 C 250 340, 450 500, 650 400 S 1050 300, 1200 390"/><path d="M0 340 C 180 260, 380 420, 580 320 S 980 220, 1200 300"/></svg>
+      <div class="container">
+        <div class="breadcrumb" data-reveal><a href="index.html">Home</a><span>/</span><span>About</span><span>/</span><span>Value</span></div>
+        <span class="eyebrow" data-reveal>03 · Value</span>
+        <h1 data-split>Quality advice <span class="italic gold">at a fair price.</span></h1>
+        <p class="lead" data-reveal>At Trident Wealth Management Group, we believe in providing exceptional value to our clients. We customize our engagement schedule to fit each client’s communication preferences and are available in person or via telephone to answer questions, listen to concerns, or make updates to the plan.</p>
+        <div class="btn-row mt-3" data-reveal><button class="btn btn--gold magnetic" type="button" data-open-assistant="How are you compensated?">Ask about fees</button><a class="btn btn--ghost magnetic" href="contact.html">Start a conversation</a></div>
+      </div>
+    </section>
+
+    <section class="section section--light">
+      <div class="container">
+        <div class="grid grid--3" id="value-grid" data-reveal-stagger></div>
+      </div>
+    </section>
+
+    <section class="section section--sand" id="fees">
+      <div class="container">
+        <div class="split">
+          <div>
+            <span class="eyebrow" data-reveal>Why costs matter</span>
+            <h2 data-split>Every basis point you don’t pay keeps compounding.</h2>
+            <p class="lead" data-reveal>Lower expenses can lead to higher net returns, as fees erode investment performance. Drag the sliders to see how much a difference in annual cost can mean over time — hypothetically, and before taxes.</p>
+            <div class="fee-controls" data-reveal>
+              <div class="range"><div class="range__head"><span>Starting balance</span><strong id="fee-bal-out">$1,000,000</strong></div><input type="range" id="fee-bal" min="100000" max="5000000" step="50000" value="1000000"></div>
+              <div class="range"><div class="range__head"><span>Years invested</span><strong id="fee-yrs-out">25</strong></div><input type="range" id="fee-yrs" min="5" max="40" step="1" value="25"></div>
+              <div class="range"><div class="range__head"><span>Higher annual cost</span><strong id="fee-hi-out">1.50%</strong></div><input type="range" id="fee-hi" min="0.25" max="3" step="0.05" value="1.5"></div>
+              <div class="range"><div class="range__head"><span>Lower annual cost</span><strong id="fee-lo-out">0.75%</strong></div><input type="range" id="fee-lo" min="0" max="2" step="0.05" value="0.75"></div>
+            </div>
+          </div>
+          <div class="card card--light" data-reveal="scale">
+            <div class="fee-bars">
+              <div class="fee-bar"><div class="fee-bar__head"><span>At the higher annual cost</span><strong id="fee-hi-val">$0</strong></div><div class="fee-bar__track"><div class="fee-bar__fill" id="fee-hi-fill"></div></div></div>
+              <div class="fee-bar fee-bar--accent"><div class="fee-bar__head"><span>At the lower annual cost</span><strong id="fee-lo-val">$0</strong></div><div class="fee-bar__track"><div class="fee-bar__fill" id="fee-lo-fill"></div></div></div>
+            </div>
+            <div class="tile tile--hero mt-3" style="border:0;background:rgba(0,38,62,.04)"><div class="lbl">Difference kept by paying less</div><div class="val" id="fee-diff">$0</div><div class="sub" id="fee-diff-sub"></div></div>
+            <p class="disclaimer mt-3">Hypothetical illustration assuming a constant 6% gross annual return, with the annual cost deducted from that return each year, and no taxes, contributions or withdrawals. Not a projection of any actual portfolio or fee schedule. Fees for our services depend on the services and account types involved and are discussed upfront.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--dark grain">
+      <div class="container">
+        <div class="section__head section__head--center"><span class="eyebrow" data-reveal>Engagement, your way</span><h2 data-split>We communicate on your schedule, not ours.</h2></div>
+        <div class="grid grid--4" data-reveal-stagger>
+          <div class="card"><span class="card__spot"></span><span class="card__num">01</span><h3>In person</h3><p>At our Pittsford office — 40A Grove Street, Suite 200 — for reviews, plan updates and the conversations that deserve a table.</p></div>
+          <div class="card"><span class="card__spot"></span><span class="card__num">02</span><h3>By phone</h3><p>Questions, concerns and quick updates handled directly by your advisor or client service associate. No phone trees.</p></div>
+          <div class="card"><span class="card__spot"></span><span class="card__num">03</span><h3>Online, 24/7</h3><p>Wealthscape and Envestnet portals for statements, tax documents, money movement and a big-picture view of your accounts.</p></div>
+          <div class="card card--accent"><span class="card__spot"></span><span class="card__num">04</span><h3>Navigator, anytime</h3><p>Our AI concierge answers general questions at any hour, summarizes insights and can queue a call with the team for the morning.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <svg class="cta__rings" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" stroke-dasharray="2 4"/><circle cx="50" cy="50" r="36" stroke-dasharray="1 3"/><circle cx="50" cy="50" r="22"/></svg>
+      <div class="container cta__inner">
+        <div><span class="eyebrow" data-reveal>No surprises</span><h2 data-split>Ask us about fees. We’ll answer plainly.</h2><p class="lead" data-reveal>Transparency helps to ensure there are no surprises along the way. It builds trust and demonstrates our commitment to open communication and fair practices.</p></div>
+        <div class="btn-row" data-reveal style="justify-content:flex-end"><a class="btn btn--gold btn--lg magnetic" href="contact.html">Contact us</a><a class="btn btn--ghost btn--lg magnetic" href="tel:585-833-7022">585-833-7022</a></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="assets/js/knowledge.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    (function () {
+      const K = window.TWM, I = K.icons, { h, $ } = K.util;
+      document.getElementById('value-grid').innerHTML = K.valueProps.map((v, i) => `
+        <article class="card tilt pillar"><span class="card__spot"></span><div class="flex between"><span class="pillar__icon">${I[v.icon]}</span><span class="card__num">0${i + 1}</span></div><div><h3>${h(v.title)}</h3><p style="color:var(--gold-600);font-weight:600;font-size:.9rem">${h(v.sub)}</p><p>${h(v.body)}</p></div></article>`).join('');
+      // Fee illustration
+      const ids = ['fee-bal', 'fee-yrs', 'fee-hi', 'fee-lo'];
+      const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+      const calc = () => {
+        const bal = +$('#fee-bal').value, yrs = +$('#fee-yrs').value; let hi = +$('#fee-hi').value, lo = +$('#fee-lo').value; if (lo > hi) { lo = hi; $('#fee-lo').value = hi; }
+        $('#fee-bal-out').textContent = money(bal); $('#fee-yrs-out').textContent = yrs; $('#fee-hi-out').textContent = hi.toFixed(2) + '%'; $('#fee-lo-out').textContent = lo.toFixed(2) + '%';
+        const fvHi = bal * Math.pow(1 + 0.06 - hi / 100, yrs), fvLo = bal * Math.pow(1 + 0.06 - lo / 100, yrs);
+        $('#fee-hi-val').textContent = money(fvHi); $('#fee-lo-val').textContent = money(fvLo);
+        $('#fee-hi-fill').style.width = (fvHi / fvLo) * 100 + '%'; $('#fee-lo-fill').style.width = '100%';
+        $('#fee-diff').textContent = money(fvLo - fvHi); $('#fee-diff-sub').textContent = `over ${yrs} years on ${money(bal)} — a ${(hi - lo).toFixed(2)}% annual difference`;
+        ids.forEach((id) => { const el = $('#' + id); el.style.setProperty('--pct', ((el.value - el.min) / (el.max - el.min)) * 100 + '%'); });
+      };
+      ids.forEach((id) => $('#' + id).addEventListener('input', calc));
+      const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { calc(); io.disconnect(); } }); io.observe($('#fees'));
+      calc(); $('#fee-hi-fill').style.width = '0'; $('#fee-lo-fill').style.width = '0';
+    })();
+  </script>
+  <script src="assets/js/motion.js"></script>
+  <script src="assets/js/assistant.js"></script>
+</body>
+</html>

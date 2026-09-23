@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planning Lab | Trident Wealth Management Group</title>
+  <meta name="description" content="Interactive planning tools that run in your browser: a retirement readiness pulse, a 1,000-path Monte Carlo scenario lab and a Social Security timing visualizer.">
+  <meta name="twm-ai-endpoint" content="">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="lab" data-root="" data-assistant-context="lab">
+  <a class="sr-only" href="#main">Skip to content</a>
+  <div id="site-nav"></div>
+  <main id="main">
+    <section class="page-hero grain">
+      <svg class="page-hero__lines" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true"><path d="M0 380 C 200 300, 400 460, 600 360 S 1000 260, 1200 340"/><path d="M0 420 C 250 340, 450 500, 650 400 S 1050 300, 1200 390"/><path d="M0 340 C 180 260, 380 420, 580 320 S 980 220, 1200 300"/></svg>
+      <div class="container">
+        <div class="breadcrumb" data-reveal><a href="index.html">Home</a><span>/</span><span>Planning Lab</span></div>
+        <span class="eyebrow" data-reveal>Planning Lab <span class="badge badge--aqua" style="margin-left:8px">Runs in your browser</span></span>
+        <h1 data-split>See your plan move <span class="italic gold">before you make a move.</span></h1>
+        <p class="lead" data-reveal>Three tools, zero data collection. Every number stays on your device. When a result raises a question, Navigator is one click away — and so are we.</p>
+      </div>
+    </section>
+
+    <section class="section section--light" id="lab">
+      <div class="container">
+        <div class="lab-tabs" data-reveal>
+          <button class="lab-tab" type="button" data-tab="readiness"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>Readiness Pulse</button>
+          <button class="lab-tab" type="button" data-tab="scenario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16l4-6 4 3 5-8"/></svg>Scenario Lab</button>
+          <button class="lab-tab" type="button" data-tab="social-security"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Social Security Timing</button>
+        </div>
+
+        <!-- Readiness -->
+        <div class="lab-panel" id="panel-readiness">
+          <div class="section__head"><span class="eyebrow">Two minutes</span><h2>Retirement Readiness Pulse</h2><p class="lead">Seven quick questions. You’ll get a score, the two things you’re doing well and the three things most worth doing next — each linked to a relevant insight or service.</p></div>
+          <div class="quiz" id="quiz"></div>
+        </div>
+
+        <!-- Scenario -->
+        <div class="lab-panel" id="panel-scenario">
+          <div class="section__head"><span class="eyebrow">Monte Carlo</span><h2>Scenario Lab</h2><p class="lead">Drag the sliders. The chart simulates 1,000 different market futures and shows the range of outcomes — not a single guess.</p></div>
+          <div class="lab">
+            <div class="lab__controls">
+              <div class="range"><div class="range__head"><span>Your age</span><strong data-out="sc-age"></strong></div><input type="range" id="sc-age" min="25" max="75" step="1" value="55"></div>
+              <div class="range"><div class="range__head"><span>Retirement age</span><strong data-out="sc-retire"></strong></div><input type="range" id="sc-retire" min="50" max="80" step="1" value="65"></div>
+              <div class="range"><div class="range__head"><span>Current savings</span><strong data-out="sc-savings"></strong></div><input type="range" id="sc-savings" min="0" max="5000000" step="25000" value="850000"></div>
+              <div class="range"><div class="range__head"><span>Annual contribution until retirement</span><strong data-out="sc-contrib"></strong></div><input type="range" id="sc-contrib" min="0" max="100000" step="1000" value="20000"></div>
+              <div class="range"><div class="range__head"><span>Annual spending in retirement (today’s $)</span><strong data-out="sc-spend"></strong></div><input type="range" id="sc-spend" min="20000" max="300000" step="1000" value="80000"></div>
+              <div class="range"><div class="range__head"><span>Social Security &amp; pensions from 67 (today’s $/yr)</span><strong data-out="sc-ss"></strong></div><input type="range" id="sc-ss" min="0" max="72000" step="1000" value="30000"></div>
+              <div class="range"><div class="range__head"><span>Inflation</span><strong data-out="sc-infl"></strong></div><input type="range" id="sc-infl" min="1" max="5" step="0.1" value="2.5"></div>
+              <div><div class="range__head" style="margin-bottom:8px"><span>Portfolio mix</span></div><div class="seg" data-seg="alloc"><button type="button" data-val="conservative">Conservative</button><button type="button" class="is-active" data-val="balanced">Balanced</button><button type="button" data-val="growth">Growth</button></div></div>
+              <button class="btn btn--ghost btn--sm" type="button" id="sc-run">Re-roll the market ↻</button>
+            </div>
+            <div class="lab__stage">
+              <div class="tiles">
+                <div class="tile tile--hero"><div class="lbl">Probability the plan lasts to 95</div><div class="val" id="sc-prob" style="color:var(--tone, var(--gold-600))">0%</div><div class="sub" id="sc-prob-sub"></div></div>
+                <div class="tile"><div class="lbl">Median balance at retirement</div><div class="val" id="sc-median-ret">—</div><div class="sub">Half of paths end higher, half lower</div></div>
+                <div class="tile"><div class="lbl">10th percentile at 95</div><div class="val" id="sc-p10-95">—</div><div class="sub" id="sc-deplete"></div></div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-card__head"><h3>Portfolio balance by age</h3><div class="legend"><span><i style="background:#00263e"></i>Median path</span><span><i class="band" style="background:#00263e"></i>25th–75th percentile</span><span><i class="band" style="background:#00263e;opacity:.18"></i>10th–90th percentile</span><span><i style="background:#d9a057"></i>Retirement</span></div></div>
+                <div class="chart" id="sc-chart"><canvas aria-label="Simulated portfolio balance by age" role="img"></canvas><div class="chart__tip"></div></div>
+                <div class="flex between mt-2"><span class="small muted" id="sc-summary"></span><button class="table-toggle" type="button" id="sc-table-toggle">Show table</button></div>
+                <table class="data-table" id="sc-table"><thead><tr><th>Age</th><th>10th</th><th>25th</th><th>Median</th><th>75th</th><th>90th</th></tr></thead><tbody></tbody></table>
+              </div>
+              <div class="btn-row"><button class="btn btn--gold magnetic" type="button" id="sc-discuss" data-open-assistant="Request an introduction">Discuss this scenario with an advisor</button><button class="btn btn--ghost" type="button" data-open-assistant="What does “probability of success” mean?">What does this mean?</button></div>
+              <p class="disclaimer">Hypothetical and for illustration only. Returns are simulated as lognormal annual draws using the average return and volatility shown; real markets differ, and taxes, fees, healthcare costs and changes in spending are not modeled. This is not a projection of your actual results and is not investment advice. A financial plan considers far more than these inputs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Security -->
+        <div class="lab-panel" id="panel-social-security">
+          <div class="section__head"><span class="eyebrow">62 · 67 · 70</span><h2>Social Security Timing</h2><p class="lead">When to claim is one of the biggest retirement income decisions. Compare cumulative lifetime benefits by claiming age and find the break-even point.</p></div>
+          <div class="lab">
+            <div class="lab__controls">
+              <div class="range"><div class="range__head"><span>Monthly benefit at full retirement age (67)</span><strong data-out="ss-benefit"></strong></div><input type="range" id="ss-benefit" min="500" max="5000" step="50" value="2800"></div>
+              <div class="range"><div class="range__head"><span>Claiming age</span><strong data-out="ss-claim"></strong></div><input type="range" id="ss-claim" min="62" max="70" step="1" value="67"></div>
+              <p class="small muted">Assumes a full retirement age of 67 (born 1960 or later). Your estimated benefit is on your Social Security statement at ssa.gov.</p>
+            </div>
+            <div class="lab__stage">
+              <div class="tiles">
+                <div class="tile tile--hero"><div class="lbl">Monthly benefit at your claiming age</div><div class="val" id="ss-monthly">—</div><div class="sub">before cost-of-living adjustments</div></div>
+                <div class="tile"><div class="lbl">Versus full retirement age</div><div class="val" id="ss-pct">—</div><div class="sub" id="ss-pct-sub"></div></div>
+                <div class="tile"><div class="lbl">Break-even age vs. claiming at 67</div><div class="val" id="ss-breakeven">—</div><div class="sub" id="ss-breakeven-sub"></div></div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-card__head"><h3>Cumulative benefits received by age</h3><div class="legend" id="ss-legend"></div></div>
+                <div class="chart" id="ss-chart"><canvas aria-label="Cumulative Social Security benefits by claiming age" role="img"></canvas><div class="chart__tip"></div></div>
+                <div class="flex between mt-2"><span class="small muted">Solid line = selected claiming age. Dashed = comparison ages.</span><button class="table-toggle" type="button" id="ss-table-toggle">Show table</button></div>
+                <table class="data-table" id="ss-table"><thead></thead><tbody></tbody></table>
+              </div>
+              <div class="btn-row"><button class="btn btn--gold magnetic" type="button" data-open-assistant="How does Social Security timing work?">Ask Navigator about claiming</button><button class="btn btn--ghost" type="button" data-open-assistant="Request an introduction">Talk to a retirement income specialist</button></div>
+              <p class="disclaimer">Educational illustration using standard Social Security reduction and delayed-credit formulas. It ignores cost-of-living adjustments, taxes, earnings tests, spousal and survivor benefits, and life expectancy — all of which matter. Not advice; confirm your figures with the Social Security Administration and your advisor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <svg class="cta__rings" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" stroke-dasharray="2 4"/><circle cx="50" cy="50" r="36" stroke-dasharray="1 3"/><circle cx="50" cy="50" r="22"/></svg>
+      <div class="container cta__inner">
+        <div><span class="eyebrow" data-reveal>From illustration to plan</span><h2 data-split>Tools raise questions. Advisors answer them.</h2><p class="lead" data-reveal>Bring your results to a conversation — we’ll add the taxes, the healthcare, the sequencing and the judgment.</p></div>
+        <div class="btn-row" data-reveal style="justify-content:flex-end"><a class="btn btn--gold btn--lg magnetic" href="contact.html">Contact us</a><a class="btn btn--ghost btn--lg magnetic" href="tel:585-833-7022">585-833-7022</a></div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="assets/js/knowledge.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/motion.js"></script>
+  <script src="assets/js/lab.js"></script>
+  <script src="assets/js/assistant.js"></script>
+  <script>
+    // Pass the live scenario into the introduction request so the advisor has context.
+    document.getElementById('sc-discuss').addEventListener('click', function () {
+      const s = window.__labScenario; if (!s) return;
+      const fmt = (n) => '$' + Math.round(n).toLocaleString('en-US');
+      this.dataset.openAssistant = `I ran a scenario in the Planning Lab: age ${s.age}, retiring at ${s.ret}, ${fmt(s.sav)} saved, spending ${fmt(s.spend)} a year, ${s.alloc} mix — ${Math.round(s.prob * 100)}% probability of lasting to 95. Can you arrange an introduction with an advisor to discuss it?`;
+    }, true);
+  </script>
+</body>
+</html>
