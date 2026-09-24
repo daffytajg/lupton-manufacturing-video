@@ -17,6 +17,7 @@
       font-family: Arial, Helvetica, sans-serif;
     }
     main { width: min(100%, 720px); padding: 24px; text-align: center; }
+    section + section { margin-top: 48px; }
     video {
       display: block;
       width: 100%;
@@ -30,11 +31,27 @@
 </head>
 <body>
   <main>
-    <video controls playsinline preload="metadata">
-      <source src="lupton-manufacturing-v9.mp4" type="video/mp4">
-      Your browser does not support MP4 video playback.
-    </video>
-    <p>Lupton Associates</p>
+    <section>
+      <video controls playsinline preload="metadata">
+        <source src="lupton-thousand-songs-25s.mp4" type="video/mp4">
+        Your browser does not support MP4 video playback.
+      </video>
+      <p>Lupton Associates — A Thousand Songs in Your Pocket (25 seconds)</p>
+    </section>
+    <section>
+      <video controls playsinline preload="metadata">
+        <source src="lupton-thousand-songs.mp4" type="video/mp4">
+        Your browser does not support MP4 video playback.
+      </video>
+      <p>Lupton Associates — A Thousand Songs in Your Pocket (full length)</p>
+    </section>
+    <section>
+      <video controls playsinline preload="metadata">
+        <source src="lupton-manufacturing-v9.mp4" type="video/mp4">
+        Your browser does not support MP4 video playback.
+      </video>
+      <p>Lupton Associates</p>
+    </section>
   </main>
 </body>
 </html>
